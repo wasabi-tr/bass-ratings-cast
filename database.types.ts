@@ -40,18 +40,21 @@ export interface Database {
           id: string
           image_url: string | null
           name: string | null
+          slug: string | null
         }
         Insert: {
           created_at?: string | null
           id?: string
           image_url?: string | null
           name?: string | null
+          slug?: string | null
         }
         Update: {
           created_at?: string | null
           id?: string
           image_url?: string | null
           name?: string | null
+          slug?: string | null
         }
         Relationships: []
       }
@@ -60,16 +63,19 @@ export interface Database {
           created_at: string | null
           id: string
           name: string | null
+          slug: string | null
         }
         Insert: {
           created_at?: string | null
           id?: string
           name?: string | null
+          slug?: string | null
         }
         Update: {
           created_at?: string | null
           id?: string
           name?: string | null
+          slug?: string | null
         }
         Relationships: []
       }
@@ -77,41 +83,35 @@ export interface Database {
         Row: {
           brand_id: string | null
           created_at: string | null
-          detailed_info: string | null
           id: string
           image_url: string | null
+          length: string | null
           name: string | null
-          user_id: string | null
+          weight: string | null
         }
         Insert: {
           brand_id?: string | null
           created_at?: string | null
-          detailed_info?: string | null
           id?: string
           image_url?: string | null
+          length?: string | null
           name?: string | null
-          user_id?: string | null
+          weight?: string | null
         }
         Update: {
           brand_id?: string | null
           created_at?: string | null
-          detailed_info?: string | null
           id?: string
           image_url?: string | null
+          length?: string | null
           name?: string | null
-          user_id?: string | null
+          weight?: string | null
         }
         Relationships: [
           {
             foreignKeyName: "lures_brand_id_fkey"
             columns: ["brand_id"]
             referencedRelation: "brands"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "lures_user_id_fkey"
-            columns: ["user_id"]
-            referencedRelation: "users"
             referencedColumns: ["id"]
           }
         ]
