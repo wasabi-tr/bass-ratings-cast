@@ -87,6 +87,7 @@ export interface Database {
           image_url: string | null
           length: string | null
           name: string | null
+          price: string | null
           weight: string | null
         }
         Insert: {
@@ -96,6 +97,7 @@ export interface Database {
           image_url?: string | null
           length?: string | null
           name?: string | null
+          price?: string | null
           weight?: string | null
         }
         Update: {
@@ -105,6 +107,7 @@ export interface Database {
           image_url?: string | null
           length?: string | null
           name?: string | null
+          price?: string | null
           weight?: string | null
         }
         Relationships: [

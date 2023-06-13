@@ -17,8 +17,10 @@ export const useStore = create<State>((set) => ({
     id: '',
     name: '',
     bland_id: '',
+    image_url: '',
     length: '',
     weight: '',
+    price: '',
   },
   updateEditedLure: (payload) =>
     set({
@@ -26,8 +28,10 @@ export const useStore = create<State>((set) => ({
         id: payload.id,
         name: payload.name,
         bland_id: payload.bland_id,
+        image_url: payload.image_url,
         length: payload.length,
         weight: payload.weight,
+        price: payload.price,
       },
     }),
   resetEditedLure: () =>
@@ -36,8 +40,10 @@ export const useStore = create<State>((set) => ({
         id: '',
         name: '',
         bland_id: '',
+        image_url: '',
         length: '',
         weight: '',
+        price: '',
       },
     }),
 }))
