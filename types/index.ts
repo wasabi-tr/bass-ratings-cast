@@ -14,7 +14,8 @@ export type Genre = {
 export type EditedLure = {
   id: string
   name: string
-  bland_id: string
+  brand_id: string
+  genre_id: string
   image_url: string
   length: string
   weight: string

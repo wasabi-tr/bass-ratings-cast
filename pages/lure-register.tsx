@@ -1,6 +1,8 @@
 import { Layout } from '@/components/Layout'
+import { useMutateLure } from '@/hooks/useMutateLure'
 import { useQueryBrands } from '@/hooks/useQueryBrands'
 import { useQueryGenres } from '@/hooks/useQueryGenres'
+import { useUploadLureImg } from '@/hooks/useUploadLureImg'
 import { useStore } from '@/lib/store'
 import { ChangeEvent, FormEvent } from 'react'
 
@@ -9,32 +11,40 @@ const LureRegister = () => {
   const { data: brands } = useQueryBrands()
   const editedLure = useStore((state) => state.editedLure)
   const updateEditedLure = useStore((state) => state.updateEditedLure)
+  const { createLureMutation } = useMutateLure()
+  const { useMutateUploadLureImg } = useUploadLureImg()
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     updateEditedLure({
       ...editedLure,
       [e.target.name]: e.target.value,
     })
+    console.log(editedLure)
   }
 
-  const onImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      updateEditedLure({
-        ...editedLure,
-        image_url: URL.createObjectURL(e.target.files[0]),
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    useMutateUploadLureImg.mutate(e)
+  }
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (editedLure.id === '') {
+      await createLureMutation.mutateAsync({
+        name: editedLure.name,
+        brand_id: editedLure.brand_id,
+        genre_id: editedLure.genre_id,
+        price: editedLure.price,
+        length: editedLure.length,
+        weight: editedLure.weight,
+        image_url: editedLure.image_url,
       })
     }
-  }
-
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    // Handle your form submission logic here
   }
 
   return (
     <Layout title="商品登録ページ">
       <h2>商品を登録する</h2>
-      <form onSubmit={onSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
           name="name"
@@ -48,9 +58,9 @@ const LureRegister = () => {
           <label key={index} className="flex items-center">
             <input
               type="radio"
-              name="bland_id"
+              name="brand_id"
               value={brand.id}
-              checked={editedLure.bland_id === brand.id}
+              checked={editedLure.brand_id === brand.id}
               onChange={handleChange}
               className="mr-2"
             />
@@ -100,7 +110,7 @@ const LureRegister = () => {
         <input
           type="file"
           name="image_url"
-          onChange={onImageChange}
+          onChange={handleImageChange}
           className="w-full p-2 border border-gray-300 rounded"
         />
 

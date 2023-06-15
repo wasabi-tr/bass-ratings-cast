@@ -82,6 +82,7 @@ export interface Database {
       lures: {
         Row: {
           brand_id: string | null
+          genre_id: string | null
           created_at: string | null
           id: string
           image_url: string | null
@@ -92,6 +93,7 @@ export interface Database {
         }
         Insert: {
           brand_id?: string | null
+          genre_id?: string | null
           created_at?: string | null
           id?: string
           image_url?: string | null
@@ -102,6 +104,7 @@ export interface Database {
         }
         Update: {
           brand_id?: string | null
+          genre_id?: string | null
           created_at?: string | null
           id?: string
           image_url?: string | null
@@ -112,10 +115,10 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "lures_brand_id_fkey"
-            columns: ["brand_id"]
-            referencedRelation: "brands"
-            referencedColumns: ["id"]
+            foreignKeyName: 'lures_brand_id_fkey'
+            columns: ['brand_id']
+            referencedRelation: 'brands'
+            referencedColumns: ['id']
           }
         ]
       }
@@ -182,16 +185,16 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "reviews_lure_id_fkey"
-            columns: ["lure_id"]
-            referencedRelation: "lures"
-            referencedColumns: ["id"]
+            foreignKeyName: 'reviews_lure_id_fkey'
+            columns: ['lure_id']
+            referencedRelation: 'lures'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "reviews_user_id_fkey"
-            columns: ["user_id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            foreignKeyName: 'reviews_user_id_fkey'
+            columns: ['user_id']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           }
         ]
       }
@@ -247,10 +250,10 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "buckets_owner_fkey"
-            columns: ["owner"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            foreignKeyName: 'buckets_owner_fkey'
+            columns: ['owner']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           }
         ]
       }
@@ -314,16 +317,16 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "objects_bucketId_fkey"
-            columns: ["bucket_id"]
-            referencedRelation: "buckets"
-            referencedColumns: ["id"]
+            foreignKeyName: 'objects_bucketId_fkey'
+            columns: ['bucket_id']
+            referencedRelation: 'buckets'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "objects_owner_fkey"
-            columns: ["owner"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            foreignKeyName: 'objects_owner_fkey'
+            columns: ['owner']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           }
         ]
       }
