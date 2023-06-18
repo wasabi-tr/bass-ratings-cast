@@ -4,9 +4,11 @@ import { useQueryBrands } from '@/hooks/useQueryBrands'
 import { useQueryGenres } from '@/hooks/useQueryGenres'
 import { useUploadLureImg } from '@/hooks/useUploadLureImg'
 import { useStore } from '@/lib/store'
-import { ChangeEvent, FormEvent } from 'react'
+import { supabase } from '@/lib/supabaseClient'
+import { NextPage } from 'next'
+import { ChangeEvent, FormEvent, useState } from 'react'
 
-const LureRegister = () => {
+const LureRegister: NextPage = () => {
   const { data: genres } = useQueryGenres()
   const { data: brands } = useQueryBrands()
   const editedLure = useStore((state) => state.editedLure)
@@ -28,6 +30,15 @@ const LureRegister = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const { data } = await supabase.storage
+      .from('lures')
+      .getPublicUrl(editedLure.image_url)
+    const fullUrl = data.publicUrl
+
+    console.log(data.publicUrl)
+    console.log(fullUrl)
+    // console.log(data.publicUrl)
+
     if (editedLure.id === '') {
       await createLureMutation.mutateAsync({
         name: editedLure.name,
@@ -36,7 +47,7 @@ const LureRegister = () => {
         price: editedLure.price,
         length: editedLure.length,
         weight: editedLure.weight,
-        image_url: editedLure.image_url,
+        image_url: fullUrl,
       })
     }
   }

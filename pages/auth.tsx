@@ -1,8 +1,8 @@
 import { Auth } from '@/components/Auth'
 import { Layout } from '@/components/Layout'
-import { useMutateAuth } from '@/hooks/useMutateAuth'
+import { NextPage } from 'next'
 
-const Login = () => {
+const Login: NextPage = () => {
   return (
     <Layout title="ログインページ">
       <Auth />

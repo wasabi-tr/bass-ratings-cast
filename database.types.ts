@@ -81,35 +81,35 @@ export interface Database {
       }
       lures: {
         Row: {
-          brand_id: string | null
-          genre_id: string | null
+          brand_id: string
           created_at: string | null
+          genre_id: string
           id: string
           image_url: string | null
           length: string | null
-          name: string | null
+          name: string
           price: string | null
           weight: string | null
         }
         Insert: {
-          brand_id?: string | null
-          genre_id?: string | null
+          brand_id: string
           created_at?: string | null
+          genre_id: string
           id?: string
           image_url?: string | null
           length?: string | null
-          name?: string | null
+          name: string
           price?: string | null
           weight?: string | null
         }
         Update: {
-          brand_id?: string | null
-          genre_id?: string | null
+          brand_id?: string
           created_at?: string | null
+          genre_id?: string
           id?: string
           image_url?: string | null
           length?: string | null
-          name?: string | null
+          name?: string
           price?: string | null
           weight?: string | null
         }
@@ -118,6 +118,12 @@ export interface Database {
             foreignKeyName: 'lures_brand_id_fkey'
             columns: ['brand_id']
             referencedRelation: 'brands'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'lures_genre_id_fkey'
+            columns: ['genre_id']
+            referencedRelation: 'genres'
             referencedColumns: ['id']
           }
         ]
