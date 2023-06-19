@@ -1,23 +1,35 @@
-import { getLuresStatic } from '@/hooks/useQueryLures'
-import { GetStaticProps } from 'next'
-
-const LureDetail = () => {
-  return <div>Enter</div>
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
+import { Lure } from '@/types'
+import { getLureIds } from '../api/lure/getLureId'
+import { getLureById } from '../api/lure/getLureById'
+type Props = {
+  lure: Lure
 }
 
-export async function getStaticPaths() {
+const LureDetail: NextPage<Props> = ({ lure }) => {
+  console.log(lure)
+  return <div>{lure.name}</div>
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const ids = await getLureIds()
+  const paths = ids.map((id) => ({ params: { id } }))
+
   return {
-    // paths: allSlugs.map(({ slug }) => `/blog/${slug}`),
+    paths,
     fallback: false,
   }
 }
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
-  const lures = await getLuresStatic()
+export const getStaticProps: GetStaticProps = async (context) => {
+  const id = context.params!.id as string
+  const lure = await getLureById(id)
+
   return {
     props: {
-      lures,
+      lure,
     },
+    revalidate: 60,
   }
 }
 
