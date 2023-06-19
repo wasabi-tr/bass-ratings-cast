@@ -27,6 +27,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     props: {
       lures,
     },
+    revalidate: 60,
   }
 }
 
