@@ -1,7 +1,7 @@
-import Container from '@/components/Container'
-import { Layout } from '@/components/Layout'
-import LureItem from '@/components/LureItem'
-import { getLuresStatic, useQueryLures } from '@/hooks/useQueryLures'
+import Container from '@/components/base/Container'
+import { Layout } from '@/components/base/Layout'
+import getLuresStatic from '@/features/lure/api/getLuresStatic'
+import LureItem from '@/features/lure/components/LureItem'
 import { Lure } from '@/types'
 import { GetStaticProps, NextPage } from 'next'
 type Props = {

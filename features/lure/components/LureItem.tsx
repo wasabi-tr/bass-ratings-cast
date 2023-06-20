@@ -1,8 +1,6 @@
-import { useDownloadUrl } from '@/hooks/useDownloadUrl'
 import { Lure } from '@/types'
 import Image from 'next/image'
 import { FC } from 'react'
-import { Spinner } from './Spinner'
 
 type LureItemProps = {
   key: string

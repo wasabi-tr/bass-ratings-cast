@@ -157,10 +157,10 @@ export interface Database {
           created_at: string | null
           id: string
           lure_id: string | null
-          raiting_2: number | null
-          raiting_3: number | null
-          raiting_4: number | null
-          raiting_5: number | null
+          rating_2: number | null
+          rating_3: number | null
+          rating_4: number | null
+          rating_5: number | null
           rating_1: number | null
           text: string | null
           user_id: string | null
@@ -169,10 +169,10 @@ export interface Database {
           created_at?: string | null
           id: string
           lure_id?: string | null
-          raiting_2?: number | null
-          raiting_3?: number | null
-          raiting_4?: number | null
-          raiting_5?: number | null
+          rating_2?: number | null
+          rating_3?: number | null
+          rating_4?: number | null
+          rating_5?: number | null
           rating_1?: number | null
           text?: string | null
           user_id?: string | null
@@ -181,10 +181,10 @@ export interface Database {
           created_at?: string | null
           id?: string
           lure_id?: string | null
-          raiting_2?: number | null
-          raiting_3?: number | null
-          raiting_4?: number | null
-          raiting_5?: number | null
+          rating_2?: number | null
+          rating_3?: number | null
+          rating_4?: number | null
+          rating_5?: number | null
           rating_1?: number | null
           text?: string | null
           user_id?: string | null

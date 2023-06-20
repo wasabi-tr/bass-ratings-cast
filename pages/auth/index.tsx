@@ -1,5 +1,5 @@
-import { Auth } from '@/components/Auth'
-import { Layout } from '@/components/Layout'
+import { Auth } from '@/components/base/Auth'
+import { Layout } from '@/components/base/Layout'
 import { NextPage } from 'next'
 
 const Login: NextPage = () => {
