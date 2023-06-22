@@ -156,38 +156,38 @@ export interface Database {
         Row: {
           created_at: string | null
           id: string
-          lure_id: string | null
-          rating_2: number | null
-          rating_3: number | null
-          rating_4: number | null
-          rating_5: number | null
-          rating_1: number | null
+          lure_id: string
+          rating_2: number
+          rating_3: number
+          rating_4: number
+          rating_5: number
+          rating_1: number
           text: string | null
-          user_id: string | null
+          user_id: string
         }
         Insert: {
           created_at?: string | null
           id: string
-          lure_id?: string | null
-          rating_2?: number | null
-          rating_3?: number | null
-          rating_4?: number | null
-          rating_5?: number | null
-          rating_1?: number | null
+          lure_id?: string
+          rating_2?: number
+          rating_3?: number
+          rating_4?: number
+          rating_5?: number
+          rating_1?: number
           text?: string | null
-          user_id?: string | null
+          user_id?: string
         }
         Update: {
           created_at?: string | null
           id?: string
-          lure_id?: string | null
-          rating_2?: number | null
-          rating_3?: number | null
-          rating_4?: number | null
-          rating_5?: number | null
-          rating_1?: number | null
+          lure_id?: string
+          rating_2?: number
+          rating_3?: number
+          rating_4?: number
+          rating_5?: number
+          rating_1?: number
           text?: string | null
-          user_id?: string | null
+          user_id?: string
         }
         Relationships: [
           {

@@ -12,6 +12,9 @@ type State = {
   editedReview: EditedReview
   updateEditedReview: (payload: EditedReview) => void
   resetEditedReview: () => void
+  reviewedLureId: string
+  updateReviewedLureId: (payload: string) => void
+  resetReviewedLureId: () => void
 }
 export const useStore = create<State>((set) => ({
   session: null,
@@ -57,11 +60,11 @@ export const useStore = create<State>((set) => ({
     user_id: '',
     lure_id: '',
     text: '',
-    rating_1: null,
-    rating_2: null,
-    rating_3: null,
-    rating_4: null,
-    rating_5: null,
+    rating_1: 0,
+    rating_2: 0,
+    rating_3: 0,
+    rating_4: 0,
+    rating_5: 0,
   },
   updateEditedReview: (payload) =>
     set({
@@ -84,11 +87,14 @@ export const useStore = create<State>((set) => ({
         user_id: '',
         lure_id: '',
         text: '',
-        rating_1: null,
-        rating_2: null,
-        rating_3: null,
-        rating_4: null,
-        rating_5: null,
+        rating_1: 0,
+        rating_2: 0,
+        rating_3: 0,
+        rating_4: 0,
+        rating_5: 0,
       },
     }),
+  reviewedLureId: '',
+  updateReviewedLureId: (payload) => set({ reviewedLureId: payload }),
+  resetReviewedLureId: () => set({ reviewedLureId: '' }),
 }))

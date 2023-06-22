@@ -26,11 +26,11 @@ export type EditedLure = {
 export type EditedReview = {
   id: string
   lure_id: string
-  rating_1: number | null
-  rating_2: number | null
-  rating_3: number | null
-  rating_4: number | null
-  rating_5: number | null
+  rating_1: number
+  rating_2: number
+  rating_3: number
+  rating_4: number
+  rating_5: number
   text: string
-  user_id: string
+  user_id: string | undefined
 }

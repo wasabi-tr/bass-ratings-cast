@@ -1,31 +1,10 @@
 import { useMutateAuth } from '@/hooks/useMutateAuth'
 import { FC, FormEvent, useEffect, useState } from 'react'
 import { CheckBadgeIcon, ShieldCheckIcon } from '@heroicons/react/24/solid'
-import { useStore } from '@/lib/store'
 import { supabase } from '@/lib/supabaseClient'
-import { log } from 'console'
 
 export const Auth: FC = () => {
-  const session = useStore((state) => state.session)
-  const setSession = useStore((state) => state.setSession)
   const [isLogin, setIsLogin] = useState(true)
-
-  useEffect(() => {
-    console.log('rendering Auth')
-    const fetchSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession()
-      setSession(session) //ログイン状態を更新関数に渡す
-    }
-    fetchSession() // async関数を呼び出す
-    supabase.auth.onAuthStateChange((_event, session) => {
-      //ログイン状態の変更を検知して変更があったら更新関数に変更後のログイン状態を渡す
-      setSession(session)
-      console.log('onAuthStateChange')
-      console.log(session)
-    })
-  }, [setSession]) //更新関数が更新されるたびに発火
 
   const {
     email,
