@@ -2,6 +2,8 @@ import { supabase } from '@/lib/supabaseClient'
 import { useState } from 'react'
 import { useMutation } from 'react-query'
 import { useRouter } from 'next/router'
+import { userMutateProfile } from '@/features/profile/hooks/userMutateProfile'
+import { create } from 'domain'
 
 export const useMutateAuth = () => {
   const [email, setEmail] = useState('')
@@ -11,10 +13,11 @@ export const useMutateAuth = () => {
     setPassword('')
   }
   const router = useRouter()
+  const { createProfileMutation } = userMutateProfile()
 
   const loginMutation = useMutation(
     async () => {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       })
@@ -33,11 +36,16 @@ export const useMutateAuth = () => {
   const registerMutation = useMutation(
     async () => {
       //メールで確認があるため、実在するアドレスのほうが良い
-      const { error } = await supabase.auth.signUp({ email, password })
+      const { data, error } = await supabase.auth.signUp({ email, password })
       if (error) throw new Error(error.message)
+      return data
     },
     {
-      onSuccess: () => {
+      onSuccess: (res) => {
+        createProfileMutation.mutateAsync({
+          user_id: res.user?.id,
+          username: res.user?.email,
+        })
         router.push('/')
       },
       onError: (err: any) => {

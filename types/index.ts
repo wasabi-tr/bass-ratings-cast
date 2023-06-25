@@ -35,6 +35,7 @@ export type EditedReview = {
   user_id: string | undefined
 }
 export type EditedProfile = {
+  user_id: string
   username: string
   text: string
   avatar_url: string

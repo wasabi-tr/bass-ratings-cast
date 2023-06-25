@@ -103,6 +103,7 @@ export const useStore = create<State>((set) => ({
   updateReviewedLureId: (payload) => set({ reviewedLureId: payload }),
   resetReviewedLureId: () => set({ reviewedLureId: '' }),
   editedProfile: {
+    user_id: '',
     username: '',
     text: '',
     avatar_url: '',
@@ -110,6 +111,7 @@ export const useStore = create<State>((set) => ({
   updateEditedProfile: (payload) =>
     set({
       editedProfile: {
+        user_id: payload.user_id,
         username: payload.username,
         text: payload.text,
         avatar_url: payload.avatar_url,
@@ -118,6 +120,7 @@ export const useStore = create<State>((set) => ({
   resetEditedProfile: () =>
     set({
       editedProfile: {
+        user_id: '',
         username: '',
         text: '',
         avatar_url: '',

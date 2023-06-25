@@ -134,21 +134,24 @@ export interface Database {
           created_at: string | null
           id: string
           text: string | null
-          username: string | null
+          user_id: string | undefined
+          username: string | undefined
         }
         Insert: {
           avatar_url?: string | null
           created_at?: string | null
           id: string
+          user_id: string | undefined
           text?: string | null
-          username?: string | null
+          username?: string | undefined
         }
         Update: {
           avatar_url?: string | null
           created_at?: string | null
           id?: string
+          user_id: string | undefined
           text?: string | null
-          username?: string | null
+          username?: string | undefined
         }
         Relationships: []
       }

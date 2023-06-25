@@ -20,7 +20,6 @@ const queryClient = new QueryClient({
 export default function App({ Component, pageProps }: AppProps) {
   const setSession = useStore((state) => state.setSession)
   useEffect(() => {
-    console.log('rendering Auth')
     const fetchSession = async () => {
       const {
         data: { session },
@@ -31,8 +30,7 @@ export default function App({ Component, pageProps }: AppProps) {
     supabase.auth.onAuthStateChange((_event, session) => {
       //ログイン状態の変更を検知して変更があったら更新関数に変更後のログイン状態を渡す
       setSession(session)
-      console.log('onAuthStateChange')
-      console.log(session?.user.id)
+      console.log(`login userID is${session?.user.id}`)
     })
   }, [setSession]) //更新関数が更新されるたびに発火
 

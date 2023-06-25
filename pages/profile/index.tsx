@@ -1,25 +1,18 @@
-import { NextPage } from 'next'
+import { GetStaticProps, NextPage } from 'next'
 import Image from 'next/image'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { PencilIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { useStore } from '@/lib/store'
 import { useUploadAvatarImg } from '@/features/profile/hooks/useUploadAvatarImg'
 import { useDownloadUrl } from '@/hooks/useDownloadUrl'
+import getProfile from '@/features/profile/api/getProfile'
+import { useQueryProfile } from '@/features/profile/hooks/useQueryProfile'
 
-type Profile = {
-  name: string
-  avatar_url: string
-  description: string
-}
 const Profile: NextPage = () => {
   const editedProfile = useStore((state) => state.editedProfile)
   const update = useStore((state) => state.updateEditedProfile)
-  const { isLoading, fullUrl, setFullUrl } = useDownloadUrl(
-    editedProfile.avatar_url,
-    'avatars'
-  )
   const { useMutateUploadAvatarImg } = useUploadAvatarImg()
-
+  const profile = useQueryProfile()
   const handleChange = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -32,14 +25,17 @@ const Profile: NextPage = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (editedProfile.user_id) {
+    }
   }
+
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="avatarImg">
-        {editedProfile.avatar_url ? (
+        {profile ? (
           <div className="relative m-auto cursor-pointer  w-72 h-72">
             {/* <Image
-              src={editedProfile.avatar_url}
+              src={profile}
               alt="avatar"
               width={50}
               height={50}
