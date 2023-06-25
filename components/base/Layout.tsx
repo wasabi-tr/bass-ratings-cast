@@ -26,12 +26,17 @@ export const Layout: FC<Props> = ({ children, title = 'BassRatingsCast' }) => {
                 ログイン
               </Link>
             </li>
+            <li>
+              <Link href={'/lure-register'} className="text-white font-bold">
+                商品登録
+              </Link>
+            </li>
+            <li>
+              <Link href={'/profile'} className="text-white font-bold">
+                プロフィール
+              </Link>
+            </li>
           </ul>
-          <li>
-            <Link href={'/lure-register'} className="text-white font-bold">
-              商品登録
-            </Link>
-          </li>
         </nav>
       </header>
       <main className="flex w-screen flex-1 flex-col items-center justify-center">

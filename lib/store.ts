@@ -1,6 +1,8 @@
 import { create } from 'zustand'
 import { Session } from '@supabase/supabase-js'
-import { EditedLure, EditedReview } from '@/types'
+import { EditedLure, EditedProfile, EditedReview } from '@/types'
+import { stringify } from 'querystring'
+import { text } from 'stream/consumers'
 
 //グローバルで扱える状態の型を定義
 type State = {
@@ -15,6 +17,9 @@ type State = {
   reviewedLureId: string
   updateReviewedLureId: (payload: string) => void
   resetReviewedLureId: () => void
+  editedProfile: EditedProfile
+  updateEditedProfile: (payload: EditedProfile) => void
+  resetEditedProfile: () => void
 }
 export const useStore = create<State>((set) => ({
   session: null,
@@ -97,4 +102,25 @@ export const useStore = create<State>((set) => ({
   reviewedLureId: '',
   updateReviewedLureId: (payload) => set({ reviewedLureId: payload }),
   resetReviewedLureId: () => set({ reviewedLureId: '' }),
+  editedProfile: {
+    username: '',
+    text: '',
+    avatar_url: '',
+  },
+  updateEditedProfile: (payload) =>
+    set({
+      editedProfile: {
+        username: payload.username,
+        text: payload.text,
+        avatar_url: payload.avatar_url,
+      },
+    }),
+  resetEditedProfile: () =>
+    set({
+      editedProfile: {
+        username: '',
+        text: '',
+        avatar_url: '',
+      },
+    }),
 }))
