@@ -1,18 +1,23 @@
-import { GetStaticProps, NextPage } from 'next'
+import { NextPage } from 'next'
 import Image from 'next/image'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent } from 'react'
 import { PencilIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { useStore } from '@/lib/store'
 import { useUploadAvatarImg } from '@/features/profile/hooks/useUploadAvatarImg'
 import { useDownloadUrl } from '@/hooks/useDownloadUrl'
-import getProfile from '@/features/profile/api/getProfile'
 import { useQueryProfile } from '@/features/profile/hooks/useQueryProfile'
 
 const Profile: NextPage = () => {
+  const { data: profile } = useQueryProfile()
   const editedProfile = useStore((state) => state.editedProfile)
   const update = useStore((state) => state.updateEditedProfile)
+
+  if (profile) {
+    //editedProfileに入れたい
+  }
+  console.log(profile)
+
   const { useMutateUploadAvatarImg } = useUploadAvatarImg()
-  const profile = useQueryProfile()
   const handleChange = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -28,6 +33,7 @@ const Profile: NextPage = () => {
     if (editedProfile.user_id) {
     }
   }
+  console.log(profile)
 
   return (
     <form onSubmit={handleSubmit}>
@@ -81,5 +87,18 @@ const Profile: NextPage = () => {
     </form>
   )
 }
+
+// export const getStaticProps: GetStaticProps = async (ctx) => {
+//   //sgで初回は表示。
+//   //更新したタイミングでISRにしたい
+//   const session = useStore((state) => state.session)
+//   const { data: profile } = await getProfile(session?.user.id as string)
+
+//   return {
+//     props: {
+//       data: profile,
+//     },
+//   }
+// }
 
 export default Profile
