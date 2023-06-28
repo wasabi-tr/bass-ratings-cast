@@ -2,12 +2,16 @@ import Container from '@/components/base/Container'
 import { Layout } from '@/components/base/Layout'
 import getLuresStatic from '@/features/lure/api/getLuresStatic'
 import LureItem from '@/features/lure/components/LureItem'
+import { useStore } from '@/lib/store'
 import { Lure } from '@/types'
 import { GetStaticProps, NextPage } from 'next'
 type Props = {
   lures: Lure[]
 }
 const Home: NextPage<Props> = ({ lures }) => {
+  const session = useStore((state) => state.session)
+  console.log(session)
+
   return (
     <Layout title="">
       <Container>

@@ -6,16 +6,14 @@ import { useStore } from '@/lib/store'
 import { useUploadAvatarImg } from '@/features/profile/hooks/useUploadAvatarImg'
 import { useDownloadUrl } from '@/hooks/useDownloadUrl'
 import { useQueryProfile } from '@/features/profile/hooks/useQueryProfile'
+import { Layout } from '@/components/base/Layout'
 
 const Profile: NextPage = () => {
+  const session = useStore((state) => state.session)
   const { data: profile } = useQueryProfile()
   const editedProfile = useStore((state) => state.editedProfile)
   const update = useStore((state) => state.updateEditedProfile)
-
-  if (profile) {
-    //editedProfileに入れたい
-  }
-  console.log(profile)
+  // console.log(editedProfile)
 
   const { useMutateUploadAvatarImg } = useUploadAvatarImg()
   const handleChange = (
@@ -36,11 +34,12 @@ const Profile: NextPage = () => {
   console.log(profile)
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="avatarImg">
-        {profile ? (
-          <div className="relative m-auto cursor-pointer  w-72 h-72">
-            {/* <Image
+    <Layout title="プロフィール">
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="avatarImg">
+          {profile ? (
+            <div className="relative m-auto cursor-pointer  w-72 h-72">
+              {/* <Image
               src={profile}
               alt="avatar"
               width={50}
@@ -52,39 +51,40 @@ const Profile: NextPage = () => {
               }}
               className="rounded-full"
             /> */}
-            <PencilIcon className="h-5 w-5 text-zinc-400 absolute bottom-0 right-0" />
-          </div>
-        ) : (
-          <div className="relative m-auto cursor-pointer w-72 h-72">
-            <UserCircleIcon className="h-50 w-50 text-zinc-400" />
-            <PencilIcon className="h-5 w-5 text-zinc-400 absolute bottom-0 right-0" />
-          </div>
-        )}
-      </label>
-      <input
-        type="file"
-        id="avatarImg"
-        className="hidden"
-        onChange={handleImageChange}
-      />
-      <div className="flex items-center gap-3">
-        <label className="font-bold">ユーザー名：</label>
+              <PencilIcon className="h-5 w-5 text-zinc-400 absolute bottom-0 right-0" />
+            </div>
+          ) : (
+            <div className="relative m-auto cursor-pointer w-72 h-72">
+              <UserCircleIcon className="h-50 w-50 text-zinc-400" />
+              <PencilIcon className="h-5 w-5 text-zinc-400 absolute bottom-0 right-0" />
+            </div>
+          )}
+        </label>
         <input
-          type="text"
-          name="username"
-          value={editedProfile.username}
-          onChange={handleChange}
+          type="file"
+          id="avatarImg"
+          className="hidden"
+          onChange={handleImageChange}
         />
-      </div>
-      <div className="flex items-center gap-3">
-        <label className="font-bold">自己紹介</label>
-        <textarea
-          name="description"
-          value={editedProfile.text}
-          onChange={handleChange}
-        />
-      </div>
-    </form>
+        <div className="flex items-center gap-3">
+          <label className="font-bold">ユーザー名：</label>
+          <input
+            type="text"
+            name="username"
+            value={editedProfile.username}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="flex items-center gap-3">
+          <label className="font-bold">自己紹介</label>
+          <textarea
+            name="description"
+            value={editedProfile.text}
+            onChange={handleChange}
+          />
+        </div>
+      </form>
+    </Layout>
   )
 }
 
