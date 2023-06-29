@@ -1,3 +1,5 @@
+import { useStore } from '@/lib/store'
+import { supabase } from '@/lib/supabaseClient'
 import Head from 'next/head'
 import Link from 'next/link'
 import { FC, ReactNode } from 'react'
@@ -7,6 +9,8 @@ type Props = {
   children: ReactNode
 }
 export const Layout: FC<Props> = ({ children, title = 'BassRatingsCast' }) => {
+  const session = useStore((state) => state.session)
+
   return (
     <div className=" flex min-h-screen flex-col items-center justify-center font-mono text-gray-800">
       <Head>
@@ -32,7 +36,10 @@ export const Layout: FC<Props> = ({ children, title = 'BassRatingsCast' }) => {
               </Link>
             </li>
             <li>
-              <Link href={'/profile'} className="text-white font-bold">
+              <Link
+                href={`/profile/${session?.user.id}`}
+                className="text-white font-bold"
+              >
                 プロフィール
               </Link>
             </li>

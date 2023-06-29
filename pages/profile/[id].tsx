@@ -1,21 +1,39 @@
-import { NextPage } from 'next'
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import Image from 'next/image'
-import { ChangeEvent, FormEvent } from 'react'
+import { ChangeEvent, FormEvent, useEffect } from 'react'
 import { PencilIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { useStore } from '@/lib/store'
 import { useUploadAvatarImg } from '@/features/profile/hooks/useUploadAvatarImg'
 import { useDownloadUrl } from '@/hooks/useDownloadUrl'
 import { useQueryProfile } from '@/features/profile/hooks/useQueryProfile'
 import { Layout } from '@/components/base/Layout'
+import { getProfileIds } from '@/features/profile/api/getProfileIds'
+import { Profile } from '@/types'
+import { getProfile } from '@/features/profile/api/getProfile'
+import { Spinner } from '@/components/base/Spinner'
+import { userMutateProfile } from '@/features/profile/hooks/userMutateProfile'
+type Props = {
+  profile: Profile
+}
 
-const Profile: NextPage = () => {
-  const session = useStore((state) => state.session)
-  const { data: profile } = useQueryProfile()
+const Profile: NextPage<Props> = ({ profile }) => {
   const editedProfile = useStore((state) => state.editedProfile)
   const update = useStore((state) => state.updateEditedProfile)
-  // console.log(editedProfile)
+  useEffect(() => {
+    update({
+      user_id: profile.user_id!,
+      username: profile.username,
+      text: profile.text,
+      avatar_url: profile.avatar_url,
+    })
+  }, [])
 
   const { useMutateUploadAvatarImg } = useUploadAvatarImg()
+  const { isLoading, fullUrl } = useDownloadUrl(
+    editedProfile.avatar_url,
+    'avatars'
+  )
+  const { updateProfileMutation } = userMutateProfile()
   const handleChange = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -29,28 +47,30 @@ const Profile: NextPage = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (editedProfile.user_id) {
+      updateProfileMutation.mutate(editedProfile)
     }
   }
-  console.log(profile)
 
   return (
     <Layout title="プロフィール">
       <form onSubmit={handleSubmit}>
         <label htmlFor="avatarImg">
-          {profile ? (
+          {isLoading ? (
+            <Spinner />
+          ) : fullUrl ? (
             <div className="relative m-auto cursor-pointer  w-72 h-72">
-              {/* <Image
-              src={profile}
-              alt="avatar"
-              width={50}
-              height={50}
-              sizes="100vw"
-              style={{
-                width: '100%',
-                height: 'auto',
-              }}
-              className="rounded-full"
-            /> */}
+              <Image
+                src={fullUrl}
+                alt="avatar"
+                width={50}
+                height={50}
+                sizes="100vw"
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                }}
+                className="rounded-full"
+              />
               <PencilIcon className="h-5 w-5 text-zinc-400 absolute bottom-0 right-0" />
             </div>
           ) : (
@@ -78,27 +98,43 @@ const Profile: NextPage = () => {
         <div className="flex items-center gap-3">
           <label className="font-bold">自己紹介</label>
           <textarea
-            name="description"
+            name="text"
             value={editedProfile.text}
             onChange={handleChange}
           />
         </div>
+        <button
+          type="submit"
+          className="w-full p-2 bg-blue-500 text-white rounded"
+        >
+          プロフィールを更新する
+        </button>
       </form>
     </Layout>
   )
 }
+export const getStaticPaths: GetStaticPaths = async () => {
+  const ids = await getProfileIds()
 
-// export const getStaticProps: GetStaticProps = async (ctx) => {
-//   //sgで初回は表示。
-//   //更新したタイミングでISRにしたい
-//   const session = useStore((state) => state.session)
-//   const { data: profile } = await getProfile(session?.user.id as string)
+  const paths = ids.map((id) => ({ params: { id } }))
 
-//   return {
-//     props: {
-//       data: profile,
-//     },
-//   }
-// }
+  return {
+    paths,
+    fallback: false,
+  }
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  //sgで初回は表示。
+  //更新したタイミングでISRにしたい
+  const id = context.params!.id as string
+  const profile = await getProfile(id)
+
+  return {
+    props: {
+      profile,
+    },
+  }
+}
 
 export default Profile

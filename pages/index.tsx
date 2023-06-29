@@ -3,15 +3,13 @@ import { Layout } from '@/components/base/Layout'
 import getLuresStatic from '@/features/lure/api/getLuresStatic'
 import LureItem from '@/features/lure/components/LureItem'
 import { useStore } from '@/lib/store'
+import { supabase } from '@/lib/supabaseClient'
 import { Lure } from '@/types'
 import { GetStaticProps, NextPage } from 'next'
 type Props = {
   lures: Lure[]
 }
 const Home: NextPage<Props> = ({ lures }) => {
-  const session = useStore((state) => state.session)
-  console.log(session)
-
   return (
     <Layout title="">
       <Container>
@@ -25,8 +23,9 @@ const Home: NextPage<Props> = ({ lures }) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
+export const getStaticProps: GetStaticProps = async () => {
   const lures = await getLuresStatic()
+
   return {
     props: {
       lures,

@@ -2,7 +2,7 @@ import { supabase } from '@/lib/supabaseClient'
 import { useEffect, useState } from 'react'
 
 export const useDownloadUrl = (
-  filePath: string | null,
+  filePath: string | undefined,
   key: 'lures' | 'avatars'
 ) => {
   const [isLoading, setIsLoading] = useState(false)

@@ -1,3 +1,5 @@
+import { Spinner } from '@/components/base/Spinner'
+import { useDownloadUrl } from '@/hooks/useDownloadUrl'
 import { Lure } from '@/types'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,10 +12,6 @@ type LureItemProps = {
 const LureItem: FC<LureItemProps> = ({ lure }) => {
   const { name, brand_id, image_url, id } = lure
 
-  // const { isLoading: lureImageLoading, fullUrl: lureImage } = useDownloadUrl(
-  //   image_url,
-  //   'lures'
-  // )
   return (
     <li
       key={id}

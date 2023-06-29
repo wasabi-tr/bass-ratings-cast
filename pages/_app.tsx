@@ -25,13 +25,13 @@ export default function App({ Component, pageProps }: AppProps) {
         data: { session },
       } = await supabase.auth.getSession()
       setSession(session) //ログイン状態を更新関数に渡す
-      console.log(session)
+      // console.log(session)
     }
     fetchSession() // async関数を呼び出す
     supabase.auth.onAuthStateChange((_event, session) => {
       //ログイン状態の変更を検知して変更があったら更新関数に変更後のログイン状態を渡す
       setSession(session)
-      console.log(`login userID is ${session?.user.id}`)
+      // console.log(`login userID is ${session?.user.id}`)
     })
   }, [setSession]) //更新関数が更新されるたびに発火
 

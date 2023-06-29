@@ -13,6 +13,7 @@ export const Auth: FC = () => {
     setPassword,
     loginMutation,
     registerMutation,
+    logoutMutation,
   } = useMutateAuth()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -26,6 +27,10 @@ export const Auth: FC = () => {
   }
   const handleChange = () => {
     setIsLogin(!isLogin)
+  }
+
+  const logout = async () => {
+    logoutMutation.mutate()
   }
   return (
     <>
@@ -66,7 +71,7 @@ export const Auth: FC = () => {
           {isLogin ? 'ログインする' : '登録する'}
         </button>
       </form>
-      <button onClick={() => supabase.auth.signOut()}>ログアウト</button>
+      <button onClick={logout}>ログアウト</button>
       <div className="mt-4">
         アカウントをお持ちでない方はこちらから
         <button

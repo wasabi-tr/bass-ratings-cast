@@ -4,9 +4,7 @@ import { useMutation } from 'react-query'
 
 export const userMutateProfile = () => {
   const createProfileMutation = useMutation(
-    async (
-      profile: Omit<Profile, 'id' | 'created_at' | 'avatar_url' | 'text'>
-    ) => {
+    async (profile: Omit<Profile, 'id' | 'created_at'>) => {
       const { data, error } = await supabase
         .from('profiles')
         .insert(profile)
@@ -21,5 +19,24 @@ export const userMutateProfile = () => {
       },
     }
   )
-  return { createProfileMutation }
+  const updateProfileMutation = useMutation(
+    async (profile: Omit<Profile, 'id' | 'created_at'>) => {
+      const { error } = await supabase
+        .from('profiles')
+        .update({
+          ...profile,
+        })
+        .eq('user_id', profile.user_id)
+      if (error) throw new Error(error.message)
+    },
+    {
+      onSuccess: () => {
+        alert('Profile updated')
+      },
+      onError: (err: any) => {
+        alert(err.message)
+      },
+    }
+  )
+  return { createProfileMutation, updateProfileMutation }
 }

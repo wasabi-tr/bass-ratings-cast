@@ -45,7 +45,24 @@ export const useMutateAuth = () => {
         createProfileMutation.mutateAsync({
           user_id: res.user?.id,
           username: res.user?.email,
+          text: '',
+          avatar_url: '',
         })
+        router.push('/')
+      },
+      onError: (err: any) => {
+        alert(err.message)
+        reset()
+      },
+    }
+  )
+  const logoutMutation = useMutation(
+    async () => {
+      const { error } = await supabase.auth.signOut()
+      if (error) throw new Error(error.message)
+    },
+    {
+      onSuccess: () => {
         router.push('/')
       },
       onError: (err: any) => {
@@ -62,5 +79,6 @@ export const useMutateAuth = () => {
     setPassword,
     loginMutation,
     registerMutation,
+    logoutMutation,
   }
 }

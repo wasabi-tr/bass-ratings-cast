@@ -85,7 +85,7 @@ export interface Database {
           created_at: string | null
           genre_id: string
           id: string
-          image_url: string | null
+          image_url: string | undefined
           length: string | null
           name: string
           price: string | null
@@ -96,7 +96,7 @@ export interface Database {
           created_at?: string | null
           genre_id: string
           id?: string
-          image_url?: string | null
+          image_url?: string | undefined
           length?: string | null
           name: string
           price?: string | null
@@ -107,7 +107,7 @@ export interface Database {
           created_at?: string | null
           genre_id?: string
           id?: string
-          image_url?: string | null
+          image_url?: string | undefined
           length?: string | null
           name?: string
           price?: string | null
@@ -130,27 +130,27 @@ export interface Database {
       }
       profiles: {
         Row: {
-          avatar_url: string | null
+          avatar_url: string | undefined
           created_at: string | null
           id: string
-          text: string | null
+          text: string | undefined
           user_id: string | undefined
           username: string | undefined
         }
         Insert: {
-          avatar_url?: string | null
+          avatar_url?: string | undefined
           created_at?: string | null
           id: string
           user_id: string | undefined
-          text?: string | null
+          text?: string | undefined
           username?: string | undefined
         }
         Update: {
-          avatar_url?: string | null
+          avatar_url?: string | undefined
           created_at?: string | null
           id?: string
           user_id: string | undefined
-          text?: string | null
+          text?: string | undefined
           username?: string | undefined
         }
         Relationships: []
