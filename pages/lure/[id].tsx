@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import ReviewList from '@/features/review/components/ReviewList'
 import getReviews from '@/features/review/api/getReviews'
 import { getLureIds } from '@/features/lure/api/getLureId'
+import Chart from '@/features/lure/components/Chart'
 type Props = {
   lure: Lure
   reviews: Review[]
@@ -35,6 +36,7 @@ const LureDetail: NextPage<Props> = ({ lure, reviews }) => {
         >
           口コミを投稿する
         </button>
+        <Chart />
       </div>
     </Layout>
   )

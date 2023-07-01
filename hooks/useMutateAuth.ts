@@ -43,7 +43,7 @@ export const useMutateAuth = () => {
     {
       onSuccess: (res) => {
         createProfileMutation.mutateAsync({
-          user_id: res.user?.id,
+          user_id: res.user?.id!,
           username: res.user?.email,
           text: '',
           avatar_url: '',

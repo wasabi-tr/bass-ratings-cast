@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabaseClient'
 import { Profile } from '@/types'
+import { revalidateProfile } from '@/utils/revalidate'
 import { useMutation } from 'react-query'
 
 export const userMutateProfile = () => {
@@ -28,9 +29,12 @@ export const userMutateProfile = () => {
         })
         .eq('user_id', profile.user_id)
       if (error) throw new Error(error.message)
+      return profile
     },
     {
-      onSuccess: () => {
+      onSuccess: (res) => {
+        console.log(res)
+        revalidateProfile(res.user_id)
         alert('Profile updated')
       },
       onError: (err: any) => {

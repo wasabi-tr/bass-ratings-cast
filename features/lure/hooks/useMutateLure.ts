@@ -1,6 +1,7 @@
 import { useStore } from '@/lib/store'
 import { supabase } from '@/lib/supabaseClient'
 import { Lure } from '@/types'
+import { revalidateLure } from '@/utils/revalidate'
 import { useMutation } from 'react-query'
 
 export const useMutateLure = () => {
@@ -13,6 +14,7 @@ export const useMutateLure = () => {
     },
     {
       onSuccess: (res) => {
+        revalidateLure()
         reset()
       },
       onError: (err: any) => {

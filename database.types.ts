@@ -134,14 +134,14 @@ export interface Database {
           created_at: string | null
           id: string
           text: string | undefined
-          user_id: string | undefined
+          user_id: string
           username: string | undefined
         }
         Insert: {
           avatar_url?: string | undefined
           created_at?: string | null
           id: string
-          user_id: string | undefined
+          user_id: string
           text?: string | undefined
           username?: string | undefined
         }
@@ -149,7 +149,7 @@ export interface Database {
           avatar_url?: string | undefined
           created_at?: string | null
           id?: string
-          user_id: string | undefined
+          user_id: string
           text?: string | undefined
           username?: string | undefined
         }

@@ -25,12 +25,10 @@ const Home: NextPage<Props> = ({ lures }) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   const lures = await getLuresStatic()
-
   return {
     props: {
       lures,
     },
-    revalidate: 60,
   }
 }
 
