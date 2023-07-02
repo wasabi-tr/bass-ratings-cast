@@ -25,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
         data: { session },
       } = await supabase.auth.getSession()
       setSession(session) //ログイン状態を更新関数に渡す
-      // console.log(session)
+      console.log(session)
     }
     fetchSession() // async関数を呼び出す
     supabase.auth.onAuthStateChange((_event, session) => {

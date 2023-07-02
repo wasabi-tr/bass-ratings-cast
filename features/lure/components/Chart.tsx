@@ -1,3 +1,4 @@
+import { FC } from 'react'
 import {
   Radar,
   RadarChart,
@@ -6,43 +7,43 @@ import {
   PolarRadiusAxis,
 } from 'recharts'
 
-const Chart = () => {
+type LureData = {
+  name: string
+  rating_1: number
+  rating_2: number
+  rating_3: number
+  rating_4: number
+  rating_5: number
+}
+type Props = {
+  lureData: LureData
+}
+const Chart: FC<Props> = ({ lureData }) => {
   const data = [
     {
-      subject: 'Math',
-      A: 120,
-      B: 110,
-      fullMark: 150,
+      subject: '評価１',
+      A: lureData.rating_1,
+      fullMark: 5,
     },
     {
-      subject: 'Chinese',
-      A: 98,
-      B: 130,
-      fullMark: 150,
+      subject: '評価２',
+      A: lureData.rating_2,
+      fullMark: 5,
     },
     {
-      subject: 'English',
-      A: 86,
-      B: 130,
-      fullMark: 150,
+      subject: '評価３',
+      A: lureData.rating_3,
+      fullMark: 5,
     },
     {
-      subject: 'Geography',
-      A: 99,
-      B: 100,
-      fullMark: 150,
+      subject: '評価４',
+      A: lureData.rating_4,
+      fullMark: 5,
     },
     {
-      subject: 'Physics',
-      A: 85,
-      B: 90,
-      fullMark: 150,
-    },
-    {
-      subject: 'History',
-      A: 65,
-      B: 85,
-      fullMark: 150,
+      subject: '評価５',
+      A: lureData.rating_5,
+      fullMark: 5,
     },
   ]
   return (
@@ -56,14 +57,22 @@ const Chart = () => {
     >
       <PolarGrid />
       <PolarAngleAxis dataKey="subject" />
-      <PolarRadiusAxis />
+      <PolarRadiusAxis
+        domain={[0, 5]}
+        tickCount={6}
+        axisLine={false}
+        tickLine={false}
+        angle={90}
+        // tick={false}
+      />
+
       <Radar
-        name="Mike"
+        name="test"
         dataKey="A"
         stroke="#8884d8"
         fill="#8884d8"
         fillOpacity={0.6}
-      />
+      ></Radar>
     </RadarChart>
   )
 }

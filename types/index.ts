@@ -40,3 +40,10 @@ export type EditedProfile = {
   text: string | undefined
   avatar_url: string | undefined
 }
+export type Rating = {
+  rating_1: number
+  rating_2: number
+  rating_3: number
+  rating_4: number
+  rating_5: number
+}
