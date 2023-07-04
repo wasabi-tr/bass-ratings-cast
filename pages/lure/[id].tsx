@@ -10,6 +10,8 @@ import getReviews from '@/features/review/api/getReviews'
 import { getLureIds } from '@/features/lure/api/getLureId'
 import Chart from '@/features/lure/components/Chart'
 import { averageRating } from '@/features/review/hooks/averageRating'
+import styles from './Star.module.scss'
+import { Star } from '@/components/base/Rating'
 type Props = {
   lure: Lure
   reviews: Review[]
@@ -45,6 +47,7 @@ const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
             ...averageRatings,
           }}
         />
+        <Star />
       </div>
     </Layout>
   )

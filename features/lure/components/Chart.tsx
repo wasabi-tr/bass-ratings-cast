@@ -48,8 +48,8 @@ const Chart: FC<Props> = ({ lureData }) => {
   ]
   return (
     <RadarChart
-      cx={300}
-      cy={250}
+      // cx={300}
+      // cy={250}
       outerRadius={150}
       width={500}
       height={500}
