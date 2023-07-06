@@ -1,24 +1,20 @@
-import { Spinner } from '@/components/base/Spinner'
-import { useDownloadUrl } from '@/hooks/useDownloadUrl'
-import { Lure } from '@/types'
+import { Stars } from '@/components/base/Stars'
+import { Lure, LureDetail } from '@/types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FC } from 'react'
 
 type LureItemProps = {
   key: string
-  lure: Lure
+  lure: LureDetail
 }
 const LureItem: FC<LureItemProps> = ({ lure }) => {
-  const { name, brand_id, image_url, id } = lure
+  const { name, brand_name, rating_average, image_url, id } = lure
 
   return (
-    <li
-      key={id}
-      className="flex items-start gap-4 drop-shadow-md p-4 rounded-md"
-    >
-      <Link href={`/lure/${id}`}>
-        <div className="w-[100px] h-[100px]">
+    <li key={id} className="shadow-md bg-white ">
+      <Link href={`/lure/${id}`} className="px-4 py-5 flex items-start gap-6 ">
+        <div className="aspect-square">
           {image_url ? (
             <Image
               alt={name}
@@ -38,9 +34,9 @@ const LureItem: FC<LureItemProps> = ({ lure }) => {
           )}
         </div>
         <div className="">
+          <p>{brand_name}</p>
           <p>{name}</p>
-          <p>{brand_id}</p>
-          <p>{id}</p>
+          <Stars rating={rating_average} />
         </div>
       </Link>
     </li>

@@ -1,5 +1,5 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
-import { Lure, Rating, Review } from '@/types'
+import { Lure, LureDetail, Rating, Review } from '@/types'
 import { getLureById } from '../../features/lure/api/getLureById'
 import { Layout } from '@/components/base/Layout'
 import Link from 'next/link'
@@ -11,24 +11,21 @@ import { getLureIds } from '@/features/lure/api/getLureId'
 import Chart from '@/features/lure/components/Chart'
 import { averageRating } from '@/features/review/hooks/averageRating'
 import styles from './Star.module.scss'
-import { Star } from '@/components/base/Rating'
+import { Stars } from '@/components/base/Stars'
 type Props = {
-  lure: Lure
+  lure: LureDetail
   reviews: Review[]
   averageRatings: Rating
 }
 
 const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
-  // console.log(lure)
-  // console.log(reviews)
-  console.log(averageRatings)
-
   const update = useStore((state) => state.updateReviewedLureId)
   const router = useRouter()
   const handleClick = () => {
     update(lure.id)
     router.push(`/review/${lure.id}`)
   }
+  console.log(lure)
 
   return (
     <Layout title={lure.name}>
@@ -47,7 +44,7 @@ const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
             ...averageRatings,
           }}
         />
-        <Star />
+        <Stars rating={lure.rating_average} />
       </div>
     </Layout>
   )

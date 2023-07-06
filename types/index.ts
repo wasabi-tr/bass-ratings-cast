@@ -47,3 +47,17 @@ export type Rating = {
   rating_4: number
   rating_5: number
 }
+export type LureDetail = {
+  id: string
+  name: string
+  created_at: string
+  image_url: string | undefined
+  length: string | null
+  weight: string | null
+  price: string | null
+  brand_id: string
+  brand_name: string
+  genre_id: string
+  genre_name: string
+  rating_average: number
+}

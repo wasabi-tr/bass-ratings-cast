@@ -16,7 +16,7 @@ export const Layout: FC<Props> = ({ children, title = 'BassRatingsCast' }) => {
       <Head>
         <title>{title}</title>
       </Head>
-      <header className="flex justify-between w-full px-5 py-6 bg-slate-800">
+      <header className="flex justify-between w-full px-5 py-6 bg-primary">
         <div className="font-bold text-white">BassRatingsCast</div>
         <nav className="ml-auto">
           <ul className="flex items-center gap-6">
