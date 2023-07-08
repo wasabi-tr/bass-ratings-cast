@@ -16,30 +16,31 @@ export const Layout: FC<Props> = ({ children, title = 'BassRatingsCast' }) => {
       <Head>
         <title>{title}</title>
       </Head>
-      <header className="flex justify-between w-full px-5 py-6 bg-primary">
-        <div className="font-bold text-white">BassRatingsCast</div>
+      <header className="flex justify-between w-full px-5 py-6 shadow bg-white">
+        <div className="-bold">
+          <Link href={'/'} className="font-bold">
+            Bass Ratings Cast
+          </Link>
+        </div>
         <nav className="ml-auto">
           <ul className="flex items-center gap-6">
             <li>
-              <Link href={'/'} className="text-white font-bold">
-                ホーム
+              <Link href={'/lure'} className=" font-bold">
+                ルアー一覧
               </Link>
             </li>
             <li>
-              <Link href={'/auth'} className="text-white font-bold">
+              <Link href={'/auth'} className=" font-bold">
                 ログイン
               </Link>
             </li>
             <li>
-              <Link href={'/lure-register'} className="text-white font-bold">
+              <Link href={'/lure-register'} className=" font-bold">
                 商品登録
               </Link>
             </li>
             <li>
-              <Link
-                href={`/profile/${session?.user.id}`}
-                className="text-white font-bold"
-              >
+              <Link href={`/profile/${session?.user.id}`} className="font-bold">
                 プロフィール
               </Link>
             </li>
