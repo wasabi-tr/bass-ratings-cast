@@ -20,3 +20,11 @@ body {
   color: rgb(var(--foreground-rgb));
   background: #edf2f9;
 }
+.button-wrap {
+  @apply rounded-full bg-sub text-center shadow 
+   duration-300  hover:-translate-y-1;
+  width: 300px;
+}
+.button-wrap a {
+  @apply inline-block text-white font-bold py-5 px-4;
+}

@@ -1,7 +1,7 @@
 import { supabase } from '@/lib/supabaseClient'
 import { Lure } from '@/types'
 
-export const getLuresStatic = async () => {
+export const getLures = async () => {
   const { data, error } = await supabase.from('lure_detail').select('*')
 
   if (error) throw new Error(error.message)

@@ -1,6 +1,6 @@
 import Container from '@/components/base/Container'
 import { Layout } from '@/components/base/Layout'
-import { getLuresStatic } from '@/features/lure/api/getLuresStatic'
+import { getLures } from '@/features/lure/api/getLures'
 import LureItem from '@/features/lure/components/LureItem'
 import { averageRating } from '@/features/review/hooks/averageRating'
 import { useStore } from '@/lib/store'
@@ -37,11 +37,26 @@ const Home: NextPage<Props> = ({ lures }) => {
             </div>
           </div>
         </section>
-        <ul className="grid gap-7 flex-wrap grid-cols-auto-min-max">
-          {lures?.map((lure) => (
-            <LureItem key={lure.id} lure={lure} />
-          ))}
-        </ul>
+        <section>
+          <div className="py-16">
+            <h2 className="font-bold mb-2 text-lg">ルアー一覧</h2>
+            <ul className="grid gap-7 flex-wrap grid-cols-auto-min-max ">
+              {lures?.map((lure) => (
+                <LureItem key={lure.id} lure={lure} />
+              ))}
+            </ul>
+            <div className="button-wrap mt-6 mx-auto">
+              <Link href={'/lure'} className="">
+                ルアー一覧をもっとみる
+              </Link>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div className="py-16">
+            <h2>ブランド一覧</h2>
+          </div>
+        </section>
       </Container>
     </Layout>
   )
@@ -50,7 +65,7 @@ const Home: NextPage<Props> = ({ lures }) => {
 //方法１：luresテーブルにbrand_nameをとaverage_ratingを入れる
 //方法２：viewを使って型を書き換える
 export const getStaticProps: GetStaticProps = async () => {
-  const lures = await getLuresStatic()
+  const lures = await getLures()
 
   return {
     props: {

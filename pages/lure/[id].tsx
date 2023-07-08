@@ -1,8 +1,7 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
-import { Lure, LureDetail, Rating, Review } from '@/types'
+import { LureDetail, Rating, Review } from '@/types'
 import { getLureById } from '../../features/lure/api/getLureById'
 import { Layout } from '@/components/base/Layout'
-import Link from 'next/link'
 import { useStore } from '@/lib/store'
 import { useRouter } from 'next/router'
 import ReviewList from '@/features/review/components/ReviewList'
@@ -10,7 +9,6 @@ import getReviews from '@/features/review/api/getReviews'
 import { getLureIds } from '@/features/lure/api/getLureId'
 import Chart from '@/features/lure/components/Chart'
 import { averageRating } from '@/features/review/hooks/averageRating'
-import styles from './Star.module.scss'
 import { Stars } from '@/components/base/Stars'
 type Props = {
   lure: LureDetail
@@ -62,7 +60,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const id = context.params!.id as string
-  const { getAverageRatings, getAverageRatingsAll } = averageRating()
+  const { getAverageRatings } = averageRating()
   const lure = await getLureById(id)
   const reviews = await getReviews(id)
   const averageRatings = await getAverageRatings(id)
