@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 //@ts-ignore
 import ReactStarsRating from 'react-awesome-stars-rating'
 
@@ -10,6 +10,8 @@ export const Stars: FC<Props> = ({ rating }) => {
     <ReactStarsRating
       value={rating}
       isEdit={false}
+      size={20}
+      fillColor={'#FFB500'}
       className={'flex justify-center'}
     />
   )

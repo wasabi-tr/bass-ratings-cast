@@ -39,8 +39,8 @@ export interface Database {
           created_at: string | null
           id: string
           image_url: string | null
-          name: string | null
-          slug: string | null
+          name: string
+          slug: string
         }
         Insert: {
           created_at?: string | null

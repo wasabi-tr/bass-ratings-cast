@@ -4,7 +4,7 @@ type Props = {
   reviews: Review[]
 }
 const ReviewList: FC<Props> = ({ reviews }) => {
-  console.log(reviews)
+  // console.log(reviews)
   return (
     <>
       {reviews.map((review) => (

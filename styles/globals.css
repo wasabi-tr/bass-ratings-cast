@@ -6,6 +6,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --primary-color: #4b90b9;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,13 +19,29 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: #edf2f9;
+  background: #f8f8f8;
 }
 .button-wrap {
-  @apply rounded-full bg-sub text-center shadow 
+  @apply rounded-full bg-primary text-center shadow 
    duration-300  hover:-translate-y-1;
   width: 300px;
 }
 .button-wrap a {
-  @apply inline-block text-white font-bold py-5 px-4;
+  @apply inline-block text-white font-bold py-5 px-4 w-full;
+}
+h2.heading {
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 20px;
+}
+h2.heading::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 30px;
+  border-radius: 10px;
+  background-color: var(--primary-color);
 }

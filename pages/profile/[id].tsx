@@ -1,11 +1,10 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import Image from 'next/image'
-import { ChangeEvent, FormEvent, useEffect } from 'react'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { PencilIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { useStore } from '@/lib/store'
 import { useUploadAvatarImg } from '@/features/profile/hooks/useUploadAvatarImg'
 import { useDownloadUrl } from '@/hooks/useDownloadUrl'
-import { useQueryProfile } from '@/features/profile/hooks/useQueryProfile'
 import { Layout } from '@/components/base/Layout'
 import { getProfileIds } from '@/features/profile/api/getProfileIds'
 import { Profile } from '@/types'
@@ -17,17 +16,7 @@ type Props = {
 }
 
 const Profile: NextPage<Props> = ({ profile }) => {
-  const editedProfile = useStore((state) => state.editedProfile)
-  const update = useStore((state) => state.updateEditedProfile)
-  useEffect(() => {
-    update({
-      user_id: profile.user_id!,
-      username: profile.username,
-      text: profile.text,
-      avatar_url: profile.avatar_url,
-    })
-  }, [])
-
+  const [editedProfile, setEditedProfile] = useState(profile)
   const { useMutateUploadAvatarImg } = useUploadAvatarImg()
   const { isLoading, fullUrl } = useDownloadUrl(
     editedProfile.avatar_url,
@@ -37,7 +26,7 @@ const Profile: NextPage<Props> = ({ profile }) => {
   const handleChange = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
   ) => {
-    update({ ...editedProfile, [e.target.name]: e.target.value })
+    setEditedProfile({ ...editedProfile, [e.target.name]: e.target.value })
     console.log(editedProfile)
   }
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +47,7 @@ const Profile: NextPage<Props> = ({ profile }) => {
           {isLoading ? (
             <Spinner />
           ) : fullUrl ? (
-            <div className="relative m-auto cursor-pointer  w-72 h-72">
+            <div className="relative m-auto cursor-pointer w-72 h-72">
               <Image
                 src={fullUrl}
                 alt="avatar"
@@ -115,7 +104,6 @@ const Profile: NextPage<Props> = ({ profile }) => {
 }
 export const getStaticPaths: GetStaticPaths = async () => {
   const ids = await getProfileIds()
-
   const paths = ids.map((id) => ({ params: { id } }))
 
   return {
@@ -125,8 +113,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  //sgで初回は表示。
-  //更新したタイミングでISRにしたい
   const id = context.params!.id as string
   const profile = await getProfile(id)
 

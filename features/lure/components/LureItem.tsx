@@ -19,27 +19,29 @@ const LureItem: FC<LureItemProps> = ({ lure }) => {
             <Image
               alt={name}
               src={image_url}
-              width={100}
-              height={100}
+              width={120}
+              height={120}
               className="object-cover"
             />
           ) : (
             <Image
               alt={name}
               src="/noimage.jpg"
-              width={100}
-              height={100}
+              width={120}
+              height={120}
               className="object-cover"
             />
           )}
         </div>
-        <div>
-          <div className="text-sm text-gray-700">{brand_name}</div>
+        <div className="flex flex-col">
+          <div className="text-xs text-gray-500">{brand_name}</div>
           <p className="text-lg font-bold">{name}</p>
           {rating_average && (
-            <div className="flex items-center gap3">
+            <div className="flex items-center gap-1 mt-auto">
               <Stars rating={rating_average} />
-              <span>{rating_average}</span>
+              <span className="text-rating text-xs font-bold">
+                {rating_average}
+              </span>
             </div>
           )}
         </div>

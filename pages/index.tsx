@@ -1,19 +1,25 @@
 import Container from '@/components/base/Container'
 import { Layout } from '@/components/base/Layout'
+import { getBrands } from '@/features/brands/api/getBrands'
+import BrandItem from '@/features/brands/components/BrandItem'
+import { getGenres } from '@/features/genres/api/getGenres'
+import GenreItem from '@/features/genres/components/GenreItem'
 import { getLures } from '@/features/lure/api/getLures'
 import LureItem from '@/features/lure/components/LureItem'
 import { averageRating } from '@/features/review/hooks/averageRating'
 import { useStore } from '@/lib/store'
 import { supabase } from '@/lib/supabaseClient'
-import { Lure, LureDetail } from '@/types'
+import { Brand, Genre, Lure, LureDetail } from '@/types'
 import { GetStaticProps, NextPage } from 'next'
 import Link from 'next/link'
 
 type Props = {
   lures: LureDetail[]
+  brands: Brand[]
+  genres: Genre[]
 }
-const Home: NextPage<Props> = ({ lures }) => {
-  console.log(lures)
+const Home: NextPage<Props> = ({ lures, brands, genres }) => {
+  console.log(brands)
 
   return (
     <Layout title="">
@@ -24,7 +30,7 @@ const Home: NextPage<Props> = ({ lures }) => {
               <div className="">
                 <h1 className="text-4xl font-bold">BassRatingsCast</h1>
                 <p>釣り人が投稿するブラックバスルアー専門の評価サイト</p>
-                <div className="rounded-full bg-sub text-center shadow ease duration-300 hover:-translate-y-1 mt-4">
+                <div className="rounded-full bg-primary text-center shadow ease duration-300 hover:-translate-y-1 mt-4">
                   <Link
                     href={'/register'}
                     className="text-white font-bold py-5 px-4 inline-block "
@@ -39,8 +45,8 @@ const Home: NextPage<Props> = ({ lures }) => {
         </section>
         <section>
           <div className="py-16">
-            <h2 className="font-bold mb-2 text-lg">ルアー一覧</h2>
-            <ul className="grid gap-7 flex-wrap grid-cols-auto-min-max ">
+            <h2 className="heading">ルアー一覧</h2>
+            <ul className="grid gap-4 grid-cols-auto-min-max-33 ">
               {lures?.map((lure) => (
                 <LureItem key={lure.id} lure={lure} />
               ))}
@@ -54,7 +60,27 @@ const Home: NextPage<Props> = ({ lures }) => {
         </section>
         <section>
           <div className="py-16">
-            <h2>ブランド一覧</h2>
+            <h2 className="heading">メーカーから探す</h2>
+            <ul className="grid gap-4 flex-wrap grid-cols-auto-min-max-50 ">
+              {brands?.map((brand) => (
+                <BrandItem key={brand.id} brand={brand} />
+              ))}
+            </ul>
+            <div className="button-wrap mt-6 mx-auto">
+              <Link href={'/brand'} className="">
+                メーカー一覧をもっとみる
+              </Link>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div className="py-16">
+            <h2 className="heading">ルアージャンルから探す</h2>
+            <ul className="grid gap-4 flex-wrap grid-cols-auto-min-max-20 ">
+              {genres?.map((genre) => (
+                <GenreItem key={genre.id} genre={genre} />
+              ))}
+            </ul>
           </div>
         </section>
       </Container>
@@ -66,10 +92,14 @@ const Home: NextPage<Props> = ({ lures }) => {
 //方法２：viewを使って型を書き換える
 export const getStaticProps: GetStaticProps = async () => {
   const lures = await getLures()
+  const brands = await getBrands()
+  const genres = await getGenres()
 
   return {
     props: {
       lures,
+      brands,
+      genres,
     },
   }
 }

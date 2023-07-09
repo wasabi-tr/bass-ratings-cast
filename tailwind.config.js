@@ -16,15 +16,38 @@ module.exports = {
       colors: {
         primary: '#4B90B9',
         sub: '#f8c678',
+        gray5: '#f8f8f8',
         gray10: '#F2F2F2',
         gray30: '#949494',
         gray20: '#CDCDCD',
+        rating: '#FFB500',
       },
       gridTemplateColumns: {
-        'auto-min-max':
-          'repeat(auto-fit, minmax(min(calc(50% - 1rem), 100%), 1fr))',
+        'auto-min-max-50': 'repeat(auto-fit, minmax(min(450px, 100%), 1fr))',
+
+        'auto-min-max-33': 'repeat(auto-fit, minmax(min(400px, 100%), 1fr))',
+
+        'auto-min-max-20': 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))',
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addComponents }) {
+      const newComponents = {
+        '.inner': {
+          width: '100%', // 全ての画面サイズで幅は100%
+          '@media (min-width: 640px)': {
+            // 'sm'のブレークポイントでのスタイル
+            maxWidth: '100%', // 幅の最大値は100%
+            padding: '0 20px',
+          },
+          '@media (min-width: 1024px)': {
+            // 'lg'のブレークポイントでのスタイル
+            maxWidth: '1200px', // 幅の最大値は1200px
+          },
+        },
+      }
+      addComponents(newComponents)
+    },
+  ],
 }
