@@ -47,7 +47,13 @@ const Chart: FC<Props> = ({ lureData }) => {
     },
   ]
   return (
-    <RadarChart outerRadius={200} width={500} height={500} data={data}>
+    <RadarChart
+      outerRadius={200}
+      width={500}
+      height={500}
+      data={data}
+      className="mx-auto"
+    >
       <PolarGrid />
       <PolarAngleAxis dataKey="subject" />
       <PolarRadiusAxis

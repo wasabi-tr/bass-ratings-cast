@@ -1,3 +1,4 @@
+import Heading from '@/components/Elements/Heading'
 import Container from '@/components/base/Container'
 import { Layout } from '@/components/base/Layout'
 import { getBrands } from '@/features/brands/api/getBrands'
@@ -45,7 +46,7 @@ const Home: NextPage<Props> = ({ lures, brands, genres }) => {
         </section>
         <section>
           <div className="py-16">
-            <h2 className="heading">ルアー一覧</h2>
+            <Heading heading="ルアー一覧" />
             <ul className="grid gap-4 grid-cols-auto-min-max-33 ">
               {lures?.map((lure) => (
                 <LureItem key={lure.id} lure={lure} />
@@ -60,7 +61,7 @@ const Home: NextPage<Props> = ({ lures, brands, genres }) => {
         </section>
         <section>
           <div className="py-16">
-            <h2 className="heading">メーカーから探す</h2>
+            <Heading heading="メーカーから探す" />
             <ul className="grid gap-4 flex-wrap grid-cols-auto-min-max-50 ">
               {brands?.map((brand) => (
                 <BrandItem key={brand.id} brand={brand} />
@@ -75,7 +76,7 @@ const Home: NextPage<Props> = ({ lures, brands, genres }) => {
         </section>
         <section>
           <div className="py-16">
-            <h2 className="heading">ルアージャンルから探す</h2>
+            <Heading heading="ルアージャンルから探す" />
             <ul className="grid gap-4 flex-wrap grid-cols-auto-min-max-20 ">
               {genres?.map((genre) => (
                 <GenreItem key={genre.id} genre={genre} />

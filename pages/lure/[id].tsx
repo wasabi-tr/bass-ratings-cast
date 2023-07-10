@@ -9,15 +9,23 @@ import getReviews from '@/features/review/api/getReviews'
 import { getLureIds } from '@/features/lure/api/getLureId'
 import Chart from '@/features/chart/components/Chart'
 import { averageRating } from '@/features/review/hooks/averageRating'
-import { Stars } from '@/components/base/Stars'
+import { Stars } from '@/components/Elements/Stars'
 import Image from 'next/image'
+import Heading from '@/components/Elements/Heading'
+
+type ReviewWithUsername = Review & {
+  username: string
+  rating_average: number
+}
 type Props = {
   lure: LureDetail
-  reviews: Review[]
+  reviews: ReviewWithUsername[]
   averageRatings: Rating
 }
 
 const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
+  console.log(reviews)
+
   const update = useStore((state) => state.updateReviewedLureId)
   const router = useRouter()
   const {
@@ -80,14 +88,9 @@ const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
               <div className="right  w-2/3">
                 <section>
                   <div className="">
-                    <h2 className="heading">総合評価</h2>
+                    <Heading heading="総合評価" />
                     {rating_average && (
-                      <div className="flex items-center gap-1 mt-auto justify-center">
-                        <Stars rating={rating_average} />
-                        <span className="text-rating text-xs font-bold">
-                          {rating_average}
-                        </span>
-                      </div>
+                      <Stars rating={rating_average} position="center" />
                     )}
                     <Chart
                       lureData={{
@@ -99,7 +102,7 @@ const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
                 </section>
                 <section>
                   <div className="py-10">
-                    <h2 className="heading">商品情報詳細</h2>
+                    <Heading heading="商品情報詳細" />
                     <div className="">
                       <dl className="flex items-center border-b border-gray-400 gap-4 pb-4">
                         <dt className="font-bold w-1/4">商品名</dt>
@@ -126,7 +129,7 @@ const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
                 </section>
                 <section>
                   <div className="py-10">
-                    <h2 className="heading">口コミ</h2>
+                    <Heading heading="口コミ" />
                     <ReviewList reviews={reviews} />
                   </div>
                 </section>

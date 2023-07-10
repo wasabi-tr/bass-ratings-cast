@@ -29,6 +29,9 @@ module.exports = {
 
         'auto-min-max-20': 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))',
       },
+      width: {
+        'max-width': '1200px',
+      },
     },
   },
   plugins: [
@@ -43,7 +46,7 @@ module.exports = {
           },
           '@media (min-width: 1024px)': {
             // 'lg'のブレークポイントでのスタイル
-            maxWidth: '1200px', // 幅の最大値は1200px
+            width: '1200px', // 幅の最大値は1200px
           },
         },
       }

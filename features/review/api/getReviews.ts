@@ -2,13 +2,14 @@ import { supabase } from '@/lib/supabaseClient'
 import { Review } from '@/types'
 
 const getReviews = async (id: string) => {
-  const { data, error } = await supabase
-    .from('reviews')
+  const { data: reviewData, error: reviewError } = await supabase
+    .from('reviews_with_usernames')
     .select('*')
     .order('created_at', { ascending: true })
     .eq('lure_id', id)
-  if (error) throw new Error(error.message)
-  return data as Review[]
+  if (reviewError) throw new Error(reviewError.message)
+
+  return reviewData
 }
 
 export default getReviews

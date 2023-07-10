@@ -1,4 +1,4 @@
-import { Stars } from '@/components/base/Stars'
+import { Stars } from '@/components/Elements/Stars'
 import { Lure, LureDetail } from '@/types'
 import Image from 'next/image'
 import Link from 'next/link'

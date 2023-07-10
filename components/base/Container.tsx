@@ -4,7 +4,11 @@ type Props = {
   children: React.ReactNode
 }
 const Container: FC<Props> = ({ children }) => {
-  return <div className="w-11/12 m-auto px-3 max-md:w-full">{children}</div>
+  return (
+    <div>
+      <div className="inner">{children}</div>
+    </div>
+  )
 }
 
 export default Container
