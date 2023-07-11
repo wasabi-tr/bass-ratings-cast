@@ -7,7 +7,7 @@ type Props = {
 const GenreItem: FC<Props> = ({ genre }) => {
   const { id, name } = genre
   return (
-    <li key={id} className="shadow-md bg-white px-4 py-5">
+    <li key={id} className="shadow-md bg-white px-4 py-5 rounded-lg">
       <div className="text-lg text-primary font-bold text-center">{name}</div>
       <div
         className="rounded-full bg-primary text-center shadow 

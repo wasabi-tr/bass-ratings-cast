@@ -47,6 +47,7 @@ module.exports = {
           '@media (min-width: 1024px)': {
             // 'lg'のブレークポイントでのスタイル
             width: '1200px', // 幅の最大値は1200px
+            margin: '0 auto',
           },
         },
       }

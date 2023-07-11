@@ -1,3 +1,4 @@
+import Container from '@/components/base/Container'
 import { Layout } from '@/components/base/Layout'
 import { useMutateLure } from '@/features/lure/hooks/useMutateLure'
 import { useQueryBrands } from '@/features/lure/hooks/useQueryBrands'
@@ -21,7 +22,6 @@ const LureRegister: NextPage = () => {
       ...editedLure,
       [e.target.name]: e.target.value,
     })
-    console.log(editedLure)
   }
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -34,10 +34,6 @@ const LureRegister: NextPage = () => {
       .from('lures')
       .getPublicUrl(editedLure.image_url)
     const fullUrl = data.publicUrl
-
-    console.log(data.publicUrl)
-    console.log(fullUrl)
-    // console.log(data.publicUrl)
 
     if (editedLure.id === '') {
       await createLureMutation.mutateAsync({
@@ -54,84 +50,86 @@ const LureRegister: NextPage = () => {
 
   return (
     <Layout title="商品登録ページ">
-      <h2>商品を登録する</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          name="name"
-          placeholder="Lure Name"
-          value={editedLure.name}
-          onChange={handleChange}
-          className="w-full p-2 border border-gray-300 rounded"
-        />
+      <Container>
+        <h2>商品を登録する</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            name="name"
+            placeholder="Lure Name"
+            value={editedLure.name}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
 
-        {brands?.map((brand, index) => (
-          <label key={index} className="flex items-center">
-            <input
-              type="radio"
-              name="brand_id"
-              value={brand.id}
-              checked={editedLure.brand_id === brand.id}
-              onChange={handleChange}
-              className="mr-2"
-            />
-            {brand.name}
-          </label>
-        ))}
+          {brands?.map((brand, index) => (
+            <label key={index} className="flex items-center">
+              <input
+                type="radio"
+                name="brand_id"
+                value={brand.id}
+                checked={editedLure.brand_id === brand.id}
+                onChange={handleChange}
+                className="mr-2"
+              />
+              {brand.name}
+            </label>
+          ))}
 
-        {genres?.map((genre, index) => (
-          <label key={index} className="flex items-center">
-            <input
-              type="radio"
-              name="genre_id"
-              value={genre.id}
-              checked={editedLure.genre_id === genre.id}
-              onChange={handleChange}
-              className="mr-2"
-            />
-            {genre.name}
-          </label>
-        ))}
+          {genres?.map((genre, index) => (
+            <label key={index} className="flex items-center">
+              <input
+                type="radio"
+                name="genre_id"
+                value={genre.id}
+                checked={editedLure.genre_id === genre.id}
+                onChange={handleChange}
+                className="mr-2"
+              />
+              {genre.name}
+            </label>
+          ))}
 
-        <input
-          type="text"
-          name="price"
-          placeholder="Price"
-          value={editedLure.price}
-          onChange={handleChange}
-          className="w-full p-2 border border-gray-300 rounded"
-        />
-        <input
-          type="text"
-          name="length"
-          placeholder="Length"
-          value={editedLure.length}
-          onChange={handleChange}
-          className="w-full p-2 border border-gray-300 rounded"
-        />
-        <input
-          type="text"
-          name="weight"
-          placeholder="Weight"
-          value={editedLure.weight}
-          onChange={handleChange}
-          className="w-full p-2 border border-gray-300 rounded"
-        />
+          <input
+            type="text"
+            name="price"
+            placeholder="Price"
+            value={editedLure.price}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+          <input
+            type="text"
+            name="length"
+            placeholder="Length"
+            value={editedLure.length}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+          <input
+            type="text"
+            name="weight"
+            placeholder="Weight"
+            value={editedLure.weight}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
 
-        <input
-          type="file"
-          name="image_url"
-          onChange={handleImageChange}
-          className="w-full p-2 border border-gray-300 rounded"
-        />
+          <input
+            type="file"
+            name="image_url"
+            onChange={handleImageChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
 
-        <button
-          type="submit"
-          className="w-full p-2 bg-blue-500 text-white rounded"
-        >
-          Submit
-        </button>
-      </form>
+          <button
+            type="submit"
+            className="w-full p-2 bg-blue-500 text-white rounded"
+          >
+            Submit
+          </button>
+        </form>
+      </Container>
     </Layout>
   )
 }

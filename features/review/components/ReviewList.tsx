@@ -12,13 +12,13 @@ const ReviewList: FC<Props> = ({ reviews }) => {
   return (
     <>
       {reviews.map((review) => (
-        <div key={review.id}>
+        <div key={review.id} className="mb-4 p-3 bg-white rounded-md shadow-sm">
           <div className="">
-            <div className="">
-              <span>{review.username}</span>
-              <Stars rating={review.rating_average} />
+            <div className="flex gap-2 items-center">
+              <span className="font-bold">{review.username}</span>
+              <Stars rating={review.rating_average} size={16} />
             </div>
-            <p>{review.text}</p>
+            <p className="mt-2">{review.text}</p>
           </div>
         </div>
       ))}

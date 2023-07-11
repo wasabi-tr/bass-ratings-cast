@@ -8,7 +8,7 @@ type Props = {
 const BrandItem: FC<Props> = ({ brand }) => {
   const { id, image_url, name } = brand
   return (
-    <li key={id} className="shadow-md bg-white">
+    <li key={id} className="shadow-md bg-white rounded-lg">
       <div className="px-4 py-5 flex items-center gap-6  ">
         <div className="aspect-square">
           {image_url ? (

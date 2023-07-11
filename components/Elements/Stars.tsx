@@ -6,17 +6,23 @@ type Props = {
   rating: number
   position?: string
   size?: number
+  isEdit?: boolean
 }
-export const Stars: FC<Props> = ({ rating, position = 'right', size = 20 }) => {
+export const Stars: FC<Props> = ({
+  rating,
+  position = 'right',
+  size = 20,
+  isEdit = false,
+}) => {
   return (
     <div
-      className={`flex items-center gap-1 mt-auto ${
+      className={`flex items-center gap-1 ${
         position === 'center' ? 'justify-center' : ''
       }`}
     >
       <ReactStarsRating
         value={rating}
-        isEdit={false}
+        isEdit={isEdit}
         size={size}
         fillColor={'#FFB500'}
         className={`flex `}

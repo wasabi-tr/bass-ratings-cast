@@ -12,6 +12,7 @@ import { averageRating } from '@/features/review/hooks/averageRating'
 import { Stars } from '@/components/Elements/Stars'
 import Image from 'next/image'
 import Heading from '@/components/Elements/Heading'
+import Container from '@/components/base/Container'
 
 type ReviewWithUsername = Review & {
   username: string
@@ -47,23 +48,22 @@ const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
   return (
     <Layout title={name}>
       <section>
-        <div className="inner">
+        <Container>
           <div className="py-16">
             <div className="flex gap-16">
               <div className="left w-1/3 ">
                 <div className="sticky top-6">
                   <span className="text-sm text-gray-400">{brand_name}</span>
-                  <h2 className="text-2xl text-bold mt-2">{name}</h2>
+                  <h2 className="text-2xl font-bold mt-2">{name}</h2>
                   <p className="border border-primary rounded-md inline-block text-primary font-bold px-3 mt-3">
                     {genre_name}
                   </p>
-                  <div className="aspect-square mt-5">
+                  <div className="aspect-square mt-5 relative">
                     {image_url ? (
                       <Image
                         alt={name}
                         src={image_url}
-                        width={200}
-                        height={200}
+                        fill
                         className="object-cover"
                       />
                     ) : (
@@ -136,7 +136,7 @@ const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
     </Layout>
   )
