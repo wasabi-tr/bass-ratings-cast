@@ -1,8 +1,6 @@
 import { supabase } from '@/lib/supabaseClient'
 
 export const getProfile = async (id: string) => {
-  console.log(`idは${id}`)
-
   const { data: profile, error } = await supabase
     .from('profiles')
     .select('*')

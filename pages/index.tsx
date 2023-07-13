@@ -3,7 +3,6 @@ import Container from '@/components/base/Container'
 import { Layout } from '@/components/base/Layout'
 import { getBrands } from '@/features/brands/api/getBrands'
 import BrandItem from '@/features/brands/components/BrandItem'
-import { useDownloadImage } from '@/features/downloadImg/hooks/useDownloadImage'
 import { getGenres } from '@/features/genres/api/getGenres'
 import GenreItem from '@/features/genres/components/GenreItem'
 import { getLures } from '@/features/lure/api/getLures'
@@ -25,8 +24,12 @@ const Home: NextPage<Props> = ({ lures, brands, genres }) => {
           <div className="py-16">
             <div className="bg-white py-24 px-7 flex gap-12">
               <div className="">
-                <h1 className="text-4xl font-bold">BassRatingsCast</h1>
-                <p>釣り人が投稿するブラックバスルアー専門の評価サイト</p>
+                <h1 className="text-4xl font-bold text-center">
+                  Bass Ratings Cast
+                </h1>
+                <p className="mt-4 text-center">
+                  釣り人が投稿するブラックバスルアー専門の評価サイト
+                </p>
                 <div className="rounded-full bg-primary text-center shadow ease duration-300 hover:-translate-y-1 mt-4">
                   <Link
                     href={'/register'}
@@ -58,7 +61,7 @@ const Home: NextPage<Props> = ({ lures, brands, genres }) => {
         <section>
           <div className="py-16">
             <Heading heading="メーカーから探す" />
-            <ul className="grid gap-4 flex-wrap grid-cols-auto-min-max-50 ">
+            <ul className="grid gap-4 grid-cols-auto-min-max-20 ">
               {brands?.map((brand) => (
                 <BrandItem key={brand.id} brand={brand} />
               ))}

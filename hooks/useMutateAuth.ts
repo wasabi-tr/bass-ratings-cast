@@ -24,12 +24,30 @@ export const useMutateAuth = () => {
       if (error) throw new Error(error.message)
     },
     {
-      onSuccess: () => {
-        router.push('/')
-      },
+      onSuccess: () => {},
       onError: (err: any) => {
         alert(err.message)
         reset()
+      },
+    }
+  )
+
+  const googleSignInMutation = useMutation(
+    async () => {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+      })
+      if (error) throw new Error(error.message)
+      return data
+    },
+    {
+      onSuccess: (res) => {
+        console.log(res)
+
+        // router.push('/')
+      },
+      onError: (err: any) => {
+        alert(err.message)
       },
     }
   )
@@ -41,15 +59,7 @@ export const useMutateAuth = () => {
       return data
     },
     {
-      onSuccess: (res) => {
-        createProfileMutation.mutateAsync({
-          user_id: res.user?.id!,
-          username: res.user?.email,
-          text: '',
-          avatar_url: '',
-        })
-        router.push('/')
-      },
+      onSuccess: (res) => {},
       onError: (err: any) => {
         alert(err.message)
         reset()
@@ -62,9 +72,7 @@ export const useMutateAuth = () => {
       if (error) throw new Error(error.message)
     },
     {
-      onSuccess: () => {
-        router.push('/')
-      },
+      onSuccess: () => {},
       onError: (err: any) => {
         alert(err.message)
         reset()
@@ -80,5 +88,6 @@ export const useMutateAuth = () => {
     loginMutation,
     registerMutation,
     logoutMutation,
+    googleSignInMutation,
   }
 }

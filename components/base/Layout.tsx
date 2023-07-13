@@ -22,7 +22,7 @@ export const Layout: FC<Props> = ({ children, title = 'BassRatingsCast' }) => {
             Bass Ratings Cast
           </Link>
         </div>
-        <nav className="ml-auto">
+        <nav className="ml-auto flex gap-6">
           <ul className="flex items-center gap-6">
             <li>
               <Link href={'/lure'} className=" font-bold">
@@ -30,21 +30,24 @@ export const Layout: FC<Props> = ({ children, title = 'BassRatingsCast' }) => {
               </Link>
             </li>
             <li>
-              <Link href={'/auth'} className=" font-bold">
-                ログイン
-              </Link>
-            </li>
-            <li>
-              <Link href={'/lure-register'} className=" font-bold">
-                商品登録
-              </Link>
-            </li>
-            <li>
-              <Link href={`/profile/${session?.user.id}`} className="font-bold">
-                プロフィール
+              <Link href={'/brand'} className=" font-bold">
+                メーカー一覧
               </Link>
             </li>
           </ul>
+          {!session ? (
+            <div>
+              <Link href={'/auth'} className="font-bold text-xs">
+                ログイン/新規会員登録
+              </Link>
+            </div>
+          ) : (
+            <div>
+              <Link href={`/profile/${session?.user.id}`} className="font-bold">
+                プロフィール
+              </Link>
+            </div>
+          )}
         </nav>
       </header>
       <main className="">{children}</main>
