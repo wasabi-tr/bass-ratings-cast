@@ -25,8 +25,6 @@ type Props = {
 }
 
 const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
-  console.log(reviews)
-
   const update = useStore((state) => state.updateReviewedLureId)
   const router = useRouter()
   const {
@@ -148,16 +146,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: 'blocking',
   }
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const id = context.params!.id as string
   const { getAverageRatings } = averageRating()
-  const lure = await getLureById(id)
-  const reviews = await getReviews(id)
-  const averageRatings = await getAverageRatings(id)
+  const [lure, reviews, averageRatings] = await Promise.all([
+    getLureById(id),
+    getReviews(id),
+    getAverageRatings(id),
+  ])
 
   return {
     props: {

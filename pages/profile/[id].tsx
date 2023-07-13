@@ -1,8 +1,7 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import Image from 'next/image'
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 import { PencilIcon, UserCircleIcon } from '@heroicons/react/24/solid'
-import { useStore } from '@/lib/store'
 import { useUploadAvatarImg } from '@/features/profile/hooks/useUploadAvatarImg'
 import { useDownloadUrl } from '@/hooks/useDownloadUrl'
 import { Layout } from '@/components/base/Layout'
@@ -108,7 +107,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: 'blocking',
   }
 }
 

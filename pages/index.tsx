@@ -3,14 +3,12 @@ import Container from '@/components/base/Container'
 import { Layout } from '@/components/base/Layout'
 import { getBrands } from '@/features/brands/api/getBrands'
 import BrandItem from '@/features/brands/components/BrandItem'
+import { useDownloadImage } from '@/features/downloadImg/hooks/useDownloadImage'
 import { getGenres } from '@/features/genres/api/getGenres'
 import GenreItem from '@/features/genres/components/GenreItem'
 import { getLures } from '@/features/lure/api/getLures'
 import LureItem from '@/features/lure/components/LureItem'
-import { averageRating } from '@/features/review/hooks/averageRating'
-import { useStore } from '@/lib/store'
-import { supabase } from '@/lib/supabaseClient'
-import { Brand, Genre, Lure, LureDetail } from '@/types'
+import { Brand, Genre, LureDetail } from '@/types'
 import { GetStaticProps, NextPage } from 'next'
 import Link from 'next/link'
 
@@ -20,8 +18,6 @@ type Props = {
   genres: Genre[]
 }
 const Home: NextPage<Props> = ({ lures, brands, genres }) => {
-  console.log(brands)
-
   return (
     <Layout title="">
       <Container>
