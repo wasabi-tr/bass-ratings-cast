@@ -95,19 +95,31 @@ export const Auth: FC = () => {
           <span className="absolute inset-y-0 left-0 flex items-center pl-3 ">
             <Image alt="" src="/icons/googleIcon.svg" width={20} height={20} />
           </span>
-          Googleアカウントで登録
+          Googleアカウントで{isLogin ? 'ログイン' : '新規会員登録'}
         </button>
-        <button onClick={logout}>ログアウト</button>
-        <div className="mt-4 text-center">
-          アカウントをお持ちでない方はこちらから
-          <button
-            onClick={handleChange}
-            className="text-primary transition-all font-bold hover:opacity-70"
-          >
-            新規登録
-          </button>
-          してください
-        </div>
+        {isLogin ? (
+          <div className="mt-4 text-center">
+            アカウントをお持ちでない方はこちらから
+            <button
+              onClick={handleChange}
+              className="text-primary transition-all font-bold hover:opacity-70"
+            >
+              新規登録
+            </button>
+            してください
+          </div>
+        ) : (
+          <div className="mt-4 text-center">
+            アカウントをお持ちの方はこちらから
+            <button
+              onClick={handleChange}
+              className="text-primary transition-all font-bold hover:opacity-70"
+            >
+              ログイン
+            </button>
+            してください
+          </div>
+        )}
       </div>
     </>
   )

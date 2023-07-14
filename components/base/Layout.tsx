@@ -1,3 +1,4 @@
+import { useMutateAuth } from '@/hooks/useMutateAuth'
 import { useStore } from '@/lib/store'
 import { supabase } from '@/lib/supabaseClient'
 import Head from 'next/head'
@@ -8,8 +9,13 @@ type Props = {
   title: string
   children: ReactNode
 }
+
 export const Layout: FC<Props> = ({ children, title = 'BassRatingsCast' }) => {
   const session = useStore((state) => state.session)
+  const { logoutMutation } = useMutateAuth()
+  const logout = async () => {
+    logoutMutation.mutate()
+  }
 
   return (
     <div className="text-gray-800">
@@ -42,11 +48,19 @@ export const Layout: FC<Props> = ({ children, title = 'BassRatingsCast' }) => {
               </Link>
             </div>
           ) : (
-            <div>
-              <Link href={`/profile/${session?.user.id}`} className="font-bold">
-                プロフィール
-              </Link>
-            </div>
+            <>
+              <div>
+                <Link
+                  href={`/profile/${session?.user.id}`}
+                  className="font-bold"
+                >
+                  プロフィール
+                </Link>
+              </div>
+              <div className="">
+                <button onClick={logout}>ログアウト</button>
+              </div>
+            </>
           )}
         </nav>
       </header>

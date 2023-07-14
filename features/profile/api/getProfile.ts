@@ -7,7 +7,6 @@ export const getProfile = async (id: string) => {
     .eq('user_id', id)
     .single()
   if (error) throw new Error(error.message)
-  console.log(`戻り値は${profile}`)
 
   return profile
 }

@@ -28,28 +28,27 @@ export default function App({ Component, pageProps }: AppProps) {
       const {
         data: { session },
       } = await supabase.auth.getSession()
-      setSession(session) //ログイン状態を更新関数に渡す
-      // console.log(session)
-    }
-    fetchSession() // async関数を呼び出す
-    supabase.auth.onAuthStateChange(async (event, session) => {
-      //ログイン状態の変更を検知して変更があったら更新関数に変更後のログイン状態を渡す
       setSession(session)
-      console.log(event, session)
+    }
+    fetchSession()
+    supabase.auth.onAuthStateChange(async (event, session) => {
+      setSession(session)
 
-      if (event === 'SIGNED_IN' && session) {
+      if (
+        (event === 'SIGNED_IN' && session) ||
+        (event === 'INITIAL_SESSION' && session)
+      ) {
         const { user } = session
-        const { data: profile, error: fetchError } = await supabase
+
+        const { data: profiles, error: fetchError } = await supabase
           .from('profiles')
           .select('*')
           .eq('user_id', user.id)
-          .single()
         if (fetchError) {
-          if (fetchError) throw new Error(fetchError.message)
+          return
         }
-        console.log(profile)
 
-        if (!profile) {
+        if (!profiles || profiles.length === 0) {
           const { data, error } = await supabase.from('profiles').insert({
             user_id: user?.id!,
             username: user?.email,
@@ -63,11 +62,8 @@ export default function App({ Component, pageProps }: AppProps) {
       } else if (event === 'SIGNED_OUT') {
         router.push('/')
       }
-
-      // console.log(`login userID is ${session?.user.id}`)
     })
-  }, [setSession]) //更新関数が更新されるたびに発火
-
+  }, [setSession])
   return (
     <QueryClientProvider client={queryClient}>
       <Component {...pageProps} />
