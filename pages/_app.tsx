@@ -1,4 +1,3 @@
-import { Layout } from '@/components/base/Layout'
 import { userMutateProfile } from '@/features/profile/hooks/userMutateProfile'
 import { useStore } from '@/lib/store'
 import { supabase } from '@/lib/supabaseClient'
@@ -22,7 +21,6 @@ const queryClient = new QueryClient({
 export default function App({ Component, pageProps }: AppProps) {
   const setSession = useStore((state) => state.setSession)
   const router = useRouter()
-
   useEffect(() => {
     const fetchSession = async () => {
       const {
@@ -33,11 +31,9 @@ export default function App({ Component, pageProps }: AppProps) {
     fetchSession()
     supabase.auth.onAuthStateChange(async (event, session) => {
       setSession(session)
+      console.log(event)
 
-      if (
-        (event === 'SIGNED_IN' && session) ||
-        (event === 'INITIAL_SESSION' && session)
-      ) {
+      if (event === 'SIGNED_IN' && session) {
         const { user } = session
 
         const { data: profiles, error: fetchError } = await supabase
@@ -49,7 +45,8 @@ export default function App({ Component, pageProps }: AppProps) {
         }
 
         if (!profiles || profiles.length === 0) {
-          const { data, error } = await supabase.from('profiles').insert({
+          //useCreateMutation()と重複している
+          const { error } = await supabase.from('profiles').insert({
             user_id: user?.id!,
             username: user?.email,
             text: '',

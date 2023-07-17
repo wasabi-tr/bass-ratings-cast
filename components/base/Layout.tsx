@@ -1,9 +1,10 @@
+import { getProfile } from '@/features/profile/api/getProfile'
 import { useMutateAuth } from '@/hooks/useMutateAuth'
 import { useStore } from '@/lib/store'
 import { supabase } from '@/lib/supabaseClient'
 import Head from 'next/head'
 import Link from 'next/link'
-import { FC, ReactNode } from 'react'
+import { FC, ReactNode, useState } from 'react'
 
 type Props = {
   title: string
@@ -16,6 +17,15 @@ export const Layout: FC<Props> = ({ children, title = 'BassRatingsCast' }) => {
   const logout = async () => {
     logoutMutation.mutate()
   }
+  const [profile, setProfile] = useState('')
+  if (session) {
+    const test = async () => {
+      const { profile } = await getProfile(session.user.id)
+      setProfile(profile)
+    }
+    test()
+  }
+  console.log(profile)
 
   return (
     <div className="text-gray-800">
@@ -23,7 +33,7 @@ export const Layout: FC<Props> = ({ children, title = 'BassRatingsCast' }) => {
         <title>{title}</title>
       </Head>
       <header className="flex justify-between w-full px-5 py-6 shadow bg-white">
-        <div className="-bold">
+        <div className="">
           <Link href={'/'} className="font-bold">
             Bass Ratings Cast
           </Link>
@@ -64,7 +74,7 @@ export const Layout: FC<Props> = ({ children, title = 'BassRatingsCast' }) => {
           )}
         </nav>
       </header>
-      <main className="">{children}</main>
+      <main>{children}</main>
       <footer className="flex h-12 w-full items-center justify-center border-t"></footer>
     </div>
   )

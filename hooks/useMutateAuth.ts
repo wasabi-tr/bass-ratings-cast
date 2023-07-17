@@ -2,8 +2,6 @@ import { supabase } from '@/lib/supabaseClient'
 import { useState } from 'react'
 import { useMutation } from 'react-query'
 import { useRouter } from 'next/router'
-import { userMutateProfile } from '@/features/profile/hooks/userMutateProfile'
-import { create } from 'domain'
 
 export const useMutateAuth = () => {
   const [email, setEmail] = useState('')
@@ -13,7 +11,6 @@ export const useMutateAuth = () => {
     setPassword('')
   }
   const router = useRouter()
-  const { createProfileMutation } = userMutateProfile()
 
   const loginMutation = useMutation(
     async () => {
