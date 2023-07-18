@@ -23,12 +23,13 @@ const Profile: NextPage<Props> = ({ profile }) => {
     'avatars'
   )
   const { updateProfileMutation } = userMutateProfile()
+
   const handleChange = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
   ) => {
     setEditedProfile({ ...editedProfile, [e.target.name]: e.target.value })
-    console.log(editedProfile)
   }
+
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const filePath = await useMutateUploadAvatarImg.mutateAsync(e)
     setEditedProfile({ ...editedProfile, avatar_url: filePath })

@@ -13,19 +13,13 @@ type Props = {
 
 export const Layout: FC<Props> = ({ children, title = 'BassRatingsCast' }) => {
   const session = useStore((state) => state.session)
+  const editedProfile = useStore((state) => state.editedProfile)
+  console.log(editedProfile)
+
   const { logoutMutation } = useMutateAuth()
   const logout = async () => {
     logoutMutation.mutate()
   }
-  const [profile, setProfile] = useState('')
-  if (session) {
-    const test = async () => {
-      const { profile } = await getProfile(session.user.id)
-      setProfile(profile)
-    }
-    test()
-  }
-  console.log(profile)
 
   return (
     <div className="text-gray-800">
