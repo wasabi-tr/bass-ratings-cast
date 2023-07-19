@@ -1,6 +1,6 @@
 import { supabase } from '@/lib/supabaseClient'
 import { useState } from 'react'
-import { useMutation } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { useRouter } from 'next/router'
 import { useStore } from '@/lib/store'
 import { userMutateProfile } from '@/features/profile/hooks/userMutateProfile'
@@ -32,11 +32,14 @@ export const useMutateAuth = () => {
     },
     {
       onSuccess: async (res) => {
-        console.log(res)
-
-        const { profile } = await getProfile(res.user.id)
-        updateEditedProfile(profile)
-        console.log(editedProfile)
+        /* ログインしたユーザー情報をグローバルステートに格納 */
+        const profile = await getProfile(res.user.id)
+        updateEditedProfile({
+          user_id: profile.user_id,
+          username: profile.username,
+          text: profile.text,
+          avatar_url: profile.avatar_url,
+        })
 
         router.push('/')
       },
@@ -56,7 +59,11 @@ export const useMutateAuth = () => {
     },
     {
       onSuccess: async (res) => {
-        console.log('test')
+        /* 
+        新規登録したユーザー情報をグローバルステートに格納
+        ※グローバルステートに格納する記載はcreateProfileMutationに記載
+        */
+
         await createProfileMutation.mutateAsync({
           user_id: res.user?.id!,
           username: res.user?.email,

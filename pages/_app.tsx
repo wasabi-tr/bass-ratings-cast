@@ -31,6 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
     fetchSession()
     supabase.auth.onAuthStateChange(async (event, session) => {
       setSession(session)
+
       console.log(session)
     })
   }, [setSession])
