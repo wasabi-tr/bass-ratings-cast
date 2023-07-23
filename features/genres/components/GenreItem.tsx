@@ -7,10 +7,17 @@ type Props = {
 const GenreItem: FC<Props> = ({ genre }) => {
   const { id, name } = genre
   return (
-    <li key={id} className="shadow-md rounded-lg bg-white ">
-      <Link href={`/genre/${id}`} className="px-4 py-5 block">
-        <div className="text-lg text-primary font-bold text-center">{name}</div>
-      </Link>
+    <li key={id} className="shadow-md bg-white px-4 py-5 rounded-lg">
+      <div className="text-lg text-primary font-bold text-center">{name}</div>
+      <div
+        className="rounded-full bg-primary text-center shadow 
+   duration-300 mt-3   hover:-translate-y-1"
+      >
+        <Link
+          href={`/genre/${id}`}
+          className="inline-block text-white font-bold py-1 px-3 w-full "
+        >{`${name}のルアー一覧を見る`}</Link>
+      </div>
     </li>
   )
 }

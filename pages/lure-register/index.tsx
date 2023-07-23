@@ -23,6 +23,7 @@ const LureRegister: NextPage = () => {
       [e.target.name]: e.target.value,
     })
   }
+
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     useMutateUploadLureImg.mutate(e)
   }
@@ -42,7 +43,7 @@ const LureRegister: NextPage = () => {
         price: editedLure.price,
         length: editedLure.length,
         weight: editedLure.weight,
-        image_url: editedLure.image_url && fullUrl,
+        image_url: fullUrl,
       })
     }
   }

@@ -1,21 +1,13 @@
-import { getProfile } from '@/features/profile/api/getProfile'
-import { useQueryProfile } from '@/features/profile/hooks/useQueryProfile'
-import { useMutateAuth } from '@/hooks/useMutateAuth'
 import { useStore } from '@/lib/store'
 import { supabase } from '@/lib/supabaseClient'
 import Head from 'next/head'
 import Link from 'next/link'
-import { FC, ReactNode, Suspense, useState } from 'react'
-import { useQueryClient } from 'react-query'
-import Header from './Header'
-import { ErrorBoundary } from 'react-error-boundary'
-import { Spinner } from './Spinner'
+import { FC, ReactNode } from 'react'
 
 type Props = {
   title: string
   children: ReactNode
 }
-
 export const Layout: FC<Props> = ({ children, title = 'BassRatingsCast' }) => {
   const session = useStore((state) => state.session)
 
@@ -24,12 +16,38 @@ export const Layout: FC<Props> = ({ children, title = 'BassRatingsCast' }) => {
       <Head>
         <title>{title}</title>
       </Head>
-      <ErrorBoundary fallback={<Spinner />}>
-        <Suspense>
-          <Header />
-        </Suspense>
-      </ErrorBoundary>
-      <main>{children}</main>
+      <header className="flex justify-between w-full px-5 py-6 shadow bg-white">
+        <div className="-bold">
+          <Link href={'/'} className="font-bold">
+            Bass Ratings Cast
+          </Link>
+        </div>
+        <nav className="ml-auto">
+          <ul className="flex items-center gap-6">
+            <li>
+              <Link href={'/lure'} className=" font-bold">
+                ルアー一覧
+              </Link>
+            </li>
+            <li>
+              <Link href={'/auth'} className=" font-bold">
+                ログイン
+              </Link>
+            </li>
+            <li>
+              <Link href={'/lure-register'} className=" font-bold">
+                商品登録
+              </Link>
+            </li>
+            <li>
+              <Link href={`/profile/${session?.user.id}`} className="font-bold">
+                プロフィール
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <main className="">{children}</main>
       <footer className="flex h-12 w-full items-center justify-center border-t"></footer>
     </div>
   )

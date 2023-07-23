@@ -11,7 +11,7 @@ type Props = {
 const ReviewList: FC<Props> = ({ reviews }) => {
   return (
     <>
-      {reviews?.map((review) => (
+      {reviews.map((review) => (
         <div key={review.id} className="mb-4 p-3 bg-white rounded-md shadow-sm">
           <div className="">
             <div className="flex gap-2 items-center">

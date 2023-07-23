@@ -1,25 +1,19 @@
 import { supabase } from '@/lib/supabaseClient'
 import { useState } from 'react'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation } from 'react-query'
 import { useRouter } from 'next/router'
-import { useStore } from '@/lib/store'
 import { userMutateProfile } from '@/features/profile/hooks/userMutateProfile'
-import { getProfile } from '@/features/profile/api/getProfile'
-import { log } from 'console'
+import { create } from 'domain'
 
 export const useMutateAuth = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const editedProfile = useStore((state) => state.editedProfile)
-  const updateEditedProfile = useStore((state) => state.updateEditedProfile)
-  const resetEditedProfile = useStore((state) => state.resetEditedProfile)
-  const { createProfileMutation } = userMutateProfile()
-  const router = useRouter()
-
   const reset = () => {
     setEmail('')
     setPassword('')
   }
+  const router = useRouter()
+  const { createProfileMutation } = userMutateProfile()
 
   const loginMutation = useMutation(
     async () => {
@@ -28,19 +22,9 @@ export const useMutateAuth = () => {
         password,
       })
       if (error) throw new Error(error.message)
-      return data
     },
     {
-      onSuccess: async (res) => {
-        /* ログインしたユーザー情報をグローバルステートに格納 */
-        const profile = await getProfile(res.user.id)
-        updateEditedProfile({
-          user_id: profile.user_id,
-          username: profile.username,
-          text: profile.text,
-          avatar_url: profile.avatar_url,
-        })
-
+      onSuccess: () => {
         router.push('/')
       },
       onError: (err: any) => {
@@ -49,7 +33,6 @@ export const useMutateAuth = () => {
       },
     }
   )
-
   const registerMutation = useMutation(
     async () => {
       //メールで確認があるため、実在するアドレスのほうが良い
@@ -58,13 +41,8 @@ export const useMutateAuth = () => {
       return data
     },
     {
-      onSuccess: async (res) => {
-        /* 
-        新規登録したユーザー情報をグローバルステートに格納
-        ※グローバルステートに格納する記載はcreateProfileMutationに記載
-        */
-
-        await createProfileMutation.mutateAsync({
+      onSuccess: (res) => {
+        createProfileMutation.mutateAsync({
           user_id: res.user?.id!,
           username: res.user?.email,
           text: '',
@@ -85,7 +63,6 @@ export const useMutateAuth = () => {
     },
     {
       onSuccess: () => {
-        resetEditedProfile()
         router.push('/')
       },
       onError: (err: any) => {
@@ -95,25 +72,6 @@ export const useMutateAuth = () => {
     }
   )
 
-  const googleSignInMutation = useMutation(
-    async () => {
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-      })
-      if (error) throw new Error(error.message)
-      return data
-    },
-    {
-      onSuccess: (res) => {
-        console.log(res)
-
-        // router.push('/')
-      },
-      onError: (err: any) => {
-        alert(err.message)
-      },
-    }
-  )
   return {
     email,
     setEmail,
@@ -122,6 +80,5 @@ export const useMutateAuth = () => {
     loginMutation,
     registerMutation,
     logoutMutation,
-    googleSignInMutation,
   }
 }

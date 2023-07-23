@@ -9,25 +9,29 @@ const BrandItem: FC<Props> = ({ brand }) => {
   const { id, image_url, name } = brand
   return (
     <li key={id} className="shadow-md bg-white rounded-lg">
-      <Link
-        href={`/brand/${id}`}
-        className="px-4 py-5 gap-3 flex flex-col items-center justify-center"
-      >
-        <div className="aspect-square w-32 h-32 relative">
+      <div className="px-4 py-5 flex items-center gap-6  ">
+        <div className="aspect-square">
           {image_url ? (
-            <Image alt={name} src={image_url} fill className="object-cover" />
+            <Image
+              alt={name}
+              src={image_url}
+              width={120}
+              height={120}
+              className="object-cover"
+            />
           ) : (
             <Image
               alt={name}
               src="/noimage.jpg"
-              fill
+              width={120}
+              height={120}
               className="object-cover"
             />
           )}
         </div>
         <div>
           <div className="text-lg text-gray-700 font-bold">{name}</div>
-          {/* <div
+          <div
             className="rounded-full bg-primary text-center shadow 
    duration-300  hover:-translate-y-1 mt-3"
           >
@@ -35,9 +39,9 @@ const BrandItem: FC<Props> = ({ brand }) => {
               href={`/brand/${id}`}
               className="inline-block text-white font-bold py-1 px-3 w-full"
             >{`${name}のルアー一覧を見る`}</Link>
-          </div> */}
+          </div>
         </div>
-      </Link>
+      </div>
     </li>
   )
 }

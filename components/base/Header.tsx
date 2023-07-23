@@ -5,23 +5,23 @@ import Link from 'next/link'
 import { FC, memo, useEffect } from 'react'
 import { useQueryClient } from 'react-query'
 
-const Header: FC = () => {
+export const HeaderMemo: FC = () => {
   console.log('rendering')
-
-  const { data: profile } = useQueryProfile()
   const session = useStore((state) => state.session)
-  const setSession = useStore((state) => state.setSession)
+  console.log(session)
+
   const queryClient = useQueryClient()
 
   const { logoutMutation } = useMutateAuth()
   const logout = async () => {
-    logoutMutation.mutate()
+    await logoutMutation.mutateAsync()
     queryClient.removeQueries(['profile'])
   }
+  const { data: profile } = useQueryProfile()
 
   return (
     <header className="flex justify-between w-full px-5 py-6 shadow bg-white">
-      <div className="">
+      <div>
         <Link href={'/'} className="font-bold">
           Bass Ratings Cast
         </Link>
@@ -39,27 +39,22 @@ const Header: FC = () => {
             </Link>
           </li>
         </ul>
-        {!session ? (
-          <div>
-            <Link href={'/auth'} className="font-bold text-xs">
-              ログイン/新規会員登録
-            </Link>
-          </div>
-        ) : (
-          <>
-            <div>
-              <Link href={`/profile/${session?.user.id}`} className="font-bold">
-                プロフィール
-              </Link>
-            </div>
-            <div className="">
-              <button onClick={logout}>ログアウト</button>
-            </div>
-          </>
-        )}
+        <div>
+          <Link href={'/auth'} className="font-bold text-xs">
+            ログイン/新規会員登録
+          </Link>
+        </div>
+        {/* <div>
+          <Link href={`/profile/${session?.user.id}`} className="font-bold">
+            プロフィール
+          </Link>
+        </div> */}
+        <div className="">
+          <button onClick={logout}>ログアウト</button>
+        </div>
       </nav>
     </header>
   )
 }
 
-export default memo(Header)
+export const Header = memo(HeaderMemo)
