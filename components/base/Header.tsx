@@ -7,17 +7,26 @@ import { useQueryClient } from 'react-query'
 
 export const HeaderMemo: FC = () => {
   console.log('rendering')
-  const session = useStore((state) => state.session)
-  console.log(session)
-
   const queryClient = useQueryClient()
+  const profile = useStore((state) => state.editedProfile)
+  const setProfile = useStore((state) => state.updateEditedProfile)
+  const { data } = useQueryProfile()
+
+  useEffect(() => {
+    //ハイドレーションのエラーを防ぐためにuseEffectで実行
+    setProfile({
+      user_id: data?.user_id,
+      username: data?.username,
+      text: data?.text,
+      avatar_url: data?.avatar_url,
+    })
+  }, [queryClient])
 
   const { logoutMutation } = useMutateAuth()
   const logout = async () => {
     await logoutMutation.mutateAsync()
     queryClient.removeQueries(['profile'])
   }
-  const { data: profile } = useQueryProfile()
 
   return (
     <header className="flex justify-between w-full px-5 py-6 shadow bg-white">
@@ -44,11 +53,11 @@ export const HeaderMemo: FC = () => {
             ログイン/新規会員登録
           </Link>
         </div>
-        {/* <div>
-          <Link href={`/profile/${session?.user.id}`} className="font-bold">
+        <div>
+          <Link href={`/profile/${profile?.user_id}`} className="font-bold">
             プロフィール
           </Link>
-        </div> */}
+        </div>
         <div className="">
           <button onClick={logout}>ログアウト</button>
         </div>

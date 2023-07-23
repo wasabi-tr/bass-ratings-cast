@@ -1,14 +1,10 @@
-import { useStore } from '@/lib/store'
 import { supabase } from '@/lib/supabaseClient'
 import { Profile } from '@/types'
 import { revalidateProfile } from '@/utils/revalidate'
 import { useMutation, useQueryClient } from 'react-query'
-import { useQueryProfile } from './useQueryProfile'
 
 export const userMutateProfile = () => {
-  // const editedProfile = useStore((state) => state.editedProfile)
-  // const updateEditedProfile = useStore((state) => state.updateEditedProfile)
-  // const resetEditedProfile = useStore((state) => state.resetEditedProfile)
+  const queryClient = useQueryClient()
 
   const createProfileMutation = useMutation(
     async (profile: Omit<Profile, 'id' | 'created_at'>) => {
@@ -21,7 +17,8 @@ export const userMutateProfile = () => {
     },
     {
       onSuccess: (res) => {
-        // revalidateProfile(res.user_id)
+        /* ISRでユーザープロフィールページを生成 */
+        revalidateProfile(res[0].user_id)
       },
       onError: (err: any) => {
         alert(err.message)
@@ -29,7 +26,7 @@ export const userMutateProfile = () => {
     }
   )
   const updateProfileMutation = useMutation(
-    async (profile: Omit<Profile, 'id' | 'created_at'>) => {
+    async (profile: Profile) => {
       const { error } = await supabase
         .from('profiles')
         .update({
@@ -41,8 +38,21 @@ export const userMutateProfile = () => {
     },
     {
       onSuccess: (res) => {
-        console.log(res)
+        /* ISRでユーザープロフィールページを再生成 */
         revalidateProfile(res.user_id)
+
+        /* ヘッダーにユーザー名、アバター画像をを即時反映するためにreact-queryのキャッシュを更新※要改善 */
+        let previousProfile = queryClient.getQueryData<Profile>(['profile'])
+        if (res.user_id === previousProfile?.user_id) {
+          queryClient.setQueryData(['profile'], {
+            id: res.id,
+            created_at: res.created_at,
+            username: res.username,
+            text: res.text,
+            avatar_url: res.avatar_url,
+            user_id: res.user_id,
+          })
+        }
         alert('Profile updated')
       },
       onError: (err: any) => {
