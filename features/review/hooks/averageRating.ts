@@ -8,7 +8,6 @@ export const averageRating = () => {
       .order('created_at', { ascending: true })
       .eq('lure_id', lureId)
     if (error) throw new Error(error.message)
-    console.log(data)
 
     let totalRating1 = 0
     let totalRating2 = 0

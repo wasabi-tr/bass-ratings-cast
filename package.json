@@ -25,6 +25,7 @@
     "react": "18.2.0",
     "react-awesome-stars-rating": "^0.13.8",
     "react-dom": "18.2.0",
+    "react-error-boundary": "^4.0.10",
     "react-query": "^3.39.3",
     "recharts": "^2.7.2",
     "sass": "^1.63.6",

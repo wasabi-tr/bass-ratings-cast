@@ -17,13 +17,16 @@ export const useUploadAvatarImg = () => {
       const fileExt = file.name.split('.').pop()
       const fileName = `${Math.random()}.${fileExt}`
       const filePath = `${fileName}`
-      const { data, error } = await supabase.storage
+      const { error } = await supabase.storage
         .from('avatars')
         .upload(filePath, file)
       if (error) throw new Error(error.message)
-      update({ ...editedProfile, avatar_url: filePath })
+      return filePath
     },
     {
+      onSuccess(data) {
+        console.log(data)
+      },
       onError: (err: any) => {
         alert(err.message)
       },

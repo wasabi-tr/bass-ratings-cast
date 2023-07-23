@@ -1,9 +1,15 @@
+import { useStore } from '@/lib/store'
 import { supabase } from '@/lib/supabaseClient'
 import { Profile } from '@/types'
 import { revalidateProfile } from '@/utils/revalidate'
-import { useMutation } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
+import { useQueryProfile } from './useQueryProfile'
 
 export const userMutateProfile = () => {
+  // const editedProfile = useStore((state) => state.editedProfile)
+  // const updateEditedProfile = useStore((state) => state.updateEditedProfile)
+  // const resetEditedProfile = useStore((state) => state.resetEditedProfile)
+
   const createProfileMutation = useMutation(
     async (profile: Omit<Profile, 'id' | 'created_at'>) => {
       const { data, error } = await supabase
@@ -14,7 +20,9 @@ export const userMutateProfile = () => {
       return data
     },
     {
-      onSuccess: (res) => {},
+      onSuccess: (res) => {
+        // revalidateProfile(res.user_id)
+      },
       onError: (err: any) => {
         alert(err.message)
       },
