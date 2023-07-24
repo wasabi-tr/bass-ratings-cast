@@ -10,6 +10,7 @@ import { useQueryClient } from 'react-query'
 import { ErrorBoundary } from 'react-error-boundary'
 import { Spinner } from './Spinner'
 import { Header } from './Header'
+import { ExclamationCircleIcon } from '@heroicons/react/24/solid'
 
 type Props = {
   title: string
@@ -22,9 +23,15 @@ export const Layout: FC<Props> = ({ children, title = 'BassRatingsCast' }) => {
       <Head>
         <title>{title}</title>
       </Head>
-      <Suspense fallback={<Spinner />}>
-        <Header />
-      </Suspense>
+      <ErrorBoundary
+        fallback={
+          <ExclamationCircleIcon className="my-5 h-10 w-10 text-primary" />
+        }
+      >
+        <Suspense fallback={<Spinner />}>
+          <Header />
+        </Suspense>
+      </ErrorBoundary>
       <main>{children}</main>
       <footer className="flex h-12 w-full items-center justify-center border-t"></footer>
     </div>

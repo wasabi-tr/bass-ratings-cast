@@ -1,3 +1,4 @@
+import { useDownloadUrl } from '@/hooks/useDownloadUrl'
 import { supabase } from '@/lib/supabaseClient'
 import { Profile } from '@/types'
 import { revalidateProfile } from '@/utils/revalidate'

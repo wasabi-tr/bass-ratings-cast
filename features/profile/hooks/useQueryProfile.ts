@@ -35,7 +35,6 @@ export const useQueryProfile = () => {
         throw new Error(error.message)
       }
     }
-
     return data
   }
 
