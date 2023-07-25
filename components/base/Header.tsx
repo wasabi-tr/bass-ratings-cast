@@ -12,6 +12,7 @@ import {
   UserCircleIcon,
   UserIcon,
 } from '@heroicons/react/24/solid'
+import { startTransition } from 'react'
 
 export const HeaderMemo: FC = () => {
   console.log('Rendering Header')
@@ -33,16 +34,19 @@ export const HeaderMemo: FC = () => {
     現在はuseEffectでglobal stateを更新しているがreact-queryが更新されるたびに更新しなくてはならない。
     react-queryだけで制御したいが、SSGでレンダリングしているため、ハイドレーションエラーが出る。
      */
-    setProfile({
-      user_id: data?.user_id,
-      username: data?.username,
-      text: data?.text,
-      avatar_url: data?.avatar_url,
+    startTransition(() => {
+      setProfile({
+        user_id: data?.user_id,
+        username: data?.username,
+        text: data?.text,
+        avatar_url: data?.avatar_url,
+      })
+      if (!session) {
+        queryClient.removeQueries(['profile'])
+      }
     })
-    if (!session) {
-      queryClient.removeQueries(['profile'])
-    }
-  }, [session])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [queryClient])
 
   const logout = async () => {
     await logoutMutation.mutateAsync()

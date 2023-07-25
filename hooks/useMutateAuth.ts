@@ -3,17 +3,13 @@ import { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { useRouter } from 'next/router'
 import { useStore } from '@/lib/store'
-import { userMutateProfile } from '@/features/profile/hooks/userMutateProfile'
 import { getProfile } from '@/features/profile/api/getProfile'
-import { log } from 'console'
 
 export const useMutateAuth = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const editedProfile = useStore((state) => state.editedProfile)
   const updateEditedProfile = useStore((state) => state.updateEditedProfile)
   const resetEditedProfile = useStore((state) => state.resetEditedProfile)
-  const { createProfileMutation } = userMutateProfile()
   const router = useRouter()
 
   const reset = () => {

@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import Image from 'next/image'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { PencilIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { useUploadAvatarImg } from '@/features/profile/hooks/useUploadAvatarImg'
 import { useDownloadUrl } from '@/hooks/useDownloadUrl'
@@ -11,11 +11,16 @@ import { getProfile } from '@/features/profile/api/getProfile'
 import { Spinner } from '@/components/base/Spinner'
 import { userMutateProfile } from '@/features/profile/hooks/userMutateProfile'
 import Container from '@/components/base/Container'
+import { useStore } from '@/lib/store'
+import { useRouter } from 'next/router'
 type Props = {
   profile: Profile
 }
 
 const Profile: NextPage<Props> = ({ profile }) => {
+  const session = useStore((state) => state.session)
+  const router = useRouter()
+
   const [editedProfile, setEditedProfile] = useState(profile)
   const { useMutateUploadAvatarImg } = useUploadAvatarImg()
   const { isLoading, fullUrl } = useDownloadUrl(
@@ -23,7 +28,6 @@ const Profile: NextPage<Props> = ({ profile }) => {
     'avatars'
   )
   const { updateProfileMutation } = userMutateProfile()
-
   const handleChange = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
   ) => {
