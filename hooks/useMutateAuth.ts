@@ -49,23 +49,15 @@ export const useMutateAuth = () => {
   const registerMutation = useMutation(
     async () => {
       //メールで確認があるため、実在するアドレスのほうが良い
-      const { data, error } = await supabase.auth.signUp({ email, password })
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+      })
       if (error) throw new Error(error.message)
       return data
     },
     {
       onSuccess: async (res) => {
-        /* 
-        新規登録したユーザー情報をグローバルステートに格納
-        ※グローバルステートに格納する記載はcreateProfileMutationに記載
-        */
-
-        // await createProfileMutation.mutateAsync({
-        //   user_id: res.user?.id!,
-        //   username: res.user?.email,
-        //   text: '',
-        //   avatar_url: '',
-        // })
         router.push('/')
       },
       onError: (err: any) => {

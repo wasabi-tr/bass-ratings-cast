@@ -1,4 +1,9 @@
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
+import {
+  GetServerSidePropsContext,
+  GetStaticPaths,
+  GetStaticProps,
+  NextPage,
+} from 'next'
 import Image from 'next/image'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { PencilIcon, UserCircleIcon } from '@heroicons/react/24/solid'
@@ -13,6 +18,7 @@ import { userMutateProfile } from '@/features/profile/hooks/userMutateProfile'
 import Container from '@/components/base/Container'
 import { useStore } from '@/lib/store'
 import { useRouter } from 'next/router'
+import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
 type Props = {
   profile: Profile
 }
@@ -120,17 +126,47 @@ const Profile: NextPage<Props> = ({ profile }) => {
     </Layout>
   )
 }
-export const getStaticPaths: GetStaticPaths = async () => {
-  const ids = await getProfileIds()
-  const paths = ids.map((id) => ({ params: { id } }))
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const ids = await getProfileIds()
+//   const paths = ids.map((id) => ({ params: { id } }))
 
-  return {
-    paths,
-    fallback: 'blocking',
+//   return {
+//     paths,
+//     fallback: 'blocking',
+//   }
+// }
+
+// export const getStaticProps: GetStaticProps = async (context) => {
+//   const id = context.params!.id as string
+//   const profile = await getProfile(id)
+
+//   return {
+//     props: {
+//       profile,
+//     },
+//   }
+// }
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  // Create authenticated Supabase Client
+  console.log(context)
+
+  const supabase = createPagesServerClient(context)
+  // Check if we have a session
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
+  console.log(session)
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
   }
-}
-
-export const getStaticProps: GetStaticProps = async (context) => {
   const id = context.params!.id as string
   const profile = await getProfile(id)
 
@@ -140,5 +176,4 @@ export const getStaticProps: GetStaticProps = async (context) => {
     },
   }
 }
-
 export default Profile
