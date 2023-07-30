@@ -127,46 +127,17 @@ const Profile: NextPage<Props> = ({ profile }) => {
     </Layout>
   )
 }
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   const ids = await getProfileIds()
-//   const paths = ids.map((id) => ({ params: { id } }))
+export const getStaticPaths: GetStaticPaths = async () => {
+  const ids = await getProfileIds()
+  const paths = ids.map((id) => ({ params: { id } }))
 
-//   return {
-//     paths,
-//     fallback: 'blocking',
-//   }
-// }
-
-// export const getStaticProps: GetStaticProps = async (context) => {
-//   const id = context.params!.id as string
-//   const profile = await getProfile(id)
-
-//   return {
-//     props: {
-//       profile,
-//     },
-//   }
-// }
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  // Create authenticated Supabase Client
-
-  const supabase = createPagesServerClient(context)
-  // Check if we have a session
-  const {
-    data: { session },
-  } = await supabase.auth.getSession()
-  console.log(session)
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    }
+  return {
+    paths,
+    fallback: 'blocking',
   }
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
   const id = context.params!.id as string
   const profile = await getProfile(id)
 
@@ -176,4 +147,32 @@ export const getServerSideProps = async (
     },
   }
 }
+// export const getServerSideProps = async (
+//   context: GetServerSidePropsContext
+// ) => {
+//   // Create authenticated Supabase Client
+
+//   const supabase = createPagesServerClient(context)
+//   // Check if we have a session
+//   const {
+//     data: { session },
+//   } = await supabase.auth.getSession()
+
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: '/',
+//         permanent: false,
+//       },
+//     }
+//   }
+//   const id = context.params!.id as string
+//   const profile = await getProfile(id)
+
+//   return {
+//     props: {
+//       profile,
+//     },
+//   }
+// }
 export default Profile
