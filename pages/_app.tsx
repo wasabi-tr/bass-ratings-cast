@@ -1,8 +1,10 @@
 import { useStore } from '@/lib/store'
 import { supabase } from '@/lib/supabaseClient'
 import '@/styles/globals.css'
+import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs'
+import { Session, SessionContextProvider } from '@supabase/auth-helpers-react'
 import type { AppProps } from 'next/app'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 
@@ -16,7 +18,12 @@ const queryClient = new QueryClient({
   },
 })
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({
+  Component,
+  pageProps,
+}: AppProps<{
+  initialSession: Session
+}>) {
   const setSession = useStore((state) => state.setSession)
   useEffect(() => {
     const fetchSession = async () => {
@@ -31,10 +38,16 @@ export default function App({ Component, pageProps }: AppProps) {
       console.log(session)
     })
   }, [setSession])
+  const [supabaseClient] = useState(() => createPagesBrowserClient())
   return (
-    <QueryClientProvider client={queryClient}>
-      <Component {...pageProps} />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <SessionContextProvider
+      supabaseClient={supabaseClient}
+      initialSession={pageProps.initialSession}
+    >
+      <QueryClientProvider client={queryClient}>
+        <Component {...pageProps} />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </SessionContextProvider>
   )
 }

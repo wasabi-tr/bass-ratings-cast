@@ -19,7 +19,7 @@ export const userMutateProfile = () => {
     {
       onSuccess: (res) => {
         /* ISRでユーザープロフィールページを生成 */
-        revalidateProfile(res[0].user_id)
+        // revalidateProfile(res[0].user_id)
       },
       onError: (err: any) => {
         alert(err.message)
