@@ -19,9 +19,9 @@ export const HeaderMemo: FC = () => {
   const session = useStore((state) => state.session)
   const profile = useStore((state) => state.editedProfile)
   const setProfile = useStore((state) => state.updateEditedProfile)
-  const queryClient = useQueryClient()
   const { data } = useQueryProfile()
   const { logoutMutation } = useMutateAuth()
+  const queryClient = useQueryClient()
   const { isLoading, fullUrl, setFullUrl } = useDownloadUrl(
     profile.avatar_url,
     'avatars'

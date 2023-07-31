@@ -1,8 +1,8 @@
-import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
+import { createPagesServerClient, User } from '@supabase/auth-helpers-nextjs'
 import { GetServerSidePropsContext } from 'next'
 
-export default function Test({ user }: { user: any }) {
-  return <div>Hello {user.name}</div>
+export default function Profile({ user }: { user: User }) {
+  return <pre>{JSON.stringify(user, null, 2)}</pre>
 }
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {

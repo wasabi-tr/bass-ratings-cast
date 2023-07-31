@@ -127,6 +127,7 @@ const Profile: NextPage<Props> = ({ profile }) => {
     </Layout>
   )
 }
+
 export const getStaticPaths: GetStaticPaths = async () => {
   const ids = await getProfileIds()
   const paths = ids.map((id) => ({ params: { id } }))

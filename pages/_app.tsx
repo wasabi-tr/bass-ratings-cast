@@ -2,7 +2,11 @@ import { useStore } from '@/lib/store'
 import { supabase } from '@/lib/supabaseClient'
 import '@/styles/globals.css'
 import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs'
-import { Session, SessionContextProvider } from '@supabase/auth-helpers-react'
+import {
+  Session,
+  SessionContextProvider,
+  useUser,
+} from '@supabase/auth-helpers-react'
 import type { AppProps } from 'next/app'
 import { useEffect, useState } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
@@ -35,10 +39,11 @@ export default function App({
     fetchSession()
     supabase.auth.onAuthStateChange(async (event, session) => {
       setSession(session)
-      console.log(session)
+      // console.log(session)
     })
   }, [setSession])
   const [supabaseClient] = useState(() => createPagesBrowserClient())
+
   return (
     <SessionContextProvider
       supabaseClient={supabaseClient}
