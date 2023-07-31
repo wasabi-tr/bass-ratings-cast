@@ -39,14 +39,15 @@ module.exports = {
       const newComponents = {
         '.inner': {
           width: '100%', // 全ての画面サイズで幅は100%
+          padding: '0 20px',
+
           '@media (min-width: 640px)': {
             // 'sm'のブレークポイントでのスタイル
             maxWidth: '100%', // 幅の最大値は100%
-            padding: '0 20px',
           },
           '@media (min-width: 1024px)': {
             // 'lg'のブレークポイントでのスタイル
-            width: '1200px', // 幅の最大値は1200px
+            width: '1160px', // 幅の最大値は1200px
             margin: '0 auto',
           },
         },

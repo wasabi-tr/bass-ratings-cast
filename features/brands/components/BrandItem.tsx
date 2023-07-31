@@ -6,11 +6,11 @@ type Props = {
   brand: Brand
 }
 const BrandItem: FC<Props> = ({ brand }) => {
-  const { id, image_url, name } = brand
+  const { id, image_url, name, slug } = brand
   return (
     <li key={id} className="shadow-md bg-white rounded-lg">
       <Link
-        href={`/brand/${id}`}
+        href={`/brand/${slug}`}
         className="px-4 py-5 gap-3 flex flex-col items-center justify-center"
       >
         <div className="aspect-square w-32 h-32 relative">

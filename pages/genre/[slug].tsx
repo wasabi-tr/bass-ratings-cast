@@ -1,12 +1,10 @@
-import Heading from '@/components/Elements/Heading'
 import Breadcrumb from '@/components/base/Breadcrumb'
 import Container from '@/components/base/Container'
 import { Layout } from '@/components/base/Layout'
 import PageTop from '@/components/base/PageTop'
-import { getBrandIdBySlug } from '@/features/brands/api/getBrandIdBySlug'
-import { getBrandSlugs } from '@/features/brands/api/getBrandSlugs'
-import { getBrands } from '@/features/brands/api/getBrands'
-import { getLuresByBrandId } from '@/features/lure/api/getLuresByBrandId'
+import { getGenreIdBySlug } from '@/features/genres/api/getGenreIdBySlug'
+import { getGenreSlugs } from '@/features/genres/api/getGenreSlugs'
+import { getLuresByGenreId } from '@/features/lure/api/getLuresByGenreId'
 import LureItem from '@/features/lure/components/LureItem'
 import { LureDetail } from '@/types'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
@@ -15,16 +13,16 @@ type Props = {
   lures: LureDetail[]
   slug: string
 }
-const LuresBySlug: NextPage<Props> = ({ lures, slug }) => {
-  const brand_name = lures[0]?.brand_name
+const LuresByGenre: NextPage<Props> = ({ lures, slug }) => {
+  const genre_name = lures[0]?.genre_name
   const breadcrumbs = [
     { name: 'ホーム', item: '/' },
     { name: 'ルアー一覧', item: '/lure' },
-    { name: brand_name, item: `/brand/${slug}` },
+    { name: genre_name, item: `/genre/${slug}` },
   ]
   return (
     <Layout title="">
-      <PageTop title={`${brand_name}のルアー一覧`} />
+      <PageTop title={`${genre_name}のルアー一覧`} />
       <Breadcrumb itemList={breadcrumbs} />
       <Container>
         <ul className="grid gap-4 grid-cols-auto-min-max-33 ">
@@ -38,7 +36,7 @@ const LuresBySlug: NextPage<Props> = ({ lures, slug }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const slugs = await getBrandSlugs()
+  const slugs = await getGenreSlugs()
   const paths = slugs.map((slug) => ({ params: { slug } }))
 
   return {
@@ -49,8 +47,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context.params!.slug as string
-  const brand_id = await getBrandIdBySlug(slug)
-  const lures = await getLuresByBrandId(brand_id)
+  const genre_id = await getGenreIdBySlug(slug)
+  const lures = await getLuresByGenreId(genre_id)
 
   return {
     props: {
@@ -60,4 +58,4 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 }
 
-export default LuresBySlug
+export default LuresByGenre
