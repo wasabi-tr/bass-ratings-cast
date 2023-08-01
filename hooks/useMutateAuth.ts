@@ -61,7 +61,7 @@ export const useMutateAuth = () => {
     },
     {
       onSuccess: async (res) => {
-        // router.push('/')
+        router.push('/')
       },
       onError: (err: any) => {
         alert(err.message)
