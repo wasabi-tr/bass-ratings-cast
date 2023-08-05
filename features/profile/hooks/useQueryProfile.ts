@@ -5,13 +5,9 @@ import { userMutateProfile } from './userMutateProfile'
 
 export const useQueryProfile = () => {
   const { createProfileMutation } = userMutateProfile()
-  const globalSession = useStore((state) => state.session)
+  const session = useStore((state) => state.session)
 
   const getProfile = async () => {
-    const {
-      data: { session },
-    } = await supabase.auth.getSession()
-
     const { data, status, error } = await supabase
       .from('profiles')
       .select('*')
@@ -42,6 +38,6 @@ export const useQueryProfile = () => {
     queryKey: ['profile'],
     queryFn: getProfile,
     staleTime: Infinity,
-    enabled: !!globalSession,
+    enabled: !!session,
   })
 }

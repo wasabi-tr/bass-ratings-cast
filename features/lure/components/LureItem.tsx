@@ -1,8 +1,11 @@
 import { Stars } from '@/components/Elements/Stars'
+import { Spinner } from '@/components/base/Spinner'
 import { Lure, LureDetail } from '@/types'
+import { ExclamationCircleIcon } from '@heroicons/react/24/solid'
 import Image from 'next/image'
 import Link from 'next/link'
-import { FC } from 'react'
+import { FC, Suspense } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
 
 type LureItemProps = {
   key: string

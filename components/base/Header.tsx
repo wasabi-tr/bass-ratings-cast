@@ -16,14 +16,11 @@ import { startTransition } from 'react'
 
 export const HeaderMemo: FC = () => {
   console.log('Rendering Header')
-  const session = useStore((state) => state.session)
-  const profile = useStore((state) => state.editedProfile)
-  const setProfile = useStore((state) => state.updateEditedProfile)
-  const { data } = useQueryProfile()
-  const { logoutMutation } = useMutateAuth()
   const queryClient = useQueryClient()
+  const { data: profile } = useQueryProfile()
+  const { logoutMutation } = useMutateAuth()
   const { isLoading, fullUrl, setFullUrl } = useDownloadUrl(
-    profile.avatar_url,
+    profile?.avatar_url,
     'avatars'
   )
   const [open, setOpen] = useState(false)
@@ -34,17 +31,17 @@ export const HeaderMemo: FC = () => {
     現在はuseEffectでglobal stateを更新しているがreact-queryが更新されるたびに更新しなくてはならない。
     react-queryだけで制御したいが、SSGでレンダリングしているため、ハイドレーションエラーが出る。
      */
-    startTransition(() => {
-      setProfile({
-        user_id: data?.user_id,
-        username: data?.username,
-        text: data?.text,
-        avatar_url: data?.avatar_url,
-      })
-      if (!session) {
-        queryClient.removeQueries(['profile'])
-      }
-    })
+    // startTransition(() => {
+    //   setProfile({
+    //     user_id: data?.user_id,
+    //     username: data?.username,
+    //     text: data?.text,
+    //     avatar_url: data?.avatar_url,
+    //   })
+    //   if (!session) {
+    //     queryClient.removeQueries(['profile'])
+    //   }
+    // })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryClient])
 
@@ -76,9 +73,9 @@ export const HeaderMemo: FC = () => {
             </Link>
           </li>
         </ul>
-        {profile.username ? (
+        {profile?.username ? (
           <div className="relative">
-            <button onClick={handleClick} className="flex items-center gap-3">
+            <a onClick={handleClick} className="flex items-center gap-3">
               <div className="relative m-auto w-5 h-5">
                 {isLoading ? (
                   <Spinner />
@@ -94,7 +91,7 @@ export const HeaderMemo: FC = () => {
                 )}
               </div>
               <p>{profile.username}</p>
-            </button>
+            </a>
             <div
               className={`${
                 open ? 'opacity-100 visible' : 'opacity-0 invisible'

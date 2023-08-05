@@ -5,12 +5,13 @@ import { useStore } from '@/lib/store'
 import { supabase } from '@/lib/supabaseClient'
 import Head from 'next/head'
 import Link from 'next/link'
-import { FC, ReactNode, Suspense, useState } from 'react'
+import { FC, ReactNode, Suspense, useEffect, useState } from 'react'
 import { useQueryClient } from 'react-query'
 import { ErrorBoundary } from 'react-error-boundary'
 import { Spinner } from './Spinner'
 import { Header } from './Header'
 import { ExclamationCircleIcon } from '@heroicons/react/24/solid'
+import { useUser } from '@supabase/auth-helpers-react'
 
 type Props = {
   title: string

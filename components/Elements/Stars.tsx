@@ -1,6 +1,25 @@
 import { FC } from 'react'
-//@ts-ignore
-import ReactStarsRating from 'react-awesome-stars-rating'
+// import ReactStarsRating from 'react-awesome-stars-rating'
+import dynamic from 'next/dynamic'
+// const ReactStarsRating = dynamic(import('react-awesome-stars-rating'), {
+//   ssr: false,
+// })
+type ReactStarsRatingProps = {
+  value: number
+  isEdit: boolean
+  size: number
+  fillColor: string
+  className: string
+}
+
+const ReactStarsRating = dynamic(
+  () =>
+    //@ts-ignore
+    import('react-awesome-stars-rating') as Promise<{
+      default: React.ComponentType<ReactStarsRatingProps>
+    }>,
+  { ssr: false }
+)
 
 type Props = {
   rating: number
@@ -8,6 +27,7 @@ type Props = {
   size?: number
   isEdit?: boolean
 }
+
 export const Stars: FC<Props> = ({
   rating,
   position = 'right',

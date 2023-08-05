@@ -1,19 +1,21 @@
 import { useStore } from '@/lib/store'
 import { useMutateReview } from '../../features/review/hooks/useMutateReview'
-import { ChangeEvent, FormEvent } from 'react'
-import { NextPage } from 'next'
+import { ChangeEvent, FormEvent, Suspense } from 'react'
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { Layout } from '@/components/base/Layout'
 import { useRouter } from 'next/router'
 import Container from '@/components/base/Container'
-//@ts-ignore
-import ReactStarsRating from 'react-awesome-stars-rating'
+import dynamic from 'next/dynamic'
+import { getLureIds } from '@/features/lure/api/getLureId'
 
-const Review: NextPage = () => {
+type Props = {
+  id: string
+}
+const Review: NextPage<Props> = ({ id }) => {
   const session = useStore((state) => state.session)
   const userId = session?.user.id
-  const router = useRouter()
-  const { id: lureId } = router.query
   const { createReviewMutation } = useMutateReview()
+
   const editedReview = useStore((state) => state.editedReview)
   const update = useStore((state) => state.updateEditedReview)
   const reset = useStore((state) => state.resetEditedReview)
@@ -27,7 +29,7 @@ const Review: NextPage = () => {
     e.preventDefault()
     await createReviewMutation.mutateAsync({
       user_id: userId,
-      lure_id: lureId as string,
+      lure_id: id,
       rating_1: editedReview.rating_1,
       rating_2: editedReview.rating_2,
       rating_3: editedReview.rating_3,
@@ -37,6 +39,24 @@ const Review: NextPage = () => {
     })
     reset()
   }
+  type ReactStarsRatingProps = {
+    name: string
+    value: number
+    size: number
+    fillColor: string
+    isHalf: boolean
+    className: string
+    onChange: Function
+  }
+
+  const ReactStarsRating = dynamic(
+    () =>
+      //@ts-ignore
+      import('react-awesome-stars-rating') as Promise<{
+        default: React.ComponentType<ReactStarsRatingProps>
+      }>,
+    { ssr: false }
+  )
 
   return (
     <Layout title="商品登録ページ">
@@ -49,13 +69,13 @@ const Review: NextPage = () => {
                 <div className="w-2/3">
                   <ReactStarsRating
                     name="rating_1"
-                    value={editedReview.rating_1.toString()}
+                    value={editedReview.rating_1}
                     fillColor={'#FFB500'}
                     className={`flex`}
                     isHalf={false}
                     size={30}
-                    onChange={(value: string) =>
-                      update({ ...editedReview, rating_1: Number(value) })
+                    onChange={(value: number) =>
+                      update({ ...editedReview, rating_1: value })
                     }
                   />
                   <input
@@ -63,8 +83,8 @@ const Review: NextPage = () => {
                     min="0"
                     max="5"
                     name="rating_1"
-                    value={editedReview.rating_1.toString()}
-                    // onChange={handleChange}
+                    value={editedReview.rating_1}
+                    onChange={handleChange}
                     hidden
                   />
                 </div>
@@ -74,13 +94,13 @@ const Review: NextPage = () => {
                 <div className="w-2/3">
                   <ReactStarsRating
                     name="rating_2"
-                    value={editedReview.rating_2.toString()}
+                    value={editedReview.rating_2}
                     fillColor={'#FFB500'}
                     className={`flex`}
                     isHalf={false}
                     size={30}
-                    onChange={(value: string) =>
-                      update({ ...editedReview, rating_2: Number(value) })
+                    onChange={(value: number) =>
+                      update({ ...editedReview, rating_2: value })
                     }
                   />
                   <input
@@ -88,7 +108,8 @@ const Review: NextPage = () => {
                     min="0"
                     max="5"
                     name="rating_2"
-                    value={editedReview.rating_2.toString()}
+                    value={editedReview.rating_2}
+                    onChange={handleChange}
                     hidden
                   />
                 </div>
@@ -98,13 +119,13 @@ const Review: NextPage = () => {
                 <div className="w-2/3">
                   <ReactStarsRating
                     name="rating_3"
-                    value={editedReview.rating_3.toString()}
+                    value={editedReview.rating_3}
                     fillColor={'#FFB500'}
                     className={`flex`}
                     isHalf={false}
                     size={30}
-                    onChange={(value: string) =>
-                      update({ ...editedReview, rating_3: Number(value) })
+                    onChange={(value: number) =>
+                      update({ ...editedReview, rating_3: value })
                     }
                   />
                   <input
@@ -112,7 +133,8 @@ const Review: NextPage = () => {
                     min="0"
                     max="5"
                     name="rating_3"
-                    value={editedReview.rating_2.toString()}
+                    value={editedReview.rating_2}
+                    onChange={handleChange}
                     hidden
                   />
                 </div>
@@ -122,13 +144,13 @@ const Review: NextPage = () => {
                 <div className="w-2/3">
                   <ReactStarsRating
                     name="rating_4"
-                    value={editedReview.rating_4.toString()}
+                    value={editedReview.rating_4}
                     fillColor={'#FFB500'}
                     className={`flex`}
                     isHalf={false}
                     size={30}
-                    onChange={(value: string) =>
-                      update({ ...editedReview, rating_4: Number(value) })
+                    onChange={(value: number) =>
+                      update({ ...editedReview, rating_4: value })
                     }
                   />
                   <input
@@ -136,7 +158,8 @@ const Review: NextPage = () => {
                     min="0"
                     max="5"
                     name="rating_4"
-                    value={editedReview.rating_4.toString()}
+                    value={editedReview.rating_4}
+                    onChange={handleChange}
                     hidden
                   />
                 </div>
@@ -146,13 +169,13 @@ const Review: NextPage = () => {
                 <div className="w-2/3">
                   <ReactStarsRating
                     name="rating_5"
-                    value={editedReview.rating_5.toString()}
+                    value={editedReview.rating_5}
                     fillColor={'#FFB500'}
                     className={`flex`}
                     isHalf={false}
                     size={30}
-                    onChange={(value: string) =>
-                      update({ ...editedReview, rating_5: Number(value) })
+                    onChange={(value: number) =>
+                      update({ ...editedReview, rating_5: value })
                     }
                   />
                   <input
@@ -160,8 +183,9 @@ const Review: NextPage = () => {
                     min="0"
                     max="5"
                     name="rating_5"
-                    value={editedReview.rating_5.toString()}
+                    value={editedReview.rating_5}
                     hidden
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -190,6 +214,24 @@ const Review: NextPage = () => {
       </Container>
     </Layout>
   )
+}
+export const getStaticPaths: GetStaticPaths = async () => {
+  const ids = await getLureIds()
+  const paths = ids.map((id) => ({ params: { id } }))
+
+  return {
+    paths,
+    fallback: 'blocking',
+  }
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const id = context.params!.id as string
+  // const profile = await getProfile(id)
+
+  return {
+    props: { id },
+  }
 }
 
 export default Review
