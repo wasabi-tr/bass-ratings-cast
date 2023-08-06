@@ -7,9 +7,12 @@ import { useMutation, useQueryClient } from 'react-query'
 
 export const userMutateProfile = () => {
   const queryClient = useQueryClient()
+  const supabaseClient = useSupabaseClient()
 
   const createProfileMutation = useMutation(
     async (profile: Omit<Profile, 'id' | 'created_at'>) => {
+      console.log(profile)
+
       const { data, error } = await supabase
         .from('profiles')
         .insert(profile)

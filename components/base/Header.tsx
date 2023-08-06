@@ -22,8 +22,6 @@ const User = dynamic(() => import('../Elements/User'), {
 })
 
 export const HeaderMemo: FC = () => {
-  console.log('Rendering Header')
-
   return (
     <header className="flex justify-between w-full px-5 py-6 shadow bg-white">
       <div>

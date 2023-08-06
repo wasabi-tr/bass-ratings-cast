@@ -14,6 +14,8 @@ import {
 } from '@heroicons/react/24/solid'
 
 const User: FC = () => {
+  console.log('render user')
+
   const user = useUser()
   const [open, setOpen] = useState(false)
   const { data: profile } = useQueryProfile()
@@ -34,16 +36,7 @@ const User: FC = () => {
   }
   return (
     <>
-      {!user ? (
-        <div>
-          <Link
-            href={'/auth'}
-            className="font-bold text-xs p-3 border border-primary rounded-sm text-primary text-center"
-          >
-            ログイン/新規会員登録
-          </Link>
-        </div>
-      ) : (
+      {user && profile ? (
         <div className="relative">
           <button onClick={handleClick} className="flex items-center gap-3">
             <div className="relative m-auto w-5 h-5">
@@ -87,6 +80,15 @@ const User: FC = () => {
               </button>
             </div>
           </div>
+        </div>
+      ) : (
+        <div>
+          <Link
+            href={'/auth'}
+            className="font-bold text-xs p-3 border border-primary rounded-sm text-primary text-center"
+          >
+            ログイン/新規会員登録
+          </Link>
         </div>
       )}
     </>

@@ -6,7 +6,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   // console.log('test')
 
-  const supabaseServerClient = createPagesServerClient<Database>({
+  const supabaseServerClient = createPagesServerClient({
     req,
     res,
   })
@@ -26,8 +26,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const data = await supabaseServerClient
     .from('profiles')
-    .select('*')
-    .eq('user_id', session?.user.id)
-    .single()
+    .insert({
+      user_id: session.user.id,
+      username: session.user.email,
+      text: '',
+      avatar_url: '',
+    })
+    .select()
+  //   if (error) throw new Error(error.message)
+
   res.status(200).json(data)
 }

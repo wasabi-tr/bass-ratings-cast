@@ -5,10 +5,6 @@ const handler: NextApiHandler = async (req, res) => {
   const { code } = req.query
 
   console.log(`コード${code}`)
-  const {
-    data: { session },
-  } = await createPagesServerClient({ req, res }).auth.getSession()
-  console.log(`セッション${session}`)
 
   if (code) {
     const supabase = createPagesServerClient({ req, res })
