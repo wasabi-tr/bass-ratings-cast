@@ -28,31 +28,17 @@ export default function App({
 }: AppProps<{
   initialSession: Session
 }>) {
-  const session = useStore((state) => state.session)
-  const setSession = useStore((state) => state.setSession)
-  useEffect(() => {
-    const fetchSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession()
-      setSession(session)
-    }
-    fetchSession()
-    supabase.auth.onAuthStateChange(async (event, session) => {
-      setSession(session)
-      console.log(session)
-    })
-  }, [setSession])
   const [supabaseClient] = useState(() => createPagesBrowserClient())
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <SessionContextProvider
-        supabaseClient={supabaseClient}
-        initialSession={pageProps.initialSession}
-      >
+    <SessionContextProvider
+      supabaseClient={supabaseClient}
+      initialSession={pageProps.initialSession}
+    >
+      <QueryClientProvider client={queryClient}>
         <Component {...pageProps} />
-      </SessionContextProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </SessionContextProvider>
   )
 }

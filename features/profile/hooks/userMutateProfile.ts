@@ -2,6 +2,7 @@ import { useDownloadUrl } from '@/hooks/useDownloadUrl'
 import { supabase } from '@/lib/supabaseClient'
 import { Profile } from '@/types'
 import { revalidateProfile } from '@/utils/revalidate'
+import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import { useMutation, useQueryClient } from 'react-query'
 
 export const userMutateProfile = () => {
@@ -14,6 +15,8 @@ export const userMutateProfile = () => {
         .insert(profile)
         .select()
       if (error) throw new Error(error.message)
+      console.log(data)
+
       return data
     },
     {

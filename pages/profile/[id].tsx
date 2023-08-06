@@ -16,6 +16,7 @@ import { getProfile } from '@/features/profile/api/getProfile'
 import { Spinner } from '@/components/base/Spinner'
 import { userMutateProfile } from '@/features/profile/hooks/userMutateProfile'
 import Container from '@/components/base/Container'
+import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
 type Props = {
   profile: Profile
 }
@@ -121,48 +122,17 @@ const Profile: NextPage<Props> = ({ profile }) => {
     </Layout>
   )
 }
-export const getStaticPaths: GetStaticPaths = async () => {
-  const ids = await getProfileIds()
-  const paths = ids.map((id) => ({ params: { id } }))
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const ids = await getProfileIds()
+//   const paths = ids.map((id) => ({ params: { id } }))
 
-  return {
-    paths,
-    fallback: 'blocking',
-  }
-}
+//   return {
+//     paths,
+//     fallback: 'blocking',
+//   }
+// }
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const id = context.params!.id as string
-  const profile = await getProfile(id)
-
-  return {
-    props: {
-      profile,
-    },
-  }
-}
-// export const getServerSideProps = async (
-//   context: GetServerSidePropsContext
-// ) => {
-//   // Create authenticated Supabase Client
-//   const cookies = context.req.headers
-//   console.log(cookies)
-
-//   // const supabase = createPagesServerClient(context)
-//   // // Check if we have a session
-//   // const {
-//   //   data: { session },
-//   // } = await supabase.auth.getSession()
-//   // console.log(session)
-
-//   // if (!session) {
-//   //   return {
-//   //     redirect: {
-//   //       destination: '/',
-//   //       permanent: false,
-//   //     },
-//   //   }
-//   // }
+// export const getStaticProps: GetStaticProps = async (context) => {
 //   const id = context.params!.id as string
 //   const profile = await getProfile(id)
 
@@ -172,4 +142,32 @@ export const getStaticProps: GetStaticProps = async (context) => {
 //     },
 //   }
 // }
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  const supabase = createPagesServerClient(context)
+  // Check if we have a session
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
+  console.log(`セッション${session}`)
+  console.log(session)
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+  const id = context.params!.id as string
+  const profile = await getProfile(id)
+
+  return {
+    props: {
+      profile,
+    },
+  }
+}
 export default Profile

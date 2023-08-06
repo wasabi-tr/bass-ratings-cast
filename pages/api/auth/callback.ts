@@ -16,7 +16,7 @@ const handler: NextApiHandler = async (req, res) => {
     console.log(`結果　${result}`)
   }
 
-  // res.redirect('/')
+  res.redirect('/')
 }
 
 export default handler
