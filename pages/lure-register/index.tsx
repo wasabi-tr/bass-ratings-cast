@@ -1,15 +1,18 @@
 import Container from '@/components/base/Container'
 import { Layout } from '@/components/base/Layout'
+import { Database } from '@/database.types'
 import { useMutateLure } from '@/features/lure/hooks/useMutateLure'
 import { useQueryBrands } from '@/features/lure/hooks/useQueryBrands'
 import { useQueryGenres } from '@/features/lure/hooks/useQueryGenres'
 import { useUploadLureImg } from '@/features/lure/hooks/useUploadLureImg'
 import { useStore } from '@/lib/store'
 import { supabase } from '@/lib/supabaseClient'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { NextPage } from 'next'
 import { ChangeEvent, FormEvent, useState } from 'react'
 
 const LureRegister: NextPage = () => {
+  const supabaseClient = useSupabaseClient<Database>()
   const { data: genres } = useQueryGenres()
   const { data: brands } = useQueryBrands()
   const editedLure = useStore((state) => state.editedLure)
@@ -23,13 +26,14 @@ const LureRegister: NextPage = () => {
       [e.target.name]: e.target.value,
     })
   }
+
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     useMutateUploadLureImg.mutate(e)
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const { data } = await supabase.storage
+    const { data } = await supabaseClient.storage
       .from('lures')
       .getPublicUrl(editedLure.image_url)
     const fullUrl = data.publicUrl

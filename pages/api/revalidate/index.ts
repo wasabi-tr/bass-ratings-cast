@@ -1,14 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log('Revalidate lure')
-  const {
-    query: { id },
-  } = req
+  console.log('Revalidate index')
   let revalidated = false
   try {
-    await res.revalidate(`/lure/${id}`)
-    await res.revalidate('/lure')
+    await res.revalidate('/')
     revalidated = true
   } catch (err) {
     return console.log(err)

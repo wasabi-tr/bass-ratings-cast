@@ -1,9 +1,12 @@
+import { Database } from '@/database.types'
 import { useStore } from '@/lib/store'
 import { supabase } from '@/lib/supabaseClient'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { ChangeEvent } from 'react'
 import { useMutation } from 'react-query'
 
 export const useUploadLureImg = () => {
+  const supabaseClient = useSupabaseClient<Database>()
   const editedLure = useStore((state) => state.editedLure)
   const updateLure = useStore((state) => state.updateEditedLure)
   const useMutateUploadLureImg = useMutation(
@@ -15,7 +18,7 @@ export const useUploadLureImg = () => {
       const fileExt = file.name.split('.').pop()
       const fileName = `${Math.random()}.${fileExt}`
       const filePath = `${fileName}`
-      const { error } = await supabase.storage
+      const { error } = await supabaseClient.storage
         .from('lures')
         .upload(filePath, file)
       if (error) throw new Error(error.message)

@@ -1,19 +1,19 @@
 import { useStore } from '@/lib/store'
 import { useMutateReview } from '../../features/review/hooks/useMutateReview'
-import { ChangeEvent, FormEvent, Suspense } from 'react'
+import { ChangeEvent, FormEvent } from 'react'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { Layout } from '@/components/base/Layout'
 import { useRouter } from 'next/router'
 import Container from '@/components/base/Container'
 import dynamic from 'next/dynamic'
 import { getLureIds } from '@/features/lure/api/getLureId'
+import { useUser } from '@supabase/auth-helpers-react'
 
 type Props = {
   id: string
 }
 const Review: NextPage<Props> = ({ id }) => {
-  const session = useStore((state) => state.session)
-  const userId = session?.user.id
+  const user = useUser()
   const { createReviewMutation } = useMutateReview()
 
   const editedReview = useStore((state) => state.editedReview)
@@ -28,7 +28,7 @@ const Review: NextPage<Props> = ({ id }) => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     await createReviewMutation.mutateAsync({
-      user_id: userId,
+      user_id: user?.id,
       lure_id: id,
       rating_1: editedReview.rating_1,
       rating_2: editedReview.rating_2,
@@ -69,7 +69,7 @@ const Review: NextPage<Props> = ({ id }) => {
                 <div className="w-2/3">
                   <ReactStarsRating
                     name="rating_1"
-                    value={editedReview.rating_1}
+                    value={editedReview.rating_1 as number}
                     fillColor={'#FFB500'}
                     className={`flex`}
                     isHalf={false}
@@ -85,6 +85,7 @@ const Review: NextPage<Props> = ({ id }) => {
                     name="rating_1"
                     value={editedReview.rating_1}
                     onChange={handleChange}
+                    required
                     hidden
                   />
                 </div>
@@ -94,7 +95,7 @@ const Review: NextPage<Props> = ({ id }) => {
                 <div className="w-2/3">
                   <ReactStarsRating
                     name="rating_2"
-                    value={editedReview.rating_2}
+                    value={editedReview.rating_2 as number}
                     fillColor={'#FFB500'}
                     className={`flex`}
                     isHalf={false}
@@ -111,6 +112,7 @@ const Review: NextPage<Props> = ({ id }) => {
                     value={editedReview.rating_2}
                     onChange={handleChange}
                     hidden
+                    required
                   />
                 </div>
               </div>
@@ -119,7 +121,7 @@ const Review: NextPage<Props> = ({ id }) => {
                 <div className="w-2/3">
                   <ReactStarsRating
                     name="rating_3"
-                    value={editedReview.rating_3}
+                    value={editedReview.rating_3 as number}
                     fillColor={'#FFB500'}
                     className={`flex`}
                     isHalf={false}
@@ -136,6 +138,7 @@ const Review: NextPage<Props> = ({ id }) => {
                     value={editedReview.rating_2}
                     onChange={handleChange}
                     hidden
+                    required
                   />
                 </div>
               </div>
@@ -144,7 +147,7 @@ const Review: NextPage<Props> = ({ id }) => {
                 <div className="w-2/3">
                   <ReactStarsRating
                     name="rating_4"
-                    value={editedReview.rating_4}
+                    value={editedReview.rating_4 as number}
                     fillColor={'#FFB500'}
                     className={`flex`}
                     isHalf={false}
@@ -161,6 +164,7 @@ const Review: NextPage<Props> = ({ id }) => {
                     value={editedReview.rating_4}
                     onChange={handleChange}
                     hidden
+                    required
                   />
                 </div>
               </div>
@@ -169,7 +173,7 @@ const Review: NextPage<Props> = ({ id }) => {
                 <div className="w-2/3">
                   <ReactStarsRating
                     name="rating_5"
-                    value={editedReview.rating_5}
+                    value={editedReview.rating_5 as number}
                     fillColor={'#FFB500'}
                     className={`flex`}
                     isHalf={false}
@@ -186,6 +190,7 @@ const Review: NextPage<Props> = ({ id }) => {
                     value={editedReview.rating_5}
                     hidden
                     onChange={handleChange}
+                    required
                   />
                 </div>
               </div>
@@ -197,6 +202,7 @@ const Review: NextPage<Props> = ({ id }) => {
                     value={editedReview.text}
                     onChange={handleChange}
                     className="bg-gray10 rounded-lg w-full h-32 p-3"
+                    required
                   />
                 </div>
               </div>
