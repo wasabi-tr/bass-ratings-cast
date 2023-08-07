@@ -1,14 +1,8 @@
-import { useStore } from '@/lib/store'
-import { supabase } from '@/lib/supabaseClient'
 import '@/styles/globals.css'
 import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs'
-import {
-  Session,
-  SessionContextProvider,
-  useUser,
-} from '@supabase/auth-helpers-react'
+import { Session, SessionContextProvider } from '@supabase/auth-helpers-react'
 import type { AppProps } from 'next/app'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 

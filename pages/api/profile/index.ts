@@ -4,8 +4,6 @@ import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  // console.log('test')
-
   const supabaseServerClient = createPagesServerClient<Database>({
     req,
     res,
@@ -13,9 +11,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     data: { session },
   } = await supabaseServerClient.auth.getSession()
-  // console.log('tset')
-
-  console.log(session)
 
   if (!session)
     return res.status(401).json({

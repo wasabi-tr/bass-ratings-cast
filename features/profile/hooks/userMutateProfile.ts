@@ -1,8 +1,6 @@
-import { useDownloadUrl } from '@/hooks/useDownloadUrl'
-import { supabase } from '@/lib/supabaseClient'
 import { Profile } from '@/types'
 import { revalidateProfile } from '@/utils/revalidate'
-import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useMutation, useQueryClient } from 'react-query'
 
 export const userMutateProfile = () => {
@@ -11,14 +9,11 @@ export const userMutateProfile = () => {
 
   const createProfileMutation = useMutation(
     async (profile: Omit<Profile, 'id' | 'created_at'>) => {
-      console.log(profile)
-
-      const { data, error } = await supabase
+      const { data, error } = await supabaseClient
         .from('profiles')
         .insert(profile)
         .select()
       if (error) throw new Error(error.message)
-      console.log(data)
 
       return data
     },
@@ -34,7 +29,7 @@ export const userMutateProfile = () => {
   )
   const updateProfileMutation = useMutation(
     async (profile: Profile) => {
-      const { error } = await supabase
+      const { error } = await supabaseClient
         .from('profiles')
         .update({
           ...profile,

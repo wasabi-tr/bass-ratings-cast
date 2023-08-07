@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Link from 'next/link'
 import Container from './Container'
@@ -14,8 +13,6 @@ type BreadcrumbProps = {
 }
 
 const Breadcrumb: FC<BreadcrumbProps> = ({ itemList }) => {
-  console.log(itemList)
-
   return (
     <>
       <Head>

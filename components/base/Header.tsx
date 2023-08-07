@@ -1,20 +1,7 @@
-import { useQueryProfile } from '@/features/profile/hooks/useQueryProfile'
-import { useDownloadUrl } from '@/hooks/useDownloadUrl'
-import { useMutateAuth } from '@/hooks/useMutateAuth'
-import { useStore } from '@/lib/store'
 import Link from 'next/link'
-import { FC, Suspense, memo, useEffect, useState } from 'react'
-import { useQueryClient } from 'react-query'
+import { FC, Suspense, memo } from 'react'
 import { Spinner } from './Spinner'
-import Image from 'next/image'
-import {
-  ArrowRightOnRectangleIcon,
-  ExclamationCircleIcon,
-  UserCircleIcon,
-  UserIcon,
-} from '@heroicons/react/24/solid'
-import { startTransition } from 'react'
-import { useUser } from '@supabase/auth-helpers-react'
+import { ExclamationCircleIcon } from '@heroicons/react/24/solid'
 import { ErrorBoundary } from 'react-error-boundary'
 import dynamic from 'next/dynamic'
 const User = dynamic(() => import('../Elements/User'), {

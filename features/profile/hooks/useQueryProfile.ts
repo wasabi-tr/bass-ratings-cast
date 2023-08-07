@@ -1,8 +1,5 @@
-import { useStore } from '@/lib/store'
-// import { supabase } from '@/lib/supabaseClient'
 import { useQuery } from 'react-query'
-import { userMutateProfile } from './userMutateProfile'
-import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
+import { useUser } from '@supabase/auth-helpers-react'
 import axios from 'axios'
 
 export const useQueryProfile = () => {
@@ -17,10 +14,10 @@ export const useQueryProfile = () => {
       if (status === 406) {
         try {
           const {
-            data: { data, error, status },
+            data: { data: profile },
           } = await axios.get('http://localhost:3000/api/profile/updateProfile')
 
-          return data[0]
+          return profile[0]
         } catch (error: any) {
           throw new Error(error.message)
         }

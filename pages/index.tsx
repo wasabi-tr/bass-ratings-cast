@@ -8,12 +8,8 @@ import GenreItem from '@/features/genres/components/GenreItem'
 import { getLures } from '@/features/lure/api/getLures'
 import LureItem from '@/features/lure/components/LureItem'
 import { Brand, Genre, LureDetail } from '@/types'
-import { useUser } from '@supabase/auth-helpers-react'
 import { GetStaticProps, NextPage } from 'next'
 import Link from 'next/link'
-import { useEffect } from 'react'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
-import { Database } from '@/database.types'
 
 type Props = {
   lures: LureDetail[]
@@ -21,11 +17,6 @@ type Props = {
   genres: Genre[]
 }
 const Home: NextPage<Props> = ({ lures, brands, genres }) => {
-  // const supabaseClient = useSupabaseClient<Database>()
-  // const user = useUser()
-  // useEffect(() => {
-  //   console.log(user)
-  // }, [])
   return (
     <Layout title="">
       <Container>

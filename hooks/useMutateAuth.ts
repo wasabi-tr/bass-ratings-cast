@@ -1,6 +1,6 @@
 import { supabase } from '@/lib/supabaseClient'
 import { useState } from 'react'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation } from 'react-query'
 import { useRouter } from 'next/router'
 import { useStore } from '@/lib/store'
 import { getProfile } from '@/features/profile/api/getProfile'
@@ -73,7 +73,7 @@ export const useMutateAuth = () => {
   )
   const logoutMutation = useMutation(
     async () => {
-      const { error } = await supabase.auth.signOut()
+      const { error } = await supabaseClient.auth.signOut()
       if (error) throw new Error(error.message)
     },
     {
@@ -98,8 +98,6 @@ export const useMutateAuth = () => {
     },
     {
       onSuccess: (res) => {
-        console.log(res)
-
         // router.push('/')
       },
       onError: (err: any) => {

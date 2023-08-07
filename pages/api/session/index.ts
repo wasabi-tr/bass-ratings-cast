@@ -4,8 +4,6 @@ import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  // console.log('test')
-
   const supabaseServerClient = createPagesServerClient<Database>({
     req,
     res,

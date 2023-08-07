@@ -1,9 +1,6 @@
 import Head from 'next/head'
-import { FC, ReactNode, Suspense, useEffect, useState } from 'react'
-import { ErrorBoundary } from 'react-error-boundary'
-import { Spinner } from './Spinner'
+import { FC, ReactNode } from 'react'
 import { Header } from './Header'
-import { ExclamationCircleIcon } from '@heroicons/react/24/solid'
 
 type Props = {
   title: string

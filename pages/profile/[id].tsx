@@ -1,16 +1,10 @@
-import {
-  GetServerSidePropsContext,
-  GetStaticPaths,
-  GetStaticProps,
-  NextPage,
-} from 'next'
+import { GetServerSidePropsContext, NextPage } from 'next'
 import Image from 'next/image'
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 import { PencilIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { useUploadAvatarImg } from '@/features/profile/hooks/useUploadAvatarImg'
 import { useDownloadUrl } from '@/hooks/useDownloadUrl'
 import { Layout } from '@/components/base/Layout'
-import { getProfileIds } from '@/features/profile/api/getProfileIds'
 import { Profile } from '@/types'
 import { getProfile } from '@/features/profile/api/getProfile'
 import { Spinner } from '@/components/base/Spinner'
@@ -122,38 +116,16 @@ const Profile: NextPage<Props> = ({ profile }) => {
     </Layout>
   )
 }
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   const ids = await getProfileIds()
-//   const paths = ids.map((id) => ({ params: { id } }))
 
-//   return {
-//     paths,
-//     fallback: 'blocking',
-//   }
-// }
-
-// export const getStaticProps: GetStaticProps = async (context) => {
-//   const id = context.params!.id as string
-//   const profile = await getProfile(id)
-
-//   return {
-//     props: {
-//       profile,
-//     },
-//   }
-// }
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const supabase = createPagesServerClient(context)
-  // Check if we have a session
+
   const {
     data: { session },
   } = await supabase.auth.getSession()
-  console.log(`セッション${session}`)
-  console.log(session)
-
-  if (!session) {
+  if (!session || context.params?.id !== session?.user.id) {
     return {
       redirect: {
         destination: '/',
