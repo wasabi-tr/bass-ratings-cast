@@ -1,12 +1,10 @@
-import { useDownloadUrl } from '@/hooks/useDownloadUrl'
-import { useStore } from '@/lib/store'
-import { supabase } from '@/lib/supabaseClient'
+import { Database } from '@/database.types'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { ChangeEvent } from 'react'
 import { useMutation } from 'react-query'
 
 export const useUploadAvatarImg = () => {
-  const editedProfile = useStore((state) => state.editedProfile)
-  const update = useStore((state) => state.updateEditedProfile)
+  const supabaseClient = useSupabaseClient<Database>()
 
   const useMutateUploadAvatarImg = useMutation(
     async (e: ChangeEvent<HTMLInputElement>) => {
@@ -17,16 +15,14 @@ export const useUploadAvatarImg = () => {
       const fileExt = file.name.split('.').pop()
       const fileName = `${Math.random()}.${fileExt}`
       const filePath = `${fileName}`
-      const { error } = await supabase.storage
+      const { error } = await supabaseClient.storage
         .from('avatars')
         .upload(filePath, file)
       if (error) throw new Error(error.message)
       return filePath
     },
     {
-      onSuccess(data) {
-        console.log(data)
-      },
+      onSuccess(data) {},
       onError: (err: any) => {
         alert(err.message)
       },
