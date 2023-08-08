@@ -4,18 +4,19 @@ import axios from 'axios'
 
 export const useQueryProfile = () => {
   const user = useUser()
-
   const getProfile = async () => {
     const {
       data: { data, error, status },
-    } = await axios.get('http://localhost:3000/api/profile')
+    } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/profile`)
 
     if (error) {
       if (status === 406) {
         try {
           const {
             data: { data: profile },
-          } = await axios.get('http://localhost:3000/api/profile/updateProfile')
+          } = await axios.get(
+            `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/profile/updateProfile`
+          )
 
           return profile[0]
         } catch (error: any) {

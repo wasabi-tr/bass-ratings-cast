@@ -1,21 +1,46 @@
 import { useStore } from '@/lib/store'
 import { useMutateReview } from '../../features/review/hooks/useMutateReview'
-import { ChangeEvent, FormEvent } from 'react'
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
+import { ChangeEvent, FormEvent, useEffect } from 'react'
+import {
+  GetStaticPaths,
+  GetStaticProps,
+  GetStaticPropsContext,
+  NextPage,
+} from 'next'
 import { Layout } from '@/components/base/Layout'
 import { useRouter } from 'next/router'
 import Container from '@/components/base/Container'
 import dynamic from 'next/dynamic'
 import { getLureIds } from '@/features/lure/api/getLureId'
-import { useUser } from '@supabase/auth-helpers-react'
+import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
+import getReviewByUserIdAndLureId from '@/features/review/api/getReviewByUserIdAndLureId'
+import axios from 'axios'
+import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
 
 type Props = {
-  id: string
+  lure_id: string
 }
-const Review: NextPage<Props> = ({ id }) => {
+type ReactStarsRatingProps = {
+  name: string
+  value: number
+  size: number
+  fillColor: string
+  isHalf: boolean
+  className: string
+  onChange: Function
+}
+const ReactStarsRating = dynamic(
+  () =>
+    //@ts-ignore
+    import('react-awesome-stars-rating') as Promise<{
+      default: React.ComponentType<ReactStarsRatingProps>
+    }>,
+  { ssr: false }
+)
+
+const Review: NextPage<Props> = ({ lure_id }) => {
   const user = useUser()
   const { createReviewMutation } = useMutateReview()
-
   const editedReview = useStore((state) => state.editedReview)
   const update = useStore((state) => state.updateEditedReview)
   const reset = useStore((state) => state.resetEditedReview)
@@ -29,7 +54,7 @@ const Review: NextPage<Props> = ({ id }) => {
     e.preventDefault()
     await createReviewMutation.mutateAsync({
       user_id: user?.id,
-      lure_id: id,
+      lure_id: lure_id,
       rating_1: editedReview.rating_1,
       rating_2: editedReview.rating_2,
       rating_3: editedReview.rating_3,
@@ -39,24 +64,14 @@ const Review: NextPage<Props> = ({ id }) => {
     })
     reset()
   }
-  type ReactStarsRatingProps = {
-    name: string
-    value: number
-    size: number
-    fillColor: string
-    isHalf: boolean
-    className: string
-    onChange: Function
-  }
+  useEffect(() => {
+    const getCurrentReview = async () => {
+      const data = await getReviewByUserIdAndLureId(lure_id, user?.id!)
 
-  const ReactStarsRating = dynamic(
-    () =>
-      //@ts-ignore
-      import('react-awesome-stars-rating') as Promise<{
-        default: React.ComponentType<ReactStarsRatingProps>
-      }>,
-    { ssr: false }
-  )
+      console.log(data)
+    }
+    getCurrentReview()
+  }, [])
 
   return (
     <Layout title="商品登録ページ">
@@ -65,11 +80,16 @@ const Review: NextPage<Props> = ({ id }) => {
           <div className="rounded-lg bg-white w-3/4 mx-auto py-10 px-24">
             <form onSubmit={handleSubmit} className="">
               <div className="flex items-center gap-3 mb-4">
-                <label className="font-bold w-1/3">価格・コスパ</label>
+                <label htmlFor="rate01" className="font-bold w-1/3">
+                  <span className="text-sm font-bold border border-red-700 text-red-700 rounded-md py-1 px-2 mr-2">
+                    必須
+                  </span>
+                  価格・コスパ
+                </label>
                 <div className="w-2/3">
                   <ReactStarsRating
                     name="rating_1"
-                    value={editedReview.rating_1 as number}
+                    value={editedReview.rating_1}
                     fillColor={'#FFB500'}
                     className={`flex`}
                     isHalf={false}
@@ -79,8 +99,9 @@ const Review: NextPage<Props> = ({ id }) => {
                     }
                   />
                   <input
+                    id="rate01"
                     type="number"
-                    min="0"
+                    min="1"
                     max="5"
                     name="rating_1"
                     value={editedReview.rating_1}
@@ -95,7 +116,7 @@ const Review: NextPage<Props> = ({ id }) => {
                 <div className="w-2/3">
                   <ReactStarsRating
                     name="rating_2"
-                    value={editedReview.rating_2 as number}
+                    value={editedReview.rating_2}
                     fillColor={'#FFB500'}
                     className={`flex`}
                     isHalf={false}
@@ -106,7 +127,7 @@ const Review: NextPage<Props> = ({ id }) => {
                   />
                   <input
                     type="number"
-                    min="0"
+                    min="1"
                     max="5"
                     name="rating_2"
                     value={editedReview.rating_2}
@@ -121,7 +142,7 @@ const Review: NextPage<Props> = ({ id }) => {
                 <div className="w-2/3">
                   <ReactStarsRating
                     name="rating_3"
-                    value={editedReview.rating_3 as number}
+                    value={editedReview.rating_3}
                     fillColor={'#FFB500'}
                     className={`flex`}
                     isHalf={false}
@@ -132,7 +153,7 @@ const Review: NextPage<Props> = ({ id }) => {
                   />
                   <input
                     type="number"
-                    min="0"
+                    min="1"
                     max="5"
                     name="rating_3"
                     value={editedReview.rating_2}
@@ -147,7 +168,7 @@ const Review: NextPage<Props> = ({ id }) => {
                 <div className="w-2/3">
                   <ReactStarsRating
                     name="rating_4"
-                    value={editedReview.rating_4 as number}
+                    value={editedReview.rating_4}
                     fillColor={'#FFB500'}
                     className={`flex`}
                     isHalf={false}
@@ -158,7 +179,7 @@ const Review: NextPage<Props> = ({ id }) => {
                   />
                   <input
                     type="number"
-                    min="0"
+                    min="1"
                     max="5"
                     name="rating_4"
                     value={editedReview.rating_4}
@@ -173,7 +194,7 @@ const Review: NextPage<Props> = ({ id }) => {
                 <div className="w-2/3">
                   <ReactStarsRating
                     name="rating_5"
-                    value={editedReview.rating_5 as number}
+                    value={editedReview.rating_5}
                     fillColor={'#FFB500'}
                     className={`flex`}
                     isHalf={false}
@@ -184,7 +205,7 @@ const Review: NextPage<Props> = ({ id }) => {
                   />
                   <input
                     type="number"
-                    min="0"
+                    min="1"
                     max="5"
                     name="rating_5"
                     value={editedReview.rating_5}
@@ -231,12 +252,23 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const id = context.params!.id as string
+export const getStaticProps: GetStaticProps = async (
+  context: GetStaticPropsContext
+) => {
+  const lure_id = context.params!.id as string
+
+  // const data = await axios.get(
+  //   `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/session`
+  // )
+
+  // console.log(data)
+
+  // const user_id =
   // const profile = await getProfile(id)
+  // const review = await getReviewByUserIdAndLureId(lure_id,user_id)
 
   return {
-    props: { id },
+    props: { lure_id },
   }
 }
 

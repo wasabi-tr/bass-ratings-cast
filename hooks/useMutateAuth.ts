@@ -55,7 +55,7 @@ export const useMutateAuth = () => {
         email,
         password,
         options: {
-          emailRedirectTo: 'http://localhost:3000//api/auth/callback',
+          emailRedirectTo: `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/auth/callback`,
         },
       })
       if (error) throw new Error(error.message)

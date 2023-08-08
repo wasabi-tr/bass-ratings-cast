@@ -1,8 +1,6 @@
 import { create } from 'zustand'
 import { Session } from '@supabase/supabase-js'
 import { EditedLure, EditedProfile, EditedReview } from '@/types'
-import { stringify } from 'querystring'
-import { text } from 'stream/consumers'
 
 //グローバルで扱える状態の型を定義
 type State = {
