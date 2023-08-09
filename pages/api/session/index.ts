@@ -12,5 +12,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     data: { session },
   } = await supabaseServerClient.auth.getSession()
 
+  const data = await supabaseServerClient
+    .from('lures')
+    .select('*')
+    .eq('user_id', session?.user.id)
+    .single()
+
   res.status(200).json({ session })
 }

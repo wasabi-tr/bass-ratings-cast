@@ -1,6 +1,6 @@
 import { useStore } from '@/lib/store'
 import { useMutateReview } from '../../features/review/hooks/useMutateReview'
-import { ChangeEvent, FormEvent, useEffect } from 'react'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import {
   GetStaticPaths,
   GetStaticProps,
@@ -8,17 +8,18 @@ import {
   NextPage,
 } from 'next'
 import { Layout } from '@/components/base/Layout'
-import { useRouter } from 'next/router'
 import Container from '@/components/base/Container'
 import dynamic from 'next/dynamic'
 import { getLureIds } from '@/features/lure/api/getLureId'
-import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
+import { useUser } from '@supabase/auth-helpers-react'
 import getReviewByUserIdAndLureId from '@/features/review/api/getReviewByUserIdAndLureId'
-import axios from 'axios'
-import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
+import { getLureById } from '@/features/lure/api/getLureById'
+import { LureDetail } from '@/types'
+import Image from 'next/image'
 
 type Props = {
   lure_id: string
+  lure: LureDetail
 }
 type ReactStarsRatingProps = {
   name: string
@@ -38,40 +39,71 @@ const ReactStarsRating = dynamic(
   { ssr: false }
 )
 
-const Review: NextPage<Props> = ({ lure_id }) => {
+const Review: NextPage<Props> = ({ lure_id, lure }) => {
   const user = useUser()
-  const { createReviewMutation } = useMutateReview()
+  const [reviewed, setReviewed] = useState(false)
+  const { createReviewMutation, updateReviewMutation } = useMutateReview()
   const editedReview = useStore((state) => state.editedReview)
   const update = useStore((state) => state.updateEditedReview)
   const reset = useStore((state) => state.resetEditedReview)
+  console.log(lure)
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
   ) => {
     update({ ...editedReview, [e.target.name]: e.target.value })
   }
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    await createReviewMutation.mutateAsync({
-      user_id: user?.id,
-      lure_id: lure_id,
-      rating_1: editedReview.rating_1,
-      rating_2: editedReview.rating_2,
-      rating_3: editedReview.rating_3,
-      rating_4: editedReview.rating_4,
-      rating_5: editedReview.rating_5,
-      text: editedReview.text,
-    })
+    if (reviewed) {
+      await updateReviewMutation.mutateAsync(editedReview)
+    } else {
+      await createReviewMutation.mutateAsync({
+        user_id: user?.id,
+        lure_id: lure_id,
+        rating_1: editedReview.rating_1,
+        rating_2: editedReview.rating_2,
+        rating_3: editedReview.rating_3,
+        rating_4: editedReview.rating_4,
+        rating_5: editedReview.rating_5,
+        text: editedReview.text,
+      })
+    }
     reset()
   }
+
   useEffect(() => {
     const getCurrentReview = async () => {
       const data = await getReviewByUserIdAndLureId(lure_id, user?.id!)
-
-      console.log(data)
+      if (data) {
+        setReviewed(true)
+        update({
+          id: data.id,
+          lure_id: data.lure_id,
+          rating_1: data.rating_1,
+          rating_2: data.rating_2,
+          rating_3: data.rating_3,
+          rating_4: data.rating_4,
+          rating_5: data.rating_5,
+          text: data.text,
+          user_id: data.user_id,
+        })
+      }
     }
-    getCurrentReview()
-  }, [])
+    if (user) getCurrentReview()
+  }, [user])
+  const {
+    id,
+    name,
+    brand_name,
+    genre_name,
+    image_url,
+    price,
+    rating_average,
+    length,
+    weight,
+  } = lure
 
   return (
     <Layout title="商品登録ページ">
@@ -79,6 +111,32 @@ const Review: NextPage<Props> = ({ lure_id }) => {
         <div className="py-16">
           <div className="rounded-lg bg-white w-3/4 mx-auto py-10 px-24">
             <form onSubmit={handleSubmit} className="">
+              <div className="flex items-center">
+                <div className="">
+                  <span className="text-sm text-gray-400">{brand_name}</span>
+                  <h2 className="text-2xl font-bold mt-2">{name}</h2>
+                  <p className="border border-primary rounded-md inline-block text-primary font-bold px-3 mt-3">
+                    {genre_name}
+                  </p>
+                </div>
+                <div className="aspect-square mt-5 m-auto relative w-48">
+                  {image_url ? (
+                    <Image
+                      alt={name}
+                      src={image_url}
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <Image
+                      alt={name}
+                      src="/noimage.jpg"
+                      fill
+                      className="object-cover"
+                    />
+                  )}
+                </div>
+              </div>
               <div className="flex items-center gap-3 mb-4">
                 <label htmlFor="rate01" className="font-bold w-1/3">
                   <span className="text-sm font-bold border border-red-700 text-red-700 rounded-md py-1 px-2 mr-2">
@@ -256,19 +314,10 @@ export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
   const lure_id = context.params!.id as string
-
-  // const data = await axios.get(
-  //   `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/session`
-  // )
-
-  // console.log(data)
-
-  // const user_id =
-  // const profile = await getProfile(id)
-  // const review = await getReviewByUserIdAndLureId(lure_id,user_id)
+  const lure = await getLureById(lure_id)
 
   return {
-    props: { lure_id },
+    props: { lure_id, lure },
   }
 }
 

@@ -13,7 +13,7 @@ export const useMutateReview = () => {
     async (review: Omit<EditedReview, 'id' | 'created_at'>) => {
       const { data, error } = await supabaseClient
         .from('reviews')
-        .upsert(review, { onConflict: 'user_id  ' })
+        .update(review)
         .select()
       if (error) throw new Error(error.message)
       return data
@@ -28,7 +28,7 @@ export const useMutateReview = () => {
     }
   )
   const updateReviewMutation = useMutation(
-    async (review: EditedReview) => {
+    async (review: Omit<EditedReview, 'created_at'>) => {
       const { data, error } = await supabaseClient
         .from('reviews')
         .update({
@@ -53,5 +53,5 @@ export const useMutateReview = () => {
     }
   )
 
-  return { createReviewMutation }
+  return { createReviewMutation, updateReviewMutation }
 }

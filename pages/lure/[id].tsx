@@ -68,8 +68,7 @@ const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
                       <Image
                         alt={name}
                         src="/noimage.jpg"
-                        width={200}
-                        height={200}
+                        fill
                         className="object-cover"
                       />
                     )}
