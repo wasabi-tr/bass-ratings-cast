@@ -3,7 +3,7 @@ import { Database } from '@/database.types'
 import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const supabaseServerClient = createPagesServerClient<Database>({
     req,
     res,
@@ -26,3 +26,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     .single()
   res.status(200).json(data)
 }
+export default handler

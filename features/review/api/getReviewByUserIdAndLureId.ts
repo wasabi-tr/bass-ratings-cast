@@ -1,5 +1,4 @@
 import { supabase } from '@/lib/supabaseClient'
-import { Review } from '@/types'
 
 const getReviewByUserIdAndLureId = async (lureId: string, userId: string) => {
   console.log(lureId, userId)

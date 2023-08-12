@@ -12,10 +12,10 @@ import Container from '@/components/base/Container'
 import dynamic from 'next/dynamic'
 import { getLureIds } from '@/features/lure/api/getLureId'
 import { useUser } from '@supabase/auth-helpers-react'
-import getReviewByUserIdAndLureId from '@/features/review/api/getReviewByUserIdAndLureId'
 import { getLureById } from '@/features/lure/api/getLureById'
 import { LureDetail } from '@/types'
 import Image from 'next/image'
+import getReviewByUserIdAndLureId from '@/features/review/api/getReviewByUserIdAndLureId'
 
 type Props = {
   lure_id: string
@@ -92,7 +92,7 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
       }
     }
     if (user) getCurrentReview()
-  }, [user])
+  }, [user, lure_id, update])
   const {
     id,
     name,
