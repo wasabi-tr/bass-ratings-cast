@@ -21,6 +21,7 @@ module.exports = {
         gray30: '#949494',
         gray20: '#CDCDCD',
         rating: '#FFB500',
+        navy: '#132337',
       },
       gridTemplateColumns: {
         'auto-min-max-50': 'repeat(auto-fit, minmax(min(450px, 100%), 1fr))',

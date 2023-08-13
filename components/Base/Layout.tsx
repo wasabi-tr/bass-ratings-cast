@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { FC, ReactNode } from 'react'
 import { Header } from './Header'
+import Footer from './Footer'
 
 type Props = {
   title: string
@@ -17,7 +18,7 @@ export const Layout: FC<Props> = ({ children, title = 'BassRatingsCast' }) => {
 
       <Header />
       <main className="pt-16">{children}</main>
-      <footer className="flex h-12 w-full items-center justify-center border-t"></footer>
+      <Footer />
     </div>
   )
 }
