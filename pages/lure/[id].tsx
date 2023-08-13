@@ -1,9 +1,7 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { LureDetail, Rating, Review } from '@/types'
 import { getLureById } from '../../features/lure/api/getLureById'
-import { Layout } from '@/components/base/Layout'
-import { useStore } from '@/lib/store'
-import { useRouter } from 'next/router'
+import { Layout } from '@/components/Base/Layout'
 import ReviewList from '@/features/review/components/ReviewList'
 import getReviews from '@/features/review/api/getReviews'
 import { getLureIds } from '@/features/lure/api/getLureId'
@@ -12,7 +10,8 @@ import { averageRating } from '@/features/review/hooks/averageRating'
 import { Stars } from '@/components/Elements/Stars'
 import Image from 'next/image'
 import Heading from '@/components/Elements/Heading'
-import Container from '@/components/base/Container'
+import Container from '@/components/Base/Container'
+import Link from 'next/link'
 
 type ReviewWithUsername = Review & {
   username: string
@@ -25,8 +24,6 @@ type Props = {
 }
 
 const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
-  const update = useStore((state) => state.updateReviewedLureId)
-  const router = useRouter()
   const {
     id,
     name,
@@ -38,10 +35,10 @@ const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
     length,
     weight,
   } = lure
-  const handleClick = () => {
-    update(id)
-    router.push(`/review/${id}`)
-  }
+  // const handleClick = () => {
+  //   update(id)
+  //   router.push(`/review/${id}`)
+  // }
 
   return (
     <Layout title={name}>
@@ -73,13 +70,11 @@ const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
                       />
                     )}
                   </div>
-                  <button
-                    className="rounded-full bg-primary text-center shadow 
-                    duration-300 mt-3 text-white font-bold py-3 px-3 w-full  hover:-translate-y-1"
-                    onClick={handleClick}
-                  >
-                    口コミを投稿する
-                  </button>
+                  <div className="mt-5">
+                    <Link href={`/review/${id}`} className="btn-primary">
+                      口コミを投稿する
+                    </Link>
+                  </div>
                 </div>
               </div>
               <div className="right  w-2/3">

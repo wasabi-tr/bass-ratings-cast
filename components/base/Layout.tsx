@@ -16,7 +16,7 @@ export const Layout: FC<Props> = ({ children, title = 'BassRatingsCast' }) => {
       </Head>
 
       <Header />
-      <main>{children}</main>
+      <main className="pt-16">{children}</main>
       <footer className="flex h-12 w-full items-center justify-center border-t"></footer>
     </div>
   )

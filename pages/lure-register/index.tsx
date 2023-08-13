@@ -1,5 +1,5 @@
-import Container from '@/components/base/Container'
-import { Layout } from '@/components/base/Layout'
+import Container from '@/components/Base/Container'
+import { Layout } from '@/components/Base/Layout'
 import { Database } from '@/database.types'
 import { useMutateLure } from '@/features/lure/hooks/useMutateLure'
 import { useQueryBrands } from '@/features/lure/hooks/useQueryBrands'

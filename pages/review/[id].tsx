@@ -7,8 +7,8 @@ import {
   GetStaticPropsContext,
   NextPage,
 } from 'next'
-import { Layout } from '@/components/base/Layout'
-import Container from '@/components/base/Container'
+import { Layout } from '@/components/Base/Layout'
+import Container from '@/components/Base/Container'
 import dynamic from 'next/dynamic'
 import { getLureIds } from '@/features/lure/api/getLureId'
 import { useUser } from '@supabase/auth-helpers-react'
@@ -16,6 +16,7 @@ import { getLureById } from '@/features/lure/api/getLureById'
 import { LureDetail } from '@/types'
 import Image from 'next/image'
 import getReviewByUserIdAndLureId from '@/features/review/api/getReviewByUserIdAndLureId'
+import Breadcrumb from '@/components/Base/Breadcrumb'
 
 type Props = {
   lure_id: string
@@ -46,7 +47,6 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
   const editedReview = useStore((state) => state.editedReview)
   const update = useStore((state) => state.updateEditedReview)
   const reset = useStore((state) => state.resetEditedReview)
-  console.log(lure)
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
@@ -76,6 +76,8 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
   useEffect(() => {
     const getCurrentReview = async () => {
       const data = await getReviewByUserIdAndLureId(lure_id, user?.id!)
+      console.log(data)
+
       if (data) {
         setReviewed(true)
         update({
@@ -92,26 +94,25 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
       }
     }
     if (user) getCurrentReview()
-  }, [user, lure_id, update])
-  const {
-    id,
-    name,
-    brand_name,
-    genre_name,
-    image_url,
-    price,
-    rating_average,
-    length,
-    weight,
-  } = lure
+    return () => {
+      reset()
+    }
+  }, [user, lure_id, update, reset])
+  const { name, brand_name, genre_name, image_url } = lure
+  const breadcrumbs = [
+    { name: 'ホーム', item: '/' },
+    { name: 'ルアー一覧', item: '/lure' },
+    { name: `${name}のレビュー`, item: lure_id },
+  ]
 
   return (
     <Layout title="商品登録ページ">
+      <Breadcrumb itemList={breadcrumbs} />
       <Container>
         <div className="py-16">
-          <div className="rounded-lg bg-white w-3/4 mx-auto py-10 px-24">
-            <form onSubmit={handleSubmit} className="">
-              <div className="flex items-center">
+          <div className="rounded-lg bg-white w-3/4 mx-auto py-14 px-24">
+            <form onSubmit={handleSubmit} className="flex gap-9">
+              <div className="">
                 <div className="">
                   <span className="text-sm text-gray-400">{brand_name}</span>
                   <h2 className="text-2xl font-bold mt-2">{name}</h2>
@@ -119,7 +120,7 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
                     {genre_name}
                   </p>
                 </div>
-                <div className="aspect-square mt-5 m-auto relative w-48">
+                <div className="aspect-square m-auto relative w-48 mt-5">
                   {image_url ? (
                     <Image
                       alt={name}
@@ -137,161 +138,186 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center gap-3 mb-4">
-                <label htmlFor="rate01" className="font-bold w-1/3">
-                  <span className="text-sm font-bold border border-red-700 text-red-700 rounded-md py-1 px-2 mr-2">
-                    必須
-                  </span>
-                  価格・コスパ
-                </label>
-                <div className="w-2/3">
-                  <ReactStarsRating
-                    name="rating_1"
-                    value={editedReview.rating_1}
-                    fillColor={'#FFB500'}
-                    className={`flex`}
-                    isHalf={false}
-                    size={30}
-                    onChange={(value: number) =>
-                      update({ ...editedReview, rating_1: value })
-                    }
-                  />
-                  <input
-                    id="rate01"
-                    type="number"
-                    min="1"
-                    max="5"
-                    name="rating_1"
-                    value={editedReview.rating_1}
-                    onChange={handleChange}
-                    required
-                    hidden
-                  />
+              <div className="flex-grow">
+                <div className="flex items-center gap-3 mb-4">
+                  <label htmlFor="rate01" className="font-bold w-1/2">
+                    <span className="text-sm font-bold border border-primary text-primary rounded-md py-1 px-2 mr-2">
+                      必須
+                    </span>
+                    価格・コスパ
+                  </label>
+                  <div className="w-1/2">
+                    <ReactStarsRating
+                      name="rating_1"
+                      value={editedReview.rating_1}
+                      fillColor={'#FFB500'}
+                      className={`flex justify-between`}
+                      isHalf={false}
+                      size={36}
+                      onChange={(value: number) =>
+                        update({ ...editedReview, rating_1: value })
+                      }
+                    />
+                    <input
+                      id="rate01"
+                      type="number"
+                      min="1"
+                      max="5"
+                      name="rating_1"
+                      value={editedReview.rating_1}
+                      onChange={handleChange}
+                      required
+                      hidden
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-3 mb-4">
-                <label className="font-bold w-1/3">操作性</label>
-                <div className="w-2/3">
-                  <ReactStarsRating
-                    name="rating_2"
-                    value={editedReview.rating_2}
-                    fillColor={'#FFB500'}
-                    className={`flex`}
-                    isHalf={false}
-                    size={30}
-                    onChange={(value: number) =>
-                      update({ ...editedReview, rating_2: value })
-                    }
-                  />
-                  <input
-                    type="number"
-                    min="1"
-                    max="5"
-                    name="rating_2"
-                    value={editedReview.rating_2}
-                    onChange={handleChange}
-                    hidden
-                    required
-                  />
+                <div className="flex items-center gap-3 mb-4">
+                  <label className="font-bold w-1/2">
+                    {' '}
+                    <span className="text-sm font-bold border border-primary text-primary rounded-md py-1 px-2 mr-2">
+                      必須
+                    </span>
+                    操作性
+                  </label>
+                  <div className="w-1/2">
+                    <ReactStarsRating
+                      name="rating_2"
+                      value={editedReview.rating_2}
+                      fillColor={'#FFB500'}
+                      className={`flex justify-between`}
+                      isHalf={false}
+                      size={36}
+                      onChange={(value: number) =>
+                        update({ ...editedReview, rating_2: value })
+                      }
+                    />
+                    <input
+                      type="number"
+                      min="1"
+                      max="5"
+                      name="rating_2"
+                      value={editedReview.rating_2}
+                      onChange={handleChange}
+                      hidden
+                      required
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-3 mb-4">
-                <label className="font-bold w-1/3">アクション</label>
-                <div className="w-2/3">
-                  <ReactStarsRating
-                    name="rating_3"
-                    value={editedReview.rating_3}
-                    fillColor={'#FFB500'}
-                    className={`flex`}
-                    isHalf={false}
-                    size={30}
-                    onChange={(value: number) =>
-                      update({ ...editedReview, rating_3: value })
-                    }
-                  />
-                  <input
-                    type="number"
-                    min="1"
-                    max="5"
-                    name="rating_3"
-                    value={editedReview.rating_2}
-                    onChange={handleChange}
-                    hidden
-                    required
-                  />
+                <div className="flex items-center gap-3 mb-4">
+                  <label className="font-bold w-1/2">
+                    {' '}
+                    <span className="text-sm font-bold border border-primary text-primary rounded-md py-1 px-2 mr-2">
+                      必須
+                    </span>
+                    アクション
+                  </label>
+                  <div className="w-1/2">
+                    <ReactStarsRating
+                      name="rating_3"
+                      value={editedReview.rating_3}
+                      fillColor={'#FFB500'}
+                      className={`flex justify-between`}
+                      isHalf={false}
+                      size={36}
+                      onChange={(value: number) =>
+                        update({ ...editedReview, rating_3: value })
+                      }
+                    />
+                    <input
+                      type="number"
+                      min="1"
+                      max="5"
+                      name="rating_3"
+                      value={editedReview.rating_2}
+                      onChange={handleChange}
+                      hidden
+                      required
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-3 mb-4">
-                <label className="font-bold w-1/3">飛距離</label>
-                <div className="w-2/3">
-                  <ReactStarsRating
-                    name="rating_4"
-                    value={editedReview.rating_4}
-                    fillColor={'#FFB500'}
-                    className={`flex`}
-                    isHalf={false}
-                    size={30}
-                    onChange={(value: number) =>
-                      update({ ...editedReview, rating_4: value })
-                    }
-                  />
-                  <input
-                    type="number"
-                    min="1"
-                    max="5"
-                    name="rating_4"
-                    value={editedReview.rating_4}
-                    onChange={handleChange}
-                    hidden
-                    required
-                  />
+                <div className="flex items-center gap-3 mb-4">
+                  <label className="font-bold w-1/2">
+                    {' '}
+                    <span className="text-sm font-bold border border-primary text-primary rounded-md py-1 px-2 mr-2">
+                      必須
+                    </span>
+                    飛距離
+                  </label>
+                  <div className="w-1/2">
+                    <ReactStarsRating
+                      name="rating_4"
+                      value={editedReview.rating_4}
+                      fillColor={'#FFB500'}
+                      className={`flex justify-between`}
+                      isHalf={false}
+                      size={36}
+                      onChange={(value: number) =>
+                        update({ ...editedReview, rating_4: value })
+                      }
+                    />
+                    <input
+                      type="number"
+                      min="1"
+                      max="5"
+                      name="rating_4"
+                      value={editedReview.rating_4}
+                      onChange={handleChange}
+                      hidden
+                      required
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-3 mb-4">
-                <label className="font-bold w-1/3">耐久性</label>
-                <div className="w-2/3">
-                  <ReactStarsRating
-                    name="rating_5"
-                    value={editedReview.rating_5}
-                    fillColor={'#FFB500'}
-                    className={`flex`}
-                    isHalf={false}
-                    size={30}
-                    onChange={(value: number) =>
-                      update({ ...editedReview, rating_5: value })
-                    }
-                  />
-                  <input
-                    type="number"
-                    min="1"
-                    max="5"
-                    name="rating_5"
-                    value={editedReview.rating_5}
-                    hidden
-                    onChange={handleChange}
-                    required
-                  />
+                <div className="flex items-center gap-3 mb-4">
+                  <label className="font-bold w-1/2">
+                    {' '}
+                    <span className="text-sm font-bold border border-primary text-primary rounded-md py-1 px-2 mr-2">
+                      必須
+                    </span>
+                    耐久性
+                  </label>
+                  <div className="w-1/2">
+                    <ReactStarsRating
+                      name="rating_5"
+                      value={editedReview.rating_5}
+                      fillColor={'#FFB500'}
+                      className={`flex justify-between`}
+                      isHalf={false}
+                      size={36}
+                      onChange={(value: number) =>
+                        update({ ...editedReview, rating_5: value })
+                      }
+                    />
+                    <input
+                      type="number"
+                      min="1"
+                      max="5"
+                      name="rating_5"
+                      value={editedReview.rating_5}
+                      hidden
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-3 mb-4">
-                <label className="font-bold w-1/3">レビューテキスト</label>
-                <div className="w-2/3">
-                  <textarea
-                    name="text"
-                    value={editedReview.text}
-                    onChange={handleChange}
-                    className="bg-gray10 rounded-lg w-full h-32 p-3"
-                    required
-                  />
+                <div className="mb-4">
+                  <label className="font-bold mb-3 block">
+                    レビューテキスト
+                  </label>
+                  <div className="">
+                    <textarea
+                      name="text"
+                      value={editedReview.text}
+                      onChange={handleChange}
+                      className="bg-gray10 rounded-lg w-full h-32 p-3"
+                      required
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="rounded-full bg-primary text-center shadow ease duration-300 hover:-translate-y-1 mt-4">
-                <button
-                  type="submit"
-                  className="text-white font-bold py-5 px-4 inline-block "
-                >
-                  口コミを投稿する
-                </button>
+                <div className="mx-auto mt-7 ">
+                  <button type="submit" className="btn-primary">
+                    {reviewed ? '口コミを修正する' : '口コミを投稿する'}
+                  </button>
+                </div>
               </div>
             </form>
           </div>

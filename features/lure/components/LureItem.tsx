@@ -1,5 +1,5 @@
 import { Stars } from '@/components/Elements/Stars'
-import { Spinner } from '@/components/base/Spinner'
+import { Spinner } from '@/components/Base/Spinner'
 import { Lure, LureDetail } from '@/types'
 import { ExclamationCircleIcon } from '@heroicons/react/24/solid'
 import Image from 'next/image'

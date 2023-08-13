@@ -5,7 +5,7 @@ import { useUser } from '@supabase/auth-helpers-react'
 import Link from 'next/link'
 import React, { FC, useState } from 'react'
 import { useQueryClient } from 'react-query'
-import { Spinner } from '../base/Spinner'
+import { Spinner } from '../Base/Spinner'
 import Image from 'next/image'
 import {
   ArrowRightOnRectangleIcon,

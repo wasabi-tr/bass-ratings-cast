@@ -10,7 +10,7 @@ const User = dynamic(() => import('../Elements/User'), {
 
 export const HeaderMemo: FC = () => {
   return (
-    <header className="flex justify-between w-full px-5 py-6 shadow bg-white">
+    <header className="flex justify-between items-center px-5 h-16 shadow bg-white fixed top-0 left-0 w-full z-10">
       <div>
         <Link href={'/'} className="font-bold">
           Bass Ratings Cast

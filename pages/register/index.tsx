@@ -1,5 +1,5 @@
-import { Auth } from '@/components/base/Auth'
-import { Layout } from '@/components/base/Layout'
+import { Auth } from '@/components/Base/Auth'
+import { Layout } from '@/components/Base/Layout'
 import { NextPage } from 'next'
 
 const Register: NextPage = () => {

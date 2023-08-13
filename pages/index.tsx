@@ -1,6 +1,5 @@
 import Heading from '@/components/Elements/Heading'
-import Container from '@/components/base/Container'
-import { Layout } from '@/components/base/Layout'
+import { Layout } from '@/components/Base/Layout'
 import { getBrands } from '@/features/brands/api/getBrands'
 import BrandItem from '@/features/brands/components/BrandItem'
 import { getGenres } from '@/features/genres/api/getGenres'
@@ -10,6 +9,7 @@ import LureItem from '@/features/lure/components/LureItem'
 import { Brand, Genre, LureDetail } from '@/types'
 import { GetStaticProps, NextPage } from 'next'
 import Link from 'next/link'
+import Container from '@/components/Base/Container'
 
 type Props = {
   lures: LureDetail[]
@@ -30,11 +30,8 @@ const Home: NextPage<Props> = ({ lures, brands, genres }) => {
                 <p className="mt-4 text-center">
                   釣り人が投稿するブラックバスルアー専門の評価サイト
                 </p>
-                <div className="rounded-full bg-primary text-center shadow ease duration-300 hover:-translate-y-1 mt-4">
-                  <Link
-                    href={'/register'}
-                    className="text-white font-bold py-5 px-4 inline-block "
-                  >
+                <div className="flex justify-center mt-3">
+                  <Link href={'/register'} className="btn-primary">
                     会員登録してレビューを投稿する
                   </Link>
                 </div>
@@ -51,8 +48,8 @@ const Home: NextPage<Props> = ({ lures, brands, genres }) => {
                 <LureItem key={lure.id} lure={lure} />
               ))}
             </ul>
-            <div className="button-wrap mt-6 mx-auto">
-              <Link href={'/lure'} className="">
+            <div className="button-wrap mt-6 mx-auto w-80">
+              <Link href={'/lure'} className="btn-primary">
                 ルアー一覧をもっとみる
               </Link>
             </div>
@@ -66,8 +63,8 @@ const Home: NextPage<Props> = ({ lures, brands, genres }) => {
                 <BrandItem key={brand.id} brand={brand} />
               ))}
             </ul>
-            <div className="button-wrap mt-6 mx-auto">
-              <Link href={'/brand'} className="">
+            <div className="button-wrap mt-6 mx-auto w-80">
+              <Link href={'/brand'} className="btn-primary">
                 メーカー一覧をもっとみる
               </Link>
             </div>

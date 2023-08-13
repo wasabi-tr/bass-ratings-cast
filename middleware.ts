@@ -3,28 +3,34 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export async function middleware(req: NextRequest) {
-  //   // We need to create a response and hand it to the supabase client to be able to modify the response headers.
-  //   const res = NextResponse.next()
-  //   // Create authenticated Supabase Client.
-  //   const supabase = createMiddlewareClient({ req, res })
-  //   // Check if we have a session
-  //   const {
-  //     data: { session },
-  //   } = await supabase.auth.getSession()
-  //   console.log(`ミドルウェア${session}`)
-  //   // Check auth condition
-  //   if (session?.user.email?.endsWith('@gmail.com')) {
-  //     // Authentication successful, forward request to protected route.
-  //     return res
+  const res = NextResponse.next()
+  const supabase = createMiddlewareClient({ req, res })
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
+  console.log(`ミドルウェア${session?.user.id}`)
+  // if (session?.user.email?.endsWith('@gmail.com')) {
+  //   // Authentication successful, forward request to protected route.
+  //   return res
+  // }
+  if (session) {
+    const userIdFromSession = session.user.id
+
+    const urlEndsWithUserId = req.nextUrl.pathname.endsWith(
+      `/${userIdFromSession}`
+    )
+
+    if (urlEndsWithUserId) {
+      return res
+    }
+  }
+
+  const redirectUrl = req.nextUrl.clone()
+  redirectUrl.pathname = '/'
+  redirectUrl.searchParams.set(`redirectedFrom`, req.nextUrl.pathname)
+  return NextResponse.redirect(redirectUrl)
 }
 
-//   // Auth condition not met, redirect to home page.
-//   const redirectUrl = req.nextUrl.clone()
-//   redirectUrl.pathname = '/'
-//   redirectUrl.searchParams.set(`redirectedFrom`, req.nextUrl.pathname)
-//   return NextResponse.redirect(redirectUrl)
-// }
-
-// export const config = {
-//   matcher: '/profile/:path*',
-// }
+export const config = {
+  matcher: '/profile/:path*',
+}
