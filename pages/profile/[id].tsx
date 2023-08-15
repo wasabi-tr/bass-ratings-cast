@@ -1,16 +1,15 @@
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
+import { GetServerSidePropsContext, NextPage } from 'next'
 import Image from 'next/image'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { PencilIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { useUploadAvatarImg } from '@/features/profile/hooks/useUploadAvatarImg'
 import { useDownloadUrl } from '@/hooks/useDownloadUrl'
-import { Layout } from '@/components/Base/Layout'
 import { Profile } from '@/types'
 import { getProfile } from '@/features/profile/api/getProfile'
-import { Spinner } from '@/components/Base/Spinner'
 import { userMutateProfile } from '@/features/profile/hooks/userMutateProfile'
+import { Layout } from '@/components/Base/Layout'
 import Container from '@/components/Base/Container'
-import { getProfileIds } from '@/features/profile/api/getProfileIds'
+import { Spinner } from '@/components/Base/Spinner'
 type Props = {
   profile: Profile
 }
@@ -116,17 +115,10 @@ const Profile: NextPage<Props> = ({ profile }) => {
     </Layout>
   )
 }
-export const getStaticPaths: GetStaticPaths = async () => {
-  const ids = await getProfileIds()
-  const paths = ids.map((id) => ({ params: { id } }))
 
-  return {
-    paths,
-    fallback: 'blocking',
-  }
-}
-
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
   const id = context.params!.id as string
   const profile = await getProfile(id)
 
