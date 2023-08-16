@@ -313,7 +313,7 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
                     />
                   </div>
                 </div>
-                <div className="mx-auto mt-7 ">
+                <div className="mx-auto mt-7 h-16 ">
                   <button type="submit" className="btn-primary">
                     {reviewed ? '口コミを修正する' : '口コミを投稿する'}
                   </button>

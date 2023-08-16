@@ -30,7 +30,7 @@ const Home: NextPage<Props> = ({ lures, brands, genres }) => {
                 <p className="mt-4 text-center">
                   釣り人が投稿するブラックバスルアー専門の評価サイト
                 </p>
-                <div className="flex justify-center mt-3">
+                <div className="flex justify-center mt-3 w-80 h-16 mx-auto">
                   <Link href={'/register'} className="btn-primary">
                     会員登録してレビューを投稿する
                   </Link>
@@ -48,7 +48,7 @@ const Home: NextPage<Props> = ({ lures, brands, genres }) => {
                 <LureItem key={lure.id} lure={lure} />
               ))}
             </ul>
-            <div className="button-wrap mt-6 mx-auto w-80">
+            <div className="button-wrap mt-6 mx-auto w-80 h-16">
               <Link href={'/lure'} className="btn-primary">
                 ルアー一覧をもっとみる
               </Link>
@@ -63,7 +63,7 @@ const Home: NextPage<Props> = ({ lures, brands, genres }) => {
                 <BrandItem key={brand.id} brand={brand} />
               ))}
             </ul>
-            <div className="button-wrap mt-6 mx-auto w-80">
+            <div className="button-wrap mt-6 mx-auto w-80  h-16">
               <Link href={'/brand'} className="btn-primary">
                 メーカー一覧をもっとみる
               </Link>

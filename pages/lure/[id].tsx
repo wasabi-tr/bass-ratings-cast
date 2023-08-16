@@ -12,6 +12,7 @@ import Image from 'next/image'
 import Heading from '@/components/Elements/Heading'
 import Container from '@/components/Base/Container'
 import Link from 'next/link'
+import { useUser } from '@supabase/auth-helpers-react'
 
 type ReviewWithUsername = Review & {
   username: string
@@ -35,11 +36,7 @@ const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
     length,
     weight,
   } = lure
-  // const handleClick = () => {
-  //   update(id)
-  //   router.push(`/review/${id}`)
-  // }
-
+  const user = useUser()
   return (
     <Layout title={name}>
       <section>
@@ -70,10 +67,16 @@ const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
                       />
                     )}
                   </div>
-                  <div className="mt-5">
-                    <Link href={`/review/${id}`} className="btn-primary">
-                      口コミを投稿する
-                    </Link>
+                  <div className="mt-5 h-16">
+                    {user ? (
+                      <Link href={`/review/${id}`} className="btn-primary">
+                        口コミを投稿する
+                      </Link>
+                    ) : (
+                      <Link href={`/auth`} className="btn-primary font-ms">
+                        会員登録をして口コミを投稿する
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>

@@ -3,6 +3,7 @@ import { FC, FormEvent, useEffect, useState } from 'react'
 import { CheckBadgeIcon, ShieldCheckIcon } from '@heroicons/react/24/solid'
 import { supabase } from '@/lib/supabaseClient'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export const Auth: FC = () => {
   const [isLogin, setIsLogin] = useState(true)
@@ -32,21 +33,15 @@ export const Auth: FC = () => {
   const googleSignIn = async () => {
     googleSignInMutation.mutate()
   }
-  const handleResetPassword = async () => {
-    console.log('リセット')
-  }
 
-  // const logout = async () => {
-  //   logoutMutation.mutate()
-  // }
   return (
-    <>
+    <div className="h-screen flex items-center justify-center flex-col">
       <h2 className="text-center font-bold text-3xl">Bass Ratings Cast</h2>
       <p className="font-bold text-center mt-4 text-primary text-lg">
         {isLogin ? 'ログイン' : '新規会員登録'}
       </p>
 
-      <div className="w-3/4 mt-8 mx-auto bg-white rounded-2xl shadow-sm py-16 px-20">
+      <div className="w-2/4 mt-8 mx-auto bg-white rounded-2xl shadow-sm p-16">
         <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email" className="font-bold mb-2 block">
@@ -80,14 +75,14 @@ export const Auth: FC = () => {
               }}
             />
           </div>
-          <div className="mt-2 text-center">
-            パスワードを忘れた方は
-            <button
-              onClick={handleResetPassword}
+          <div className="mt-2 text-center text-sm">
+            パスワードを忘れた方はこちら
+            <Link
+              href={'/forgot-password'}
               className="text-primary transition-all font-bold hover:opacity-70"
             >
               こちら
-            </button>
+            </Link>
           </div>
 
           <button
@@ -110,7 +105,7 @@ export const Auth: FC = () => {
           Googleアカウントで{isLogin ? 'ログイン' : '新規会員登録'}
         </button>
         {isLogin ? (
-          <div className="mt-4 text-center">
+          <div className="mt-4 text-center text-sm">
             アカウントをお持ちでない方はこちらから
             <button
               onClick={handleChange}
@@ -121,7 +116,7 @@ export const Auth: FC = () => {
             してください
           </div>
         ) : (
-          <div className="mt-4 text-center">
+          <div className="mt-4 text-center text-sm">
             アカウントをお持ちの方はこちらから
             <button
               onClick={handleChange}
@@ -133,6 +128,6 @@ export const Auth: FC = () => {
           </div>
         )}
       </div>
-    </>
+    </div>
   )
 }

@@ -12,8 +12,7 @@ const Login: NextPage = () => {
 
   return (
     <Layout title="ログインページ">
-      <Breadcrumb itemList={breadcrumbs} />
-      <Container padding="py-16">
+      <Container>
         <Auth />
       </Container>
     </Layout>

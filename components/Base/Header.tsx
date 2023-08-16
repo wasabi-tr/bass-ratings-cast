@@ -4,11 +4,16 @@ import { Spinner } from './Spinner'
 import { ExclamationCircleIcon } from '@heroicons/react/24/solid'
 import { ErrorBoundary } from 'react-error-boundary'
 import dynamic from 'next/dynamic'
+import { useMutateAuth } from '@/hooks/useMutateAuth'
 const User = dynamic(() => import('../Elements/User'), {
   ssr: false,
 })
 
 export const HeaderMemo: FC = () => {
+  const { logoutMutation } = useMutateAuth()
+  const logout = async () => {
+    logoutMutation.mutate()
+  }
   return (
     <header className="flex justify-between items-center px-5 h-16 shadow bg-white fixed top-0 left-0 w-full z-10">
       <div>
@@ -27,6 +32,9 @@ export const HeaderMemo: FC = () => {
             <Link href={'/brand'} className=" font-bold">
               メーカー一覧
             </Link>
+          </li>
+          <li>
+            <button onClick={logout}>ログアウト</button>
           </li>
         </ul>
         <ErrorBoundary
