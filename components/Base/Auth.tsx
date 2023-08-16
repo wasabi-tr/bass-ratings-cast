@@ -32,10 +32,13 @@ export const Auth: FC = () => {
   const googleSignIn = async () => {
     googleSignInMutation.mutate()
   }
-
-  const logout = async () => {
-    logoutMutation.mutate()
+  const handleResetPassword = async () => {
+    console.log('リセット')
   }
+
+  // const logout = async () => {
+  //   logoutMutation.mutate()
+  // }
   return (
     <>
       <h2 className="text-center font-bold text-3xl">Bass Ratings Cast</h2>
@@ -76,6 +79,15 @@ export const Auth: FC = () => {
                 setPassword(e.target.value)
               }}
             />
+          </div>
+          <div className="mt-2 text-center">
+            パスワードを忘れた方は
+            <button
+              onClick={handleResetPassword}
+              className="text-primary transition-all font-bold hover:opacity-70"
+            >
+              こちら
+            </button>
           </div>
 
           <button
