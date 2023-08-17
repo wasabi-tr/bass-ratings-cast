@@ -5,6 +5,7 @@ import { ExclamationCircleIcon } from '@heroicons/react/24/solid'
 import { ErrorBoundary } from 'react-error-boundary'
 import dynamic from 'next/dynamic'
 import { useMutateAuth } from '@/hooks/useMutateAuth'
+import Image from 'next/image'
 const User = dynamic(() => import('../Elements/User'), {
   ssr: false,
 })
@@ -22,19 +23,28 @@ export const HeaderMemo: FC = () => {
         </Link>
       </div>
       <nav className="ml-auto flex gap-6">
-        <ul className="flex items-center gap-6">
+        <ul className="flex items-center gap-8">
           <li>
-            <Link href={'/lure'} className=" font-bold">
+            <Link
+              href={'/lure'}
+              className=" font-bold flex items-center gap-2  hover:border-b border-primary"
+            >
+              <span>
+                <Image src={'/icons/lure.svg'} alt="" width={24} height={24} />
+              </span>
               ルアー一覧
             </Link>
           </li>
           <li>
-            <Link href={'/brand'} className=" font-bold">
+            <Link
+              href={'/brand'}
+              className=" font-bold flex items-center gap-2"
+            >
+              <span>
+                <Image src={'/icons/maker.svg'} alt="" width={20} height={20} />
+              </span>
               メーカー一覧
             </Link>
-          </li>
-          <li>
-            <button onClick={logout}>ログアウト</button>
           </li>
         </ul>
         <ErrorBoundary

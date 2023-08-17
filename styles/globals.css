@@ -20,6 +20,12 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: #f8f8f8;
+  font-size: 16px;
+}
+@media (max-width: 767px) {
+  body {
+    font-size: 14px;
+  }
 }
 
 .btn-primary {

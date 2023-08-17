@@ -13,6 +13,7 @@ import Heading from '@/components/Elements/Heading'
 import Container from '@/components/Base/Container'
 import Link from 'next/link'
 import { useUser } from '@supabase/auth-helpers-react'
+import Breadcrumb from '@/components/Base/Breadcrumb'
 
 type ReviewWithUsername = Review & {
   username: string
@@ -37,14 +38,20 @@ const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
     weight,
   } = lure
   const user = useUser()
+  const breadcrumbs = [
+    { name: 'ホーム', item: '/' },
+    { name: 'ルアー一覧', item: '/lure' },
+    { name: name, item: '' },
+  ]
   return (
     <Layout title={name}>
+      <Breadcrumb itemList={breadcrumbs} />
       <section>
         <Container>
           <div className="py-16">
-            <div className="flex gap-16">
-              <div className="left w-1/3 ">
-                <div className="sticky top-6">
+            <div className="flex gap-16 sm:block">
+              <div className="left w-1/3 sm:w-full">
+                <div className="sticky top-8">
                   <span className="text-sm text-gray-400">{brand_name}</span>
                   <h2 className="text-2xl font-bold mt-2">{name}</h2>
                   <p className="border border-primary rounded-md inline-block text-primary font-bold px-3 mt-3">
@@ -70,17 +77,17 @@ const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
                   <div className="mt-5 h-16">
                     {user ? (
                       <Link href={`/review/${id}`} className="btn-primary">
-                        口コミを投稿する
+                        レビューを投稿する
                       </Link>
                     ) : (
                       <Link href={`/auth`} className="btn-primary font-ms">
-                        会員登録をして口コミを投稿する
+                        会員登録をしてレビューを投稿する
                       </Link>
                     )}
                   </div>
                 </div>
               </div>
-              <div className="right  w-2/3">
+              <div className="right  w-2/3 sm:w-full sm:mt-12 ">
                 <section>
                   <div className="">
                     <Heading heading="総合評価" />
@@ -124,7 +131,7 @@ const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
                 </section>
                 <section>
                   <div className="py-10">
-                    <Heading heading="口コミ" />
+                    <Heading heading="レビュー" />
                     <ReviewList reviews={reviews} />
                   </div>
                 </section>

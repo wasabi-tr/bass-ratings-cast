@@ -14,8 +14,6 @@ import {
 import { Spinner } from '../Base/Spinner'
 
 const User: FC = () => {
-  console.log('render user')
-
   const user = useUser()
   const [open, setOpen] = useState(false)
   const { data: profile } = useQueryProfile()
@@ -38,8 +36,11 @@ const User: FC = () => {
     <>
       {user && profile ? (
         <div className="relative">
-          <button onClick={handleClick} className="flex items-center gap-3">
-            <div className="relative m-auto w-5 h-5">
+          <button
+            onClick={handleClick}
+            className="flex items-center transition hover:opacity-70"
+          >
+            <div className="relative m-auto w-8 h-8 border-2 border-primary rounded-full">
               {isLoading ? (
                 <Spinner />
               ) : fullUrl ? (
@@ -53,7 +54,6 @@ const User: FC = () => {
                 <UserCircleIcon className="w-5 h-5 text-zinc-400" />
               )}
             </div>
-            <p>{profile.username}</p>
           </button>
           <div
             className={`${
@@ -85,7 +85,7 @@ const User: FC = () => {
         <div>
           <Link
             href={'/auth'}
-            className="font-bold text-xs p-3 border border-primary rounded-sm text-primary text-center"
+            className="font-bold text-xs p-3 border bg-primary border-primary rounded-md text-white text-center transition hover:opacity-70"
           >
             ログイン/新規会員登録
           </Link>

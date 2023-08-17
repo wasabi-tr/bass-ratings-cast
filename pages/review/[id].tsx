@@ -102,7 +102,7 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
   const breadcrumbs = [
     { name: 'ホーム', item: '/' },
     { name: 'ルアー一覧', item: '/lure' },
-    { name: `${name}のレビュー`, item: lure_id },
+    { name: `${name}のレビュー登録`, item: lure_id },
   ]
 
   return (
@@ -315,7 +315,7 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
                 </div>
                 <div className="mx-auto mt-7 h-16 ">
                   <button type="submit" className="btn-primary">
-                    {reviewed ? '口コミを修正する' : '口コミを投稿する'}
+                    {reviewed ? 'レビューを修正する' : 'レビューを投稿する'}
                   </button>
                 </div>
               </div>

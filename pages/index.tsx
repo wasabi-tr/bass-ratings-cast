@@ -10,6 +10,7 @@ import { Brand, Genre, LureDetail } from '@/types'
 import { GetStaticProps, NextPage } from 'next'
 import Link from 'next/link'
 import Container from '@/components/Base/Container'
+import Image from 'next/image'
 
 type Props = {
   lures: LureDetail[]
@@ -19,29 +20,39 @@ type Props = {
 const Home: NextPage<Props> = ({ lures, brands, genres }) => {
   return (
     <Layout title="">
+      <section>
+        <div className="relative">
+          <Image
+            src={'/mv/mv1.jpg'}
+            alt=""
+            fill
+            className="object-cover object-top -z-10"
+          />
+          <Container>
+            <div className="py-20 sm:py-8">
+              <div className="bg-white bg-opacity-70 py-24 px-7 flex gap-12 sm:block sm:py-10">
+                <div className="mx-auto">
+                  <h1 className="text-4xl font-bold text-center sm:text-2xl">
+                    Bass Ratings Cast
+                  </h1>
+                  <p className="mt-4 text-center sm:">
+                    - 釣り人が投稿するブラックバスルアー専門の評価サイト -
+                  </p>
+                  <div className="flex justify-center mt-6 w-80 h-16 mx-auto sm:w-full">
+                    <Link href={'/register'} className="btn-primary">
+                      会員登録してレビューを投稿する
+                    </Link>
+                  </div>
+                </div>
+                {/* <div className="bg-gray30 aspect-video w-1/2"></div> */}
+              </div>
+            </div>
+          </Container>
+        </div>
+      </section>
       <Container>
         <section>
-          <div className="py-16">
-            <div className="bg-white py-24 px-7 flex gap-12">
-              <div className="">
-                <h1 className="text-4xl font-bold text-center">
-                  Bass Ratings Cast
-                </h1>
-                <p className="mt-4 text-center">
-                  釣り人が投稿するブラックバスルアー専門の評価サイト
-                </p>
-                <div className="flex justify-center mt-3 w-80 h-16 mx-auto">
-                  <Link href={'/register'} className="btn-primary">
-                    会員登録してレビューを投稿する
-                  </Link>
-                </div>
-              </div>
-              <div className="bg-gray30 aspect-video w-1/2"></div>
-            </div>
-          </div>
-        </section>
-        <section>
-          <div className="py-16">
+          <div className="py-16 sm:py-8">
             <Heading heading="ルアー一覧" />
             <ul className="grid gap-4 grid-cols-auto-min-max-33 ">
               {lures?.map((lure) => (
@@ -56,7 +67,7 @@ const Home: NextPage<Props> = ({ lures, brands, genres }) => {
           </div>
         </section>
         <section>
-          <div className="py-16">
+          <div className="py-16 sm:py-8">
             <Heading heading="メーカーから探す" />
             <ul className="grid gap-4 grid-cols-auto-min-max-20 ">
               {brands?.map((brand) => (
@@ -71,7 +82,7 @@ const Home: NextPage<Props> = ({ lures, brands, genres }) => {
           </div>
         </section>
         <section>
-          <div className="py-16">
+          <div className="py-16 sm:py-8">
             <Heading heading="ルアージャンルから探す" />
             <ul className="grid gap-4 flex-wrap grid-cols-auto-min-max-20 ">
               {genres?.map((genre) => (
