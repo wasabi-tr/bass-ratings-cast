@@ -11,6 +11,7 @@ import { GetStaticProps, NextPage } from 'next'
 import Link from 'next/link'
 import Container from '@/components/Base/Container'
 import Image from 'next/image'
+import Seo from '@/components/Base/Seo'
 
 type Props = {
   lures: LureDetail[]
@@ -19,7 +20,8 @@ type Props = {
 }
 const Home: NextPage<Props> = ({ lures, brands, genres }) => {
   return (
-    <Layout title="">
+    <Layout>
+      <Seo />
       <section>
         <div className="relative">
           <Image
@@ -28,17 +30,18 @@ const Home: NextPage<Props> = ({ lures, brands, genres }) => {
             fill
             className="object-cover object-top -z-10"
           />
+          <div className="absolute inset-0 bg-black opacity-40 -z-10"></div>
           <Container>
             <div className="py-20 sm:py-8">
-              <div className="bg-white bg-opacity-70 py-24 px-7 flex gap-12 sm:block sm:py-10">
+              <div className="py-24 px-7 flex gap-12 sm:block sm:py-10">
                 <div className="mx-auto">
-                  <h1 className="text-4xl font-bold text-center sm:text-2xl">
-                    Bass Ratings Cast
+                  <h1 className="text-5xl font-bold text-white text-center sm:text-2xl tracking-widest	 ">
+                    LURE CASE
                   </h1>
-                  <p className="mt-4 text-center sm:">
-                    - 釣り人が投稿するブラックバスルアー専門の評価サイト -
+                  <p className="mt-4 text-center  text-white sm:">
+                    - 釣り人が投稿するブラックバスルアー専門のレビューサイト -
                   </p>
-                  <div className="flex justify-center mt-6 w-80 h-16 mx-auto sm:w-full">
+                  <div className="flex justify-center mt-8 w-80 h-16 mx-auto sm:w-full">
                     <Link href={'/register'} className="btn-primary">
                       会員登録してレビューを投稿する
                     </Link>

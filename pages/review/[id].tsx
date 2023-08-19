@@ -106,7 +106,7 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
   ]
 
   return (
-    <Layout title="商品登録ページ">
+    <Layout>
       <Breadcrumb itemList={breadcrumbs} />
       <Container>
         <div className="py-16">
