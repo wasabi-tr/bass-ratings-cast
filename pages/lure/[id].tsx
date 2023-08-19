@@ -44,7 +44,7 @@ const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
     { name: name, item: '' },
   ]
   return (
-    <Layout title={name}>
+    <Layout>
       <Breadcrumb itemList={breadcrumbs} />
       <section>
         <Container>
