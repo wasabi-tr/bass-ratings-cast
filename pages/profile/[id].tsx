@@ -42,7 +42,7 @@ const Profile: NextPage<Props> = ({ profile }) => {
   }
 
   return (
-    <Layout title="プロフィール">
+    <Layout>
       <Container>
         <div className="py-16">
           <div className="w-3/4 mt-8 mx-auto bg-white rounded-2xl shadow-sm py-16 px-20">

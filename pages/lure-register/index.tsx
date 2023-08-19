@@ -52,7 +52,7 @@ const LureRegister: NextPage = () => {
   }
 
   return (
-    <Layout title="商品登録ページ">
+    <Layout>
       <Container>
         <h2>商品を登録する</h2>
         <form onSubmit={handleSubmit} className="space-y-4">

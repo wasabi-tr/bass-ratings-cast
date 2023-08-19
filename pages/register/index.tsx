@@ -4,7 +4,7 @@ import { NextPage } from 'next'
 
 const Register: NextPage = () => {
   return (
-    <Layout title="新規登録ページ">
+    <Layout>
       <Auth />
     </Layout>
   )

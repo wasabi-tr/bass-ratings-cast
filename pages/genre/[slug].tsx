@@ -21,7 +21,7 @@ const LuresByGenre: NextPage<Props> = ({ lures, slug }) => {
     { name: genre_name, item: `/genre/${slug}` },
   ]
   return (
-    <Layout title="">
+    <Layout>
       <PageTop title={`${genre_name}のルアー一覧`} />
       <Breadcrumb itemList={breadcrumbs} />
       <Container>

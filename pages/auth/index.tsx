@@ -11,7 +11,7 @@ const Login: NextPage = () => {
   ]
 
   return (
-    <Layout title="ログインページ">
+    <Layout>
       <Container>
         <Auth />
       </Container>

@@ -22,7 +22,7 @@ const ForgotPassword: NextPage = () => {
     }
   }
   return (
-    <Layout title="パスワードを忘れた方">
+    <Layout>
       <Container>
         <div className="h-screen flex  justify-center flex-col">
           <div className="w-1/2 mx-auto">

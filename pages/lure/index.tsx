@@ -17,7 +17,7 @@ const LureArchive: NextPage<Props> = ({ lures }) => {
   ]
   return (
     <>
-      <Layout title="">
+      <Layout>
         <PageTop title="ルアー一覧" />
         <Breadcrumb itemList={breadcrumbs} />
         <Container padding="">

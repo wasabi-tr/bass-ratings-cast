@@ -23,7 +23,7 @@ const LuresBySlug: NextPage<Props> = ({ lures, slug }) => {
     { name: brand_name, item: `/brand/${slug}` },
   ]
   return (
-    <Layout title="">
+    <Layout>
       <PageTop title={`${brand_name}のルアー一覧`} />
       <Breadcrumb itemList={breadcrumbs} />
       <Container>

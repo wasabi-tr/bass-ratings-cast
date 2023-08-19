@@ -18,7 +18,7 @@ const Brand: NextPage<Props> = ({ brands }) => {
   ]
   return (
     <>
-      <Layout title="">
+      <Layout>
         <PageTop title="メーカー一覧" />
         <Breadcrumb itemList={breadcrumbs} />
         <Container>

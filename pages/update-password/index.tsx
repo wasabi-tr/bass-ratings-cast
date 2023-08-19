@@ -24,7 +24,7 @@ const UpdatePassword: NextPage = () => {
     router.replace('/')
   }
   return (
-    <Layout title="パスワード更新">
+    <Layout>
       <Container>
         <div className="h-screen flex  justify-center flex-col">
           <div className="w-1/2 mx-auto">
