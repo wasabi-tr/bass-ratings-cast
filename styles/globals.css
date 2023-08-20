@@ -38,19 +38,19 @@ body {
   filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0.25));
 }
 
-h2.heading {
-  font-size: 20px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 20px;
+.hover-animation-border {
+  position: relative;
 }
-h2.heading::before {
+.hover-animation-border::after {
+  position: absolute;
   content: '';
-  display: inline-block;
-  width: 3px;
-  height: 30px;
-  border-radius: 10px;
-  background-color: var(--primary-color);
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary-color);
+  transition: 0.3s;
+}
+.hover-animation-border:hover::after {
+  width: 100%;
 }

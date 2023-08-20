@@ -18,16 +18,16 @@ export const HeaderMemo: FC = () => {
   return (
     <header className="flex justify-between items-center px-5 h-16 shadow bg-white fixed top-0 left-0 w-full z-10">
       <div>
-        <Link href={'/'} className="font-bold">
+        <Link href={'/'} className="font-bold text-lg">
           LURE CASE
         </Link>
       </div>
       <nav className="ml-auto flex gap-6">
-        <ul className="flex items-center gap-8">
+        <ul className="flex items-center gap-8 sm:hidden">
           <li>
             <Link
               href={'/lure'}
-              className=" font-bold flex items-center gap-2  hover:border-b border-primary"
+              className=" font-bold flex items-center gap-2 hover-animation-border"
             >
               <span>
                 <Image src={'/icons/lure.svg'} alt="" width={24} height={24} />
@@ -38,7 +38,7 @@ export const HeaderMemo: FC = () => {
           <li>
             <Link
               href={'/brand'}
-              className=" font-bold flex items-center gap-2"
+              className=" font-bold flex items-center gap-2  hover-animation-border"
             >
               <span>
                 <Image src={'/icons/maker.svg'} alt="" width={20} height={20} />
@@ -57,6 +57,7 @@ export const HeaderMemo: FC = () => {
           </Suspense>
         </ErrorBoundary>
       </nav>
+      <div></div>
     </header>
   )
 }

@@ -35,7 +35,7 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ itemList }) => {
           }}
         />
       </Head>
-      <div className="">
+      <div>
         <Container>
           <nav className="py-3">
             {itemList.map((item, index) => {

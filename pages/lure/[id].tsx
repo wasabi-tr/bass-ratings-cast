@@ -17,6 +17,7 @@ import Breadcrumb from '@/components/Base/Breadcrumb'
 
 type ReviewWithUsername = Review & {
   username: string
+  avatar_url: string
   rating_average: number
 }
 type Props = {
@@ -89,7 +90,7 @@ const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
               </div>
               <div className="right  w-2/3 sm:w-full sm:mt-12 ">
                 <section>
-                  <div className="">
+                  <div>
                     <Heading heading="総合評価" />
                     {rating_average && (
                       <Stars rating={rating_average} position="center" />
@@ -105,7 +106,7 @@ const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
                 <section>
                   <div className="py-10">
                     <Heading heading="商品情報詳細" />
-                    <div className="">
+                    <div>
                       <dl className="flex items-center border-b border-gray-400 gap-4 pb-4">
                         <dt className="font-bold w-1/4">商品名</dt>
                         <dd>{name}</dd>

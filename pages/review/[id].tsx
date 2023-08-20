@@ -76,7 +76,6 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
   useEffect(() => {
     const getCurrentReview = async () => {
       const data = await getReviewByUserIdAndLureId(lure_id, user?.id!)
-      console.log(data)
 
       if (data) {
         setReviewed(true)
@@ -112,8 +111,8 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
         <div className="py-16">
           <div className="rounded-lg bg-white w-3/4 mx-auto py-14 px-24">
             <form onSubmit={handleSubmit} className="flex gap-9">
-              <div className="">
-                <div className="">
+              <div>
+                <div>
                   <span className="text-sm text-gray-400">{brand_name}</span>
                   <h2 className="text-2xl font-bold mt-2">{name}</h2>
                   <p className="border border-primary rounded-md inline-block text-primary font-bold px-3 mt-3">
@@ -301,9 +300,12 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
                 </div>
                 <div className="mb-4">
                   <label className="font-bold mb-3 block">
+                    <span className="text-sm font-bold border border-primary text-primary rounded-md py-1 px-2 mr-2">
+                      必須
+                    </span>
                     レビューテキスト
                   </label>
-                  <div className="">
+                  <div>
                     <textarea
                       name="text"
                       value={editedReview.text}

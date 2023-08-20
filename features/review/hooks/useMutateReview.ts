@@ -1,19 +1,17 @@
-import { Database } from '@/database.types'
 import { useStore } from '@/lib/store'
-import { supabase } from '@/lib/supabaseClient'
-import { EditedReview, Review } from '@/types'
+import { EditedReview } from '@/types'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useMutation } from 'react-query'
 
 export const useMutateReview = () => {
   const supabaseClient = useSupabaseClient()
   const reset = useStore((state) => state.resetEditedReview)
-  const session = useStore((state) => state.session)
   const createReviewMutation = useMutation(
     async (review: Omit<EditedReview, 'id' | 'created_at'>) => {
+      console.log(review)
       const { data, error } = await supabaseClient
         .from('reviews')
-        .update(review)
+        .insert(review)
         .select()
       if (error) throw new Error(error.message)
       return data
