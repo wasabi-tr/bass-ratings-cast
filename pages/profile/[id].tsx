@@ -10,6 +10,7 @@ import { userMutateProfile } from '@/features/profile/hooks/userMutateProfile'
 import { Layout } from '@/components/Base/Layout'
 import Container from '@/components/Base/Container'
 import { Spinner } from '@/components/Base/Spinner'
+import Breadcrumb from '@/components/Base/Breadcrumb'
 type Props = {
   profile: Profile
 }
@@ -40,10 +41,15 @@ const Profile: NextPage<Props> = ({ profile }) => {
       updateProfileMutation.mutate(editedProfile)
     }
   }
+  const breadcrumbs = [
+    { name: 'ホーム', item: '/' },
+    { name: 'マイページ', item: '' },
+  ]
 
   return (
     <Layout>
       <Container>
+        <Breadcrumb itemList={breadcrumbs} />
         <div className="py-16">
           <div className="w-3/4 mt-8 mx-auto bg-white rounded-2xl shadow-sm py-16 px-20">
             <form onSubmit={handleSubmit}>

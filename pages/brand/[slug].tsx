@@ -1,4 +1,3 @@
-import Heading from '@/components/Elements/Heading'
 import Breadcrumb from '@/components/Base/Breadcrumb'
 import Container from '@/components/Base/Container'
 import { Layout } from '@/components/Base/Layout'

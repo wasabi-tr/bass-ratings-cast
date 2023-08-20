@@ -1,7 +1,6 @@
 import { useMutateAuth } from '@/hooks/useMutateAuth'
-import { FC, FormEvent, useEffect, useState } from 'react'
-import { CheckBadgeIcon, ShieldCheckIcon } from '@heroicons/react/24/solid'
-import { supabase } from '@/lib/supabaseClient'
+import { FC, FormEvent, useState } from 'react'
+import { CheckBadgeIcon } from '@heroicons/react/24/solid'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -36,7 +35,7 @@ export const Auth: FC = () => {
 
   return (
     <div className="h-screen flex items-center justify-center flex-col">
-      <h2 className="text-center font-bold text-3xl">Bass Ratings Cast</h2>
+      <h2 className="text-center font-bold text-3xl">LURE CASE</h2>
       <p className="font-bold text-center mt-4 text-primary text-lg">
         {isLogin ? 'ログイン' : '新規会員登録'}
       </p>

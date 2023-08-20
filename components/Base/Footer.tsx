@@ -7,7 +7,7 @@ const Footer: FC = () => {
     <footer className="bg-navy">
       <Container>
         <div className="flex gap-32 py-24 ">
-          <div className="text-white font-bold">Bass Rating Cast</div>
+          <div className="text-white font-bold">LURE CASE</div>
           <nav className="w-1/4">
             <p className="text-white font-bold pb-3 border-b border-white ">
               MENU

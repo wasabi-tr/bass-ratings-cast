@@ -1,6 +1,5 @@
 import Container from '@/components/Base/Container'
 import { Layout } from '@/components/Base/Layout'
-import { supabase } from '@/lib/supabaseClient'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { NextPage } from 'next'
 import { FormEvent, useState } from 'react'

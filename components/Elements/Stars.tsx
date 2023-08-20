@@ -1,9 +1,5 @@
 import { FC } from 'react'
-// import ReactStarsRating from 'react-awesome-stars-rating'
 import dynamic from 'next/dynamic'
-// const ReactStarsRating = dynamic(import('react-awesome-stars-rating'), {
-//   ssr: false,
-// })
 type ReactStarsRatingProps = {
   value: number
   isEdit: boolean
