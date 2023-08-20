@@ -6,6 +6,7 @@ import { ErrorBoundary } from 'react-error-boundary'
 import dynamic from 'next/dynamic'
 import { useMutateAuth } from '@/hooks/useMutateAuth'
 import Image from 'next/image'
+import SideMenu from './SideMenu'
 const User = dynamic(() => import('../Elements/User'), {
   ssr: false,
 })
@@ -16,7 +17,7 @@ export const HeaderMemo: FC = () => {
     logoutMutation.mutate()
   }
   return (
-    <header className="flex justify-between items-center px-5 h-16 shadow bg-white fixed top-0 left-0 w-full z-10">
+    <header className="flex justify-between items-center px-5 h-16 shadow bg-white fixed top-0 left-0 w-full z-10 sm:px-4">
       <div>
         <Link href={'/'} className="font-bold text-lg">
           LURE CASE
@@ -27,7 +28,7 @@ export const HeaderMemo: FC = () => {
           <li>
             <Link
               href={'/lure'}
-              className=" font-bold flex items-center gap-2 hover-animation-border"
+              className=" font-bold flex items-center gap-2 hover-animation-border primary"
             >
               <span>
                 <Image src={'/icons/lure.svg'} alt="" width={24} height={24} />
@@ -38,7 +39,7 @@ export const HeaderMemo: FC = () => {
           <li>
             <Link
               href={'/brand'}
-              className=" font-bold flex items-center gap-2  hover-animation-border"
+              className=" font-bold flex items-center gap-2  hover-animation-border primary"
             >
               <span>
                 <Image src={'/icons/maker.svg'} alt="" width={20} height={20} />
@@ -57,7 +58,7 @@ export const HeaderMemo: FC = () => {
           </Suspense>
         </ErrorBoundary>
       </nav>
-      <div></div>
+      <SideMenu />
     </header>
   )
 }

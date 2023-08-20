@@ -1,11 +1,8 @@
 import { Stars } from '@/components/Elements/Stars'
-import { Spinner } from '@/components/Base/Spinner'
-import { Lure, LureDetail } from '@/types'
-import { ExclamationCircleIcon } from '@heroicons/react/24/solid'
+import { LureDetail } from '@/types'
 import Image from 'next/image'
 import Link from 'next/link'
-import { FC, Suspense } from 'react'
-import { ErrorBoundary } from 'react-error-boundary'
+import { FC } from 'react'
 
 type LureItemProps = {
   key: string
@@ -15,8 +12,11 @@ const LureItem: FC<LureItemProps> = ({ lure }) => {
   const { name, brand_name, rating_average, image_url, id } = lure
 
   return (
-    <li key={id} className="shadow-md bg-white rounded-lg">
-      <Link href={`/lure/${id}`} className="px-4 py-5 flex items-start gap-6 ">
+    <li
+      key={id}
+      className="shadow-md bg-white rounded-lg  transition duration-500 hover:-translate-y-1"
+    >
+      <Link href={`/lure/${id}`} className="px-4 py-5 flex items-start gap-6">
         <div className="aspect-square">
           {image_url ? (
             <Image

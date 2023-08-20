@@ -11,6 +11,10 @@ module.exports = {
       sm: { max: '767px' },
     },
     extend: {
+      height: {
+        '1px': '1px',
+        '2px': '2px',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
@@ -32,6 +36,9 @@ module.exports = {
         'auto-min-max-33': 'repeat(auto-fit, minmax(min(400px, 100%), 1fr))',
 
         'auto-min-max-20': 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))',
+      },
+      gridArea: {
+        '1/1': '1 / 1',
       },
       width: {
         'max-width': '1200px',

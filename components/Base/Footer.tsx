@@ -14,17 +14,26 @@ const Footer: FC = () => {
             </p>
             <ul className="grid grid-cols-1 gap-5 mt-4">
               <li>
-                <Link href={'/'} className="text-white font-bold">
+                <Link
+                  href={'/'}
+                  className="relative text-white font-bold hover-animation-border white"
+                >
                   ホーム
                 </Link>
               </li>
               <li>
-                <Link href={'/lure'} className="text-white font-bold">
+                <Link
+                  href={'/lure'}
+                  className="relative text-white font-bold hover-animation-border white"
+                >
                   ルアー一覧
                 </Link>
               </li>
               <li>
-                <Link href={'/brand'} className="text-white font-bold">
+                <Link
+                  href={'/brand'}
+                  className="relative text-white font-bold hover-animation-border white"
+                >
                   メーカー一覧
                 </Link>
               </li>
