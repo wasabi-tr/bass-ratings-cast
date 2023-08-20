@@ -1,5 +1,6 @@
 import { useStore } from '@/lib/store'
 import { EditedReview } from '@/types'
+import { revalidateLure } from '@/utils/revalidate'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useMutation } from 'react-query'
 
@@ -8,17 +9,17 @@ export const useMutateReview = () => {
   const reset = useStore((state) => state.resetEditedReview)
   const createReviewMutation = useMutation(
     async (review: Omit<EditedReview, 'id' | 'created_at'>) => {
-      console.log(review)
       const { data, error } = await supabaseClient
         .from('reviews')
         .insert(review)
         .select()
+        .single()
       if (error) throw new Error(error.message)
       return data
     },
     {
       onSuccess: (res) => {
-        reset()
+        revalidateLure(res.lure_id)
       },
       onError: (err: any) => {
         alert(err.message)
@@ -38,12 +39,14 @@ export const useMutateReview = () => {
           text: review.text,
         })
         .eq('id', review.id)
+        .select()
+        .single()
       if (error) throw new Error(error.message)
       return data
     },
     {
       onSuccess: (res) => {
-        reset()
+        revalidateLure(res.lure_id)
       },
       onError: (err: any) => {
         alert(err.message)

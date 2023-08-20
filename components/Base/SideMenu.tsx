@@ -22,7 +22,7 @@ const SideMenu: FC = () => {
       <button
         type="button"
         aria-controls="navigation"
-        aria-expanded={`${open ? 'true' : 'false'}`}
+        aria-expanded={open}
         aria-label="メニューを開きます"
         className={`hidden relative w-11 h-11 bg-primary z-50 cursor-pointer content-center justify-items-center gap-1 rounded-md ml-3 ${
           open && 'gap-0'
@@ -52,7 +52,7 @@ const SideMenu: FC = () => {
       </button>
       <nav
         id="navigation"
-        aria-hidden={`${!open ? 'true' : 'false'}`}
+        aria-hidden={!open}
         className={`fixed top-0 left-0 w-full h-screen bg-navy z-40 transition duration-500 translate-x-full ${
           open && 'translate-x-0'
         }`}

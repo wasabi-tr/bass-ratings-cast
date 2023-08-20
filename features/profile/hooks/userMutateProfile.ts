@@ -1,5 +1,5 @@
 import { Profile } from '@/types'
-import { revalidateProfile } from '@/utils/revalidate'
+import { revalidateLure, revalidateProfile } from '@/utils/revalidate'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useMutation, useQueryClient } from 'react-query'
 
@@ -41,7 +41,6 @@ export const userMutateProfile = () => {
     {
       onSuccess: (res) => {
         /* ISRでユーザープロフィールページを再生成 */
-        revalidateProfile(res.user_id)
 
         /* ヘッダーにユーザー名、アバター画像をを即時反映するためにreact-queryのキャッシュを更新※要改善 */
         let previousProfile = queryClient.getQueryData<Profile>(['profile'])

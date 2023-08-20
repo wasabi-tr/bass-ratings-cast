@@ -51,7 +51,7 @@ const User: FC = () => {
                   className="rounded-full"
                 />
               ) : (
-                <UserCircleIcon className="w-5 h-5 text-zinc-400" />
+                <UserCircleIcon className=" text-zinc-400 w-full h-full" />
               )}
             </div>
           </button>
