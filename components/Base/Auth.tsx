@@ -40,7 +40,7 @@ export const Auth: FC = () => {
         {isLogin ? 'ログイン' : '新規会員登録'}
       </p>
 
-      <div className="w-2/4 mt-8 mx-auto bg-white rounded-2xl shadow-sm p-16">
+      <div className="w-2/4 mt-8 mx-auto bg-white rounded-2xl shadow-sm p-16 sm:w-full sm:py-8 sm:px-4">
         <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email" className="font-bold mb-2 block">

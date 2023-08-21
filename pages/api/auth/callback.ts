@@ -10,6 +10,7 @@ const handler: NextApiHandler = async (req, res) => {
     const supabase = createPagesServerClient({ req, res })
     const result = await supabase.auth.exchangeCodeForSession(String(code))
     console.log(`結果　${result}`)
+    //プロフィール登録の処理
   }
 
   res.redirect('/')
