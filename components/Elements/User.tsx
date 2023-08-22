@@ -40,7 +40,7 @@ const User: FC = () => {
             onClick={handleClick}
             className="flex items-center transition hover:opacity-70"
           >
-            <div className="relative m-auto w-8 h-8 border-2 border-primary rounded-full">
+            <div className="relative m-auto w-8 h-8 border-2 border-gray-300 rounded-full">
               {isLoading ? (
                 <Spinner />
               ) : fullUrl ? (
@@ -63,7 +63,7 @@ const User: FC = () => {
             <div className="border-b border-gray-300 flex items-center gap-2">
               <UserIcon className="w-4 h-4 text-zinc-400" />
               <Link
-                href={`/profile/${profile?.user_id}`}
+                href={`/profile/`}
                 className="text-sm py-2 flex-grow text-left transition-all hover:opacity-60"
               >
                 プロフィール

@@ -28,7 +28,7 @@ export const userMutateProfile = () => {
     }
   )
   const updateProfileMutation = useMutation(
-    async (profile: Profile) => {
+    async (profile: Omit<Profile, 'id' | 'created_at'>) => {
       const { error } = await supabaseClient
         .from('profiles')
         .update({
@@ -46,8 +46,6 @@ export const userMutateProfile = () => {
         let previousProfile = queryClient.getQueryData<Profile>(['profile'])
         if (res.user_id === previousProfile?.user_id) {
           queryClient.setQueryData(['profile'], {
-            id: res.id,
-            created_at: res.created_at,
             username: res.username,
             text: res.text,
             avatar_url: res.avatar_url,

@@ -1,5 +1,5 @@
 import { useMutateAuth } from '@/hooks/useMutateAuth'
-import { FC, FormEvent, useState } from 'react'
+import { FC, FormEvent, useEffect, useState } from 'react'
 import { CheckBadgeIcon } from '@heroicons/react/24/solid'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -16,7 +16,9 @@ export const Auth: FC = () => {
     registerMutation,
     logoutMutation,
     googleSignInMutation,
+    errorMessage,
   } = useMutateAuth()
+  const [isDisabled, setIsDisabled] = useState(true)
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -32,7 +34,14 @@ export const Auth: FC = () => {
   const googleSignIn = async () => {
     googleSignInMutation.mutate()
   }
-
+  useEffect(() => {
+    if (email && password) {
+      setIsDisabled(false)
+    } else {
+      setIsDisabled(true)
+    }
+    console.log(isDisabled)
+  }, [email, password, isDisabled])
   return (
     <div className="h-screen flex items-center justify-center flex-col">
       <h2 className="text-center font-bold text-3xl">LURE CASE</h2>
@@ -74,19 +83,27 @@ export const Auth: FC = () => {
               }}
             />
           </div>
-          <div className="mt-2 text-center text-sm">
-            パスワードを忘れた方はこちら
-            <Link
-              href={'/forgot-password'}
-              className="text-primary transition-all font-bold hover:opacity-70"
-            >
-              こちら
-            </Link>
-          </div>
+          {errorMessage && (
+            <p className="text-red-600 text-sm">{errorMessage}</p>
+          )}
+          {isLogin && (
+            <div className="mt-2 text-center text-sm">
+              パスワードを忘れた方はこちら
+              <Link
+                href={'/forgot-password'}
+                className="text-primary transition-all font-bold hover:opacity-70"
+              >
+                こちら
+              </Link>
+            </div>
+          )}
 
           <button
             type="submit"
-            className="relative flex w-full justify-center rounded-md bg-primary py-3 px-4 mt-4 text-sm font-bold text-white transition-all hover:opacity-70"
+            className={`relative flex w-full justify-center rounded-md  py-3 px-4 mt-4 text-sm font-bold text-white transition-all  ${
+              isDisabled ? 'bg-gray-400' : 'bg-primary hover:opacity-70'
+            }`}
+            disabled={isDisabled}
           >
             <span className="absolute inset-y-0 left-0 flex items-center pl-3 ">
               <CheckBadgeIcon className="h-5 w-5" />

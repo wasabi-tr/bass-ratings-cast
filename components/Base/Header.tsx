@@ -51,7 +51,7 @@ export const HeaderMemo: FC = () => {
         </ul>
         <ErrorBoundary
           fallback={
-            <ExclamationCircleIcon className="my-5 h-10 w-10 text-primary" />
+            <ExclamationCircleIcon className="h-10 w-10 text-primary" />
           }
         >
           <Suspense fallback={<Spinner />}>

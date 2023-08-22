@@ -9,6 +9,7 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react'
 export const useMutateAuth = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
   const updateEditedProfile = useStore((state) => state.updateEditedProfile)
   const resetEditedProfile = useStore((state) => state.resetEditedProfile)
   const router = useRouter()
@@ -42,7 +43,7 @@ export const useMutateAuth = () => {
         router.push('/')
       },
       onError: (err: any) => {
-        alert(err.message)
+        setErrorMessage('メールアドレスまたはパスワードが違います')
         reset()
       },
     }
@@ -82,7 +83,10 @@ export const useMutateAuth = () => {
         router.push('/')
       },
       onError: (err: any) => {
-        alert(err.message)
+        alert(
+          'ログアウトできませんでした。お手数ですがもう一度ログアウトをお願いします。'
+        )
+
         reset()
       },
     }
@@ -90,7 +94,7 @@ export const useMutateAuth = () => {
 
   const googleSignInMutation = useMutation(
     async () => {
-      const { data, error } = await supabase.auth.signInWithOAuth({
+      const { data, error } = await supabaseClient.auth.signInWithOAuth({
         provider: 'google',
       })
       if (error) throw new Error(error.message)
@@ -110,6 +114,8 @@ export const useMutateAuth = () => {
     setEmail,
     password,
     setPassword,
+    errorMessage,
+    setErrorMessage,
     loginMutation,
     registerMutation,
     logoutMutation,
