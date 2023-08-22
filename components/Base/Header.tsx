@@ -19,6 +19,7 @@ export const HeaderMemo: FC = () => {
   return (
     <header className="flex justify-between items-center px-5 h-16 shadow bg-white fixed top-0 left-0 w-full z-10 sm:px-4">
       <div>
+        <button onClick={logout}>eee</button>
         <Link href={'/'} className="font-bold text-lg">
           LURE CASE
         </Link>
