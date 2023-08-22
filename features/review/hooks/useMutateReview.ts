@@ -1,6 +1,6 @@
 import { useStore } from '@/lib/store'
 import { EditedReview } from '@/types'
-import { revalidateLure } from '@/utils/revalidate'
+import { revalidateIndex, revalidateLure } from '@/utils/revalidate'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useMutation } from 'react-query'
 
@@ -19,6 +19,7 @@ export const useMutateReview = () => {
     },
     {
       onSuccess: (res) => {
+        revalidateIndex()
         revalidateLure(res.lure_id)
       },
       onError: (err: any) => {
@@ -46,6 +47,7 @@ export const useMutateReview = () => {
     },
     {
       onSuccess: (res) => {
+        revalidateIndex()
         revalidateLure(res.lure_id)
       },
       onError: (err: any) => {
