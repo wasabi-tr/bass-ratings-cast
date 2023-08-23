@@ -42,7 +42,7 @@ const Home: NextPage<Props> = ({ lures, brands, genres }) => {
                     - 釣り人が投稿するブラックバスルアー専門のレビューサイト -
                   </p>
                   <div className="flex justify-center mt-8 w-80 h-16 mx-auto sm:w-full">
-                    <Link href={'/register'} className="btn-primary">
+                    <Link href={'/auth'} className="btn-primary">
                       会員登録してレビューを投稿する
                     </Link>
                   </div>

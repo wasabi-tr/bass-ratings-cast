@@ -1,6 +1,7 @@
 import Breadcrumb from '@/components/Base/Breadcrumb'
 import Container from '@/components/Base/Container'
 import { Layout } from '@/components/Base/Layout'
+import Seo from '@/components/Base/Seo'
 import { Database } from '@/database.types'
 import { useMutateLure } from '@/features/lure/hooks/useMutateLure'
 import { useQueryBrands } from '@/features/lure/hooks/useQueryBrands'
@@ -57,6 +58,7 @@ const LureRegister: NextPage = () => {
 
   return (
     <Layout>
+      <Seo pageTitle="商品登録" />
       <Breadcrumb itemList={breadcrumbs} />
       <Container>
         <div className="pt-12 sm:pt-6">

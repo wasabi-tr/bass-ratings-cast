@@ -34,7 +34,6 @@ const UpdatePassword: NextPage = () => {
         'パスワードの更新に失敗しました。もう一度入力して送信してください。'
       )
     }
-    router.replace('/')
   }
   return (
     <Layout>

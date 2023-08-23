@@ -14,6 +14,7 @@ import Container from '@/components/Base/Container'
 import Link from 'next/link'
 import { useUser } from '@supabase/auth-helpers-react'
 import Breadcrumb from '@/components/Base/Breadcrumb'
+import Seo from '@/components/Base/Seo'
 
 type ReviewWithUsername = Review & {
   username: string
@@ -46,6 +47,7 @@ const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
   ]
   return (
     <Layout>
+      <Seo pageTitle={`${name}`} />
       <Breadcrumb itemList={breadcrumbs} />
       <section>
         <Container>

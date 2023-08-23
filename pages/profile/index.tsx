@@ -11,6 +11,7 @@ import Container from '@/components/Base/Container'
 import { Spinner } from '@/components/Base/Spinner'
 import Breadcrumb from '@/components/Base/Breadcrumb'
 import { useStore } from '@/lib/store'
+import Seo from '@/components/Base/Seo'
 
 const Profile: NextPage = () => {
   const editedProfile = useStore((state) => state.editedProfile)
@@ -38,8 +39,6 @@ const Profile: NextPage = () => {
     console.log(editedProfile)
 
     if (editedProfile.user_id) {
-      console.log('送信')
-
       updateProfileMutation.mutate(editedProfile)
     }
   }
@@ -52,6 +51,7 @@ const Profile: NextPage = () => {
   return (
     <Layout>
       <Container>
+        <Seo pageTitle="マイページ" noindex />
         <Breadcrumb itemList={breadcrumbs} />
         <div className="py-16">
           <div className="w-3/4 mt-8 mx-auto bg-white rounded-2xl shadow-sm py-16 px-20">

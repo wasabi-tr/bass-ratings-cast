@@ -2,6 +2,7 @@ import Breadcrumb from '@/components/Base/Breadcrumb'
 import Container from '@/components/Base/Container'
 import { Layout } from '@/components/Base/Layout'
 import PageTop from '@/components/Base/PageTop'
+import Seo from '@/components/Base/Seo'
 import { getGenreIdBySlug } from '@/features/genres/api/getGenreIdBySlug'
 import { getGenreSlugs } from '@/features/genres/api/getGenreSlugs'
 import { getLuresByGenreId } from '@/features/lure/api/getLuresByGenreId'
@@ -22,6 +23,7 @@ const LuresByGenre: NextPage<Props> = ({ lures, slug }) => {
   ]
   return (
     <Layout>
+      <Seo pageTitle={`${genre_name}のルアー一覧`} />
       <PageTop title={`${genre_name}のルアー一覧`} />
       <Breadcrumb itemList={breadcrumbs} />
       <Container>

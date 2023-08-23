@@ -7,6 +7,7 @@ type Props = {
   pageImg?: string
   pageImgWidth?: number
   pageImgHeight?: number
+  noindex?: boolean
 }
 const Seo: FC<Props> = ({
   pageTitle,
@@ -15,6 +16,7 @@ const Seo: FC<Props> = ({
   pageImg,
   pageImgWidth,
   pageImgHeight,
+  noindex,
 }) => {
   const defaultTitle =
     'LURE CASE - 釣り人が投稿するブラックバスルアー専門のレビューサイト -'
@@ -55,6 +57,7 @@ const Seo: FC<Props> = ({
         sizes="48x48"
         href="/meta/favicon.png"
       />
+      {noindex && <meta name="robots" content="noindex,nofollow" />}
     </Head>
   )
 }

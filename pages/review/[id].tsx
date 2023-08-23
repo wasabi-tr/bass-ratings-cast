@@ -17,6 +17,7 @@ import { LureDetail } from '@/types'
 import Image from 'next/image'
 import getReviewByUserIdAndLureId from '@/features/review/api/getReviewByUserIdAndLureId'
 import Breadcrumb from '@/components/Base/Breadcrumb'
+import Seo from '@/components/Base/Seo'
 
 type Props = {
   lure_id: string
@@ -106,6 +107,7 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
 
   return (
     <Layout>
+      <Seo pageTitle={`${name}のレビュー登録`} />
       <Breadcrumb itemList={breadcrumbs} />
       <Container>
         <div className="py-16">

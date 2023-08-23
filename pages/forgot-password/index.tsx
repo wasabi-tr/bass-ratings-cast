@@ -1,5 +1,6 @@
 import Container from '@/components/Base/Container'
 import { Layout } from '@/components/Base/Layout'
+import Seo from '@/components/Base/Seo'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { NextPage } from 'next'
 import Link from 'next/link'
@@ -35,6 +36,7 @@ const ForgotPassword: NextPage = () => {
   }
   return (
     <Layout>
+      <Seo pageTitle="パスワード再設定申請" />
       <Container>
         <div className="h-screen flex  justify-center flex-col">
           <div className="w-1/2 mx-auto">

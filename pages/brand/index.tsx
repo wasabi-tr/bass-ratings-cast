@@ -2,6 +2,7 @@ import Breadcrumb from '@/components/Base/Breadcrumb'
 import Container from '@/components/Base/Container'
 import { Layout } from '@/components/Base/Layout'
 import PageTop from '@/components/Base/PageTop'
+import Seo from '@/components/Base/Seo'
 import { getBrands } from '@/features/brands/api/getBrands'
 import BrandItem from '@/features/brands/components/BrandItem'
 import { Brand } from '@/types'
@@ -19,6 +20,7 @@ const Brand: NextPage<Props> = ({ brands }) => {
   return (
     <>
       <Layout>
+        <Seo pageTitle="メーカー一覧" />
         <PageTop title="メーカー一覧" />
         <Breadcrumb itemList={breadcrumbs} />
         <Container>
