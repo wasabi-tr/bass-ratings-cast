@@ -42,6 +42,8 @@ module.exports = {
       },
       width: {
         'max-width': '1200px',
+        500: '500px',
+        700: '700px',
       },
     },
   },

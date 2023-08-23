@@ -6,7 +6,7 @@ const Footer: FC = () => {
   return (
     <footer className="bg-navy">
       <Container>
-        <div className="flex gap-32 py-24 ">
+        <div className="flex gap-32 py-16 ">
           <div className="text-white font-bold">LURE CASE</div>
           <nav className="w-1/4">
             <p className="text-white font-bold pb-3 border-b border-white ">
@@ -16,7 +16,7 @@ const Footer: FC = () => {
               <li>
                 <Link
                   href={'/'}
-                  className="relative text-white font-bold hover-animation-border white"
+                  className="relative text-white font-bold hover-animation-border white text-sm"
                 >
                   ホーム
                 </Link>
@@ -24,7 +24,7 @@ const Footer: FC = () => {
               <li>
                 <Link
                   href={'/lure'}
-                  className="relative text-white font-bold hover-animation-border white"
+                  className="relative text-white font-bold hover-animation-border white text-sm"
                 >
                   ルアー一覧
                 </Link>
@@ -32,7 +32,7 @@ const Footer: FC = () => {
               <li>
                 <Link
                   href={'/brand'}
-                  className="relative text-white font-bold hover-animation-border white"
+                  className="relative text-white font-bold hover-animation-border white text-sm"
                 >
                   メーカー一覧
                 </Link>

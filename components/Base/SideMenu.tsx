@@ -53,8 +53,8 @@ const SideMenu: FC = () => {
       <nav
         id="navigation"
         aria-hidden={!open}
-        className={`fixed top-0 left-0 w-full h-screen bg-navy z-40 transition duration-500 translate-x-full ${
-          open && 'translate-x-0'
+        className={`fixed top-0 left-0 w-full h-screen bg-navy z-40 transition duration-500 ${
+          !open ? 'translate-x-full' : 'translate-x-0'
         }`}
       >
         <div className="py-14 px-6">

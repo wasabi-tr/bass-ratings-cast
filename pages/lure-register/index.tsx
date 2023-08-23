@@ -11,11 +11,18 @@ import { useStore } from '@/lib/store'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { NextPage } from 'next'
 import { ChangeEvent, FormEvent } from 'react'
+import { GetStaticProps } from 'next'
+import { getGenres } from '@/features/genres/api/getGenres'
+import { getBrands } from '@/features/brands/api/getBrands'
+import { Brand, Genre } from '@/types'
+type Props = {
+  genres: Genre[]
+  brands: Brand[]
+}
 
-const LureRegister: NextPage = () => {
+const LureRegister: NextPage<Props> = ({ genres, brands }) => {
   const supabaseClient = useSupabaseClient<Database>()
-  const { data: genres } = useQueryGenres()
-  const { data: brands } = useQueryBrands()
+
   const editedLure = useStore((state) => state.editedLure)
   const updateEditedLure = useStore((state) => state.updateEditedLure)
   const { createLureMutation } = useMutateLure()
@@ -65,7 +72,7 @@ const LureRegister: NextPage = () => {
           <h2 className="text-center font-bold text-2xl sm:text-lg">
             ルアーの商品情報を登録する
           </h2>
-          <div className="w-2/3 mt-8 mx-auto bg-white rounded-2xl shadow-sm p-16 sm:w-full sm:py-6 sm:px-4">
+          <div className="w-700 max-w-full mt-8 mx-auto bg-white rounded-2xl shadow-sm p-16 sm:w-full sm:py-6 sm:px-4">
             <form onSubmit={handleSubmit}>
               <div className="flex gap-5 items-center border-b border-gray-300 py-5 sm:block">
                 <label
@@ -128,7 +135,7 @@ const LureRegister: NextPage = () => {
                   <span className="text-sm font-bold border border-primary text-primary rounded-md py-1 px-2 mr-2 inline-block ">
                     必須
                   </span>
-                  ルアージャンル
+                  ジャンル
                 </p>
                 <div className="flex flex-wrap gap-4  sm:mt-4">
                   {genres?.map((genre, index) => (
@@ -223,7 +230,7 @@ const LureRegister: NextPage = () => {
                   <span className="text-sm font-bold border border-gray-500 text-gray-500 rounded-md py-1 px-2 mr-2 inline-block">
                     任意
                   </span>
-                  ルアー画像
+                  画像
                 </label>
                 <div className="w-3/4 sm:w-full sm:mt-4">
                   <input
@@ -246,6 +253,18 @@ const LureRegister: NextPage = () => {
       </Container>
     </Layout>
   )
+}
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  const genres = await getGenres()
+  const brands = await getBrands()
+
+  return {
+    props: {
+      genres,
+      brands,
+    },
+  }
 }
 
 export default LureRegister
