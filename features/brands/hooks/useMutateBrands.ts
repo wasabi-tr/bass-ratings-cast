@@ -2,7 +2,7 @@ import { Database } from '@/database.types'
 import { useStore } from '@/lib/store'
 import { supabase } from '@/lib/supabaseClient'
 import { Brand } from '@/types'
-import { revalidateIndex } from '@/utils/revalidate'
+import { revalidateBrand, revalidateIndex } from '@/utils/revalidate'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useMutation } from 'react-query'
 
@@ -23,6 +23,7 @@ export const useMutateBrand = () => {
     {
       onSuccess: (res) => {
         revalidateIndex()
+        revalidateBrand(res[0].slug)
         reset()
       },
       onError: (err: any) => {

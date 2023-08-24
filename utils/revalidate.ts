@@ -7,3 +7,6 @@ export const revalidateLure = (id: string) => {
 export const revalidateProfile = (id: string) => {
   fetch(`/api/revalidate/profile/${id}`)
 }
+export const revalidateBrand = (slug: string) => {
+  fetch(`/api/revalidate/brand/${slug}`)
+}

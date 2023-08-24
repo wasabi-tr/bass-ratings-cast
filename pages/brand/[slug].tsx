@@ -3,29 +3,28 @@ import Container from '@/components/Base/Container'
 import { Layout } from '@/components/Base/Layout'
 import PageTop from '@/components/Base/PageTop'
 import Seo from '@/components/Base/Seo'
-import { getBrandIdBySlug } from '@/features/brands/api/getBrandIdBySlug'
+import { getBrandBySlug } from '@/features/brands/api/getBrandBySlug'
 import { getBrandSlugs } from '@/features/brands/api/getBrandSlugs'
 import { getBrands } from '@/features/brands/api/getBrands'
 import { getLuresByBrandId } from '@/features/lure/api/getLuresByBrandId'
 import LureItem from '@/features/lure/components/LureItem'
-import { LureDetail } from '@/types'
+import { Brand, LureDetail } from '@/types'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 
 type Props = {
   lures: LureDetail[]
-  slug: string
+  brand: Brand
 }
-const LuresBySlug: NextPage<Props> = ({ lures, slug }) => {
-  const brand_name = lures[0]?.brand_name
+const LuresByBrand: NextPage<Props> = ({ lures, brand }) => {
   const breadcrumbs = [
     { name: 'ホーム', item: '/' },
     { name: 'ルアー一覧', item: '/lure' },
-    { name: brand_name, item: `/brand/${slug}` },
+    { name: brand.name, item: `/brand/${brand.slug}` },
   ]
   return (
     <Layout>
-      <Seo pageTitle={`${brand_name}のルアー一覧`} />
-      <PageTop title={`${brand_name}のルアー一覧`} />
+      <Seo pageTitle={`${brand.name}のルアー一覧`} />
+      <PageTop title={`${brand.name}のルアー一覧`} />
       <Breadcrumb itemList={breadcrumbs} />
       <Container>
         <ul className="grid gap-4 grid-cols-auto-min-max-33 ">
@@ -41,7 +40,6 @@ const LuresBySlug: NextPage<Props> = ({ lures, slug }) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   const slugs = await getBrandSlugs()
   const paths = slugs.map((slug) => ({ params: { slug } }))
-
   return {
     paths,
     fallback: 'blocking',
@@ -50,15 +48,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context.params!.slug as string
-  const brand_id = await getBrandIdBySlug(slug)
-  const lures = await getLuresByBrandId(brand_id)
+  const brand = await getBrandBySlug(slug)
+  const lures = await getLuresByBrandId(brand.id)
 
   return {
     props: {
       lures,
-      slug,
+      brand,
     },
   }
 }
 
-export default LuresBySlug
+export default LuresByBrand

@@ -28,18 +28,7 @@ const BrandItem: FC<Props> = ({ brand }) => {
             />
           )}
         </div>
-        <div>
-          <div className="text-lg text-gray-700 font-bold">{name}</div>
-          {/* <div
-            className="rounded-full bg-primary text-center shadow 
-   duration-300  hover:-translate-y-1 mt-3"
-          >
-            <Link
-              href={`/brand/${id}`}
-              className="inline-block text-white font-bold py-1 px-3 w-full"
-            >{`${name}のルアー一覧を見る`}</Link>
-          </div> */}
-        </div>
+        <div className="text-gray-700 font-bold">{name}</div>
       </Link>
     </li>
   )

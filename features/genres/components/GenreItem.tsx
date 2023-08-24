@@ -12,7 +12,7 @@ const GenreItem: FC<Props> = ({ genre }) => {
       className="shadow-md rounded-lg bg-white transition duration-500 hover:-translate-y-1"
     >
       <Link href={`/genre/${slug}`} className="px-4 py-5 block">
-        <div className="text-lg text-primary font-bold text-center">{name}</div>
+        <div className="text-primary font-bold text-center">{name}</div>
       </Link>
     </li>
   )
