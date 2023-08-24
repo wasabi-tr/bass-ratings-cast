@@ -6,7 +6,6 @@ import { Database } from '@/database.types'
 import { useMutateLure } from '@/features/lure/hooks/useMutateLure'
 import { useQueryBrands } from '@/features/lure/hooks/useQueryBrands'
 import { useQueryGenres } from '@/features/lure/hooks/useQueryGenres'
-import { useUploadLureImg } from '@/features/lure/hooks/useUploadLureImg'
 import { useStore } from '@/lib/store'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { NextPage } from 'next'
@@ -15,6 +14,7 @@ import { GetStaticProps } from 'next'
 import { getGenres } from '@/features/genres/api/getGenres'
 import { getBrands } from '@/features/brands/api/getBrands'
 import { Brand, Genre } from '@/types'
+import { useUploadImg } from '@/features/lure/hooks/useUploadImg'
 type Props = {
   genres: Genre[]
   brands: Brand[]
@@ -26,7 +26,7 @@ const LureRegister: NextPage<Props> = ({ genres, brands }) => {
   const editedLure = useStore((state) => state.editedLure)
   const updateEditedLure = useStore((state) => state.updateEditedLure)
   const { createLureMutation } = useMutateLure()
-  const { useMutateUploadLureImg } = useUploadLureImg()
+  const { useMutateUploadImg } = useUploadImg('lures')
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     updateEditedLure({
@@ -36,7 +36,7 @@ const LureRegister: NextPage<Props> = ({ genres, brands }) => {
   }
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    useMutateUploadLureImg.mutate(e)
+    useMutateUploadImg.mutate(e)
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -89,7 +89,6 @@ const LureRegister: NextPage<Props> = ({ genres, brands }) => {
                     id="lure-name"
                     type="text"
                     name="name"
-                    placeholder="ルアー名"
                     value={editedLure.name}
                     onChange={handleChange}
                     className="w-full p-2 border border-gray-300 rounded"
@@ -171,7 +170,6 @@ const LureRegister: NextPage<Props> = ({ genres, brands }) => {
                     id="price"
                     type="text"
                     name="price"
-                    placeholder="価格"
                     value={editedLure.price}
                     onChange={handleChange}
                     className="w-full p-2 border border-gray-300 rounded"
@@ -193,7 +191,6 @@ const LureRegister: NextPage<Props> = ({ genres, brands }) => {
                     id="length"
                     type="text"
                     name="length"
-                    placeholder="長さ"
                     value={editedLure.length}
                     onChange={handleChange}
                     className="w-full p-2 border border-gray-300 rounded"
@@ -215,7 +212,6 @@ const LureRegister: NextPage<Props> = ({ genres, brands }) => {
                     id="weight"
                     type="text"
                     name="weight"
-                    placeholder="重さ"
                     value={editedLure.weight}
                     onChange={handleChange}
                     className="w-full p-2 border border-gray-300 rounded"

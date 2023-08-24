@@ -61,3 +61,9 @@ export type LureDetail = {
   genre_name: string
   rating_average: number
 }
+export type EditedBrand = {
+  id: string
+  name: string
+  image_url: string
+  slug: string
+}

@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { Session } from '@supabase/supabase-js'
-import { EditedLure, EditedProfile, EditedReview } from '@/types'
+import { EditedBrand, EditedLure, EditedProfile, EditedReview } from '@/types'
 
 //グローバルで扱える状態の型を定義
 type State = {
@@ -18,6 +18,9 @@ type State = {
   editedProfile: EditedProfile
   updateEditedProfile: (payload: EditedProfile) => void
   resetEditedProfile: () => void
+  editedBrand: EditedBrand
+  updateEditedBrand: (payload: EditedBrand) => void
+  resetEditedBrand: () => void
 }
 export const useStore = create<State>((set) => ({
   session: null,
@@ -122,6 +125,30 @@ export const useStore = create<State>((set) => ({
         username: '',
         text: '',
         avatar_url: '',
+      },
+    }),
+  editedBrand: {
+    id: '',
+    name: '',
+    image_url: '',
+    slug: '',
+  },
+  updateEditedBrand: (payload) =>
+    set({
+      editedBrand: {
+        id: payload.id,
+        name: payload.name,
+        image_url: payload.image_url,
+        slug: payload.slug,
+      },
+    }),
+  resetEditedBrand: () =>
+    set({
+      editedBrand: {
+        id: '',
+        name: '',
+        image_url: '',
+        slug: '',
       },
     }),
 }))
