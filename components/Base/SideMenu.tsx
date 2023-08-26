@@ -83,6 +83,14 @@ const SideMenu: FC = () => {
                 メーカー一覧
               </Link>
             </li>
+            <li>
+              <Link
+                href={'/search'}
+                className="text-white font-bold py-3 border-b border-white block"
+              >
+                検索
+              </Link>
+            </li>
           </ul>
           <div className="w-64 h-12 mt-6 mx-auto">
             <Link href={'/auth'} className="btn-primary">

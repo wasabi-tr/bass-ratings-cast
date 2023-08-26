@@ -24,9 +24,8 @@ const LuresByBrand: NextPage<Props> = ({ lures, brand }) => {
   return (
     <Layout>
       <Seo pageTitle={`${brand.name}のルアー一覧`} />
-      <PageTop title={`${brand.name}のルアー一覧`} />
       <Breadcrumb itemList={breadcrumbs} />
-      <Container>
+      <Container padding="py-10">
         <ul className="grid gap-4 grid-cols-auto-min-max-33 ">
           {lures?.map((lure) => (
             <LureItem key={lure.id} lure={lure} />

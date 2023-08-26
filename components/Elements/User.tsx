@@ -40,7 +40,7 @@ const User: FC = () => {
             onClick={handleClick}
             className="flex items-center transition hover:opacity-70"
           >
-            <div className="relative m-auto w-8 h-8 border-2 border-gray-300 rounded-full">
+            <div className="relative m-auto w-8 h-8  rounded-full">
               {isLoading ? (
                 <Spinner />
               ) : fullUrl ? (
@@ -48,10 +48,10 @@ const User: FC = () => {
                   src={fullUrl}
                   alt="avatar"
                   fill
-                  className="rounded-full"
+                  className="rounded-full border-1 border-gray-300"
                 />
               ) : (
-                <UserCircleIcon className=" text-zinc-400 w-full h-full" />
+                <UserCircleIcon className=" text-zinc-400 w-full h-full border-1 border-gray-300" />
               )}
             </div>
           </button>

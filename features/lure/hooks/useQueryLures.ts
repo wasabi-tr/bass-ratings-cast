@@ -1,17 +1,17 @@
 import { supabase } from '@/lib/supabaseClient'
-import { Lure } from '@/types'
+import { Lure, LureDetail } from '@/types'
 import { useQuery } from 'react-query'
 
 export const useQueryLures = () => {
   const getLures = async () => {
     const { data, error } = await supabase
-      .from('lures')
+      .from('lure_detail')
       .select('*')
       .order('created_at', { ascending: true })
     if (error) throw new Error(error.message)
-    return data as Lure[]
+    return data as LureDetail[]
   }
-  return useQuery<Lure[], Error>({
+  return useQuery<LureDetail[], Error>({
     queryKey: ['lures'],
     queryFn: getLures,
     staleTime: Infinity,

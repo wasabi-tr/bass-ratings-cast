@@ -35,25 +35,28 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ itemList }) => {
           }}
         />
       </Head>
-      <div>
+      <div className="bg-navy">
         <Container>
-          <nav className="py-3">
+          <nav className="py-2 flex gap-2 items-center">
             {itemList.map((item, index) => {
               const isLastItem = index === itemList.length - 1
               return (
-                <span key={index} className="text-sm ">
-                  {index > 0 && ' > '}
+                <div
+                  key={index}
+                  className="text-xs text-white flex gap-2 items-center"
+                >
+                  {index > 0 && <span className="text-xs">＞</span>}
                   {isLastItem ? (
                     item.name
                   ) : (
                     <Link
                       href={item.item}
-                      className="text-sm transition-all hover:opacity-75"
+                      className="text-xs transition-all hover:opacity-75  text-white flex gap-2 items-center"
                     >
                       {item.name}
                     </Link>
                   )}
-                </span>
+                </div>
               )
             })}
           </nav>

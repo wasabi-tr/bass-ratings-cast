@@ -21,9 +21,8 @@ const Brand: NextPage<Props> = ({ brands }) => {
     <>
       <Layout>
         <Seo pageTitle="メーカー一覧" />
-        <PageTop title="メーカー一覧" />
         <Breadcrumb itemList={breadcrumbs} />
-        <Container>
+        <Container padding="py-10">
           <ul className="grid gap-4 grid-cols-auto-min-max-20 ">
             {brands?.map((brand) => (
               <BrandItem key={brand.id} brand={brand} />

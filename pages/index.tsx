@@ -12,6 +12,7 @@ import Link from 'next/link'
 import Container from '@/components/Base/Container'
 import Image from 'next/image'
 import Seo from '@/components/Base/Seo'
+import SearchForm from '@/features/search/components/SearchForm'
 
 type Props = {
   lures: LureDetail[]
@@ -33,7 +34,7 @@ const Home: NextPage<Props> = ({ lures, brands, genres }) => {
           <div className="absolute inset-0 bg-black opacity-40 -z-10"></div>
           <Container>
             <div className="py-20 sm:py-8">
-              <div className="py-24 px-7 flex gap-12 sm:block sm:py-10">
+              <div className="py-24  flex gap-12 sm:block sm:py-10">
                 <div className="mx-auto">
                   <h1 className="text-5xl font-bold text-white text-center sm:text-2xl tracking-widest	 ">
                     LURE CASE
@@ -41,10 +42,13 @@ const Home: NextPage<Props> = ({ lures, brands, genres }) => {
                   <p className="mt-4 text-center  text-white sm:">
                     - 釣り人が投稿するブラックバスルアー専門のレビューサイト -
                   </p>
-                  <div className="flex justify-center mt-8 w-80 h-16 mx-auto sm:w-full">
+                  {/* <div className="flex justify-center mt-8 w-80 h-16 mx-auto sm:w-full">
                     <Link href={'/auth'} className="btn-primary">
                       会員登録してレビューを投稿する
                     </Link>
+                  </div> */}
+                  <div className="mt-8">
+                    <SearchForm />
                   </div>
                 </div>
                 {/* <div className="bg-gray30 aspect-video w-1/2"></div> */}

@@ -20,9 +20,8 @@ const LureArchive: NextPage<Props> = ({ lures }) => {
     <>
       <Layout>
         <Seo pageTitle="ルアー一覧" />
-        <PageTop title="ルアー一覧" />
         <Breadcrumb itemList={breadcrumbs} />
-        <Container padding="">
+        <Container padding="py-10">
           <ul className="grid gap-4 grid-cols-auto-min-max-33 ">
             {lures?.map((lure) => (
               <LureItem key={lure.id} lure={lure} />
