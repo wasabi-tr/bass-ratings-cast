@@ -36,7 +36,6 @@ const Profile: NextPage = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(editedProfile)
 
     if (editedProfile.user_id) {
       updateProfileMutation.mutate(editedProfile)

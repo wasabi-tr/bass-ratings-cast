@@ -40,7 +40,6 @@ export const Auth: FC = () => {
     } else {
       setIsDisabled(true)
     }
-    console.log(isDisabled)
   }, [email, password, isDisabled])
   return (
     <div className="h-screen flex items-center justify-center flex-col">

@@ -18,7 +18,6 @@ const ForgotPassword: NextPage = () => {
     } else {
       setIsDisabled(true)
     }
-    console.log(isDisabled)
   }, [email, isDisabled])
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {

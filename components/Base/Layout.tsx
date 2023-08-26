@@ -8,7 +8,6 @@ type Props = {
 }
 
 export const Layout: FC<Props> = ({ children }) => {
-  console.log('Rendering Layout')
   const router = useRouter()
   const isHederHide = [
     '/auth',

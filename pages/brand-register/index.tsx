@@ -46,8 +46,6 @@ const BrandRegister: NextPage = () => {
     { name: 'ホーム', item: '/' },
     { name: 'メーカー登録', item: '' },
   ]
-  console.log(editedBrand)
-
   return (
     <Layout>
       <Seo pageTitle="メーカー登録" />

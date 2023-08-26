@@ -19,7 +19,6 @@ const UpdatePassword: NextPage = () => {
     } else {
       setIsDisabled(true)
     }
-    console.log(isDisabled)
   }, [password, isDisabled])
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
