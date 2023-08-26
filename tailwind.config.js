@@ -11,6 +11,9 @@ module.exports = {
       sm: { max: '767px' },
     },
     extend: {
+      transitionProperty: {
+        border: 'border-width',
+      },
       height: {
         '1px': '1px',
         '2px': '2px',
@@ -32,9 +35,7 @@ module.exports = {
       },
       gridTemplateColumns: {
         'auto-min-max-50': 'repeat(auto-fit, minmax(min(450px, 100%), 1fr))',
-
         'auto-min-max-33': 'repeat(auto-fit, minmax(min(400px, 100%), 1fr))',
-
         'auto-min-max-20': 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))',
       },
       gridArea: {
@@ -44,6 +45,10 @@ module.exports = {
         'max-width': '1200px',
         500: '500px',
         700: '700px',
+      },
+      boxShadow: {
+        primary:
+          '0 -1px 2px -1px rgba(75, 144, 185, 0.1), 0 1px 5px -1px rgba(75, 144, 185, 0.01)',
       },
     },
   },

@@ -99,8 +99,6 @@ const Home: NextPage<Props> = ({ lures, brands, genres }) => {
   )
 }
 
-//方法１：luresテーブルにbrand_nameをとaverage_ratingを入れる
-//方法２：viewを使って型を書き換える
 export const getStaticProps: GetStaticProps = async () => {
   const lures = await getLures()
   const brands = await getBrands()
