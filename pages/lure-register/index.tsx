@@ -104,7 +104,7 @@ const LureRegister: NextPage<Props> = ({ genres, brands }) => {
                   </span>
                   メーカー名
                 </p>
-                <div className="flex flex-wrap gap-4  sm:mt-4">
+                <div className="flex flex-wrap gap-4 w-3/4 sm:mt-4 sm:w-full">
                   {brands?.map((brand, index) => (
                     <label
                       key={index}

@@ -24,11 +24,11 @@ const BrandItem: FC<Props> = ({ brand }) => {
               alt={name}
               src="/noimage.jpg"
               fill
-              className="object-cover"
+              className="object-contain"
             />
           )}
         </div>
-        <div className="text-gray-700 font-bold">{name}</div>
+        <div className="text-gray-700 font-bold text-center">{name}</div>
       </Link>
     </li>
   )

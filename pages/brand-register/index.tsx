@@ -17,6 +17,7 @@ const BrandRegister: NextPage = () => {
 
   const editedBrand = useStore((state) => state.editedBrand)
   const updateEditedBrand = useStore((state) => state.updateEditedBrand)
+  const restEditedBrand = useStore((state) => state.resetEditedBrand)
   const { createBrandMutation, updateBrandMutation } = useMutateBrand()
   const { useMutateUploadImg } = useUploadImg('brands')
   const { data: brands } = useQueryBrands()
@@ -68,13 +69,16 @@ const BrandRegister: NextPage = () => {
             メーカーの商品情報を登録・修正する
           </h2>
           <div className="w-2/3 mt-8 mx-auto bg-white rounded-2xl shadow-sm p-16 sm:w-full sm:py-6 sm:px-4">
-            <div className="w-full">
+            <div className="w-full mb-5">
               <button
                 type="button"
                 className={`w-1/2 h-14 font-bold border border-primary  rounded-tl-md  rounded-bl-md  transition ${
                   isRegister ? 'text-white bg-primary' : 'text-primary bg-white'
                 }`}
-                onClick={() => setIsRegister(true)}
+                onClick={() => {
+                  restEditedBrand()
+                  setIsRegister(true)
+                }}
               >
                 登録
               </button>
@@ -85,7 +89,10 @@ const BrandRegister: NextPage = () => {
                     ? 'text-white bg-primary '
                     : 'text-primary bg-white '
                 }`}
-                onClick={() => setIsRegister(false)}
+                onClick={() => {
+                  restEditedBrand()
+                  setIsRegister(false)
+                }}
               >
                 修正
               </button>
@@ -110,6 +117,7 @@ const BrandRegister: NextPage = () => {
                             type="radio"
                             name="brands"
                             value={brand.id}
+                            required
                             onChange={() =>
                               updateEditedBrand({
                                 id: brand.id,
@@ -144,6 +152,7 @@ const BrandRegister: NextPage = () => {
                     value={editedBrand.name}
                     onChange={handleChange}
                     className="w-full p-2 border border-gray-300 rounded"
+                    required
                   />
                 </div>
               </div>
@@ -166,6 +175,7 @@ const BrandRegister: NextPage = () => {
                     value={editedBrand.slug}
                     onChange={handleChange}
                     className="w-full p-2 border border-gray-300 rounded"
+                    required
                   />
                 </div>
               </div>
@@ -188,7 +198,7 @@ const BrandRegister: NextPage = () => {
               </div>
               <div className="mt-5 mx-auto h-16 w-64 block">
                 <button type="submit" className="btn-primary">
-                  メーカの情報を{isRegister ? '登録' : '修正'}する
+                  メーカーの情報を{isRegister ? '登録' : '修正'}する
                 </button>
               </div>
             </form>
