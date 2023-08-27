@@ -37,6 +37,14 @@ const Footer: FC = () => {
                   メーカー一覧
                 </Link>
               </li>
+              <li>
+                <Link
+                  href={'/genre'}
+                  className="relative text-white font-bold hover-animation-border white text-sm"
+                >
+                  ジャンル一覧
+                </Link>
+              </li>
             </ul>
           </nav>
         </div>

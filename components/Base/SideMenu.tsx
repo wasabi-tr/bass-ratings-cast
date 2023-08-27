@@ -24,9 +24,9 @@ const SideMenu: FC = () => {
         aria-controls="navigation"
         aria-expanded={open}
         aria-label="メニューを開きます"
-        className={`hidden relative w-11 h-11 bg-primary z-50 cursor-pointer content-center justify-items-center gap-1 rounded-md ml-3 ${
+        className={`grid relative w-11 h-11 bg-primary z-50 cursor-pointer content-center justify-items-center gap-1 rounded-md ml-3 ${
           open && 'gap-0'
-        } sm:grid`}
+        }`}
         onClick={() => {
           setIsOpen((prev) => !prev)
         }}
@@ -85,10 +85,18 @@ const SideMenu: FC = () => {
             </li>
             <li>
               <Link
+                href={'/genre'}
+                className="text-white font-bold py-3 border-b border-white block"
+              >
+                ジャンル一覧
+              </Link>
+            </li>
+            <li>
+              <Link
                 href={'/search'}
                 className="text-white font-bold py-3 border-b border-white block"
               >
-                検索
+                ルアー検索
               </Link>
             </li>
           </ul>

@@ -29,52 +29,14 @@ export const HeaderMemo: FC = () => {
               LURE CASE
             </Link>
           </div>
-          <nav className="ml-auto flex gap-6 items-center sm:gap-3">
-            <ul className="flex items-center gap-8 sm:hidden">
-              <li>
-                <Link
-                  href={'/lure'}
-                  className=" font-bold flex items-center gap-1 hover-animation-border primary"
-                >
-                  <span>
-                    <Image
-                      src={'/icons/lure.svg'}
-                      alt=""
-                      width={24}
-                      height={24}
-                    />
-                  </span>
-                  ルアー一覧
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={'/brand'}
-                  className=" font-bold flex items-center gap-1  hover-animation-border primary"
-                >
-                  <span>
-                    <Image
-                      src={'/icons/maker.svg'}
-                      alt=""
-                      width={18}
-                      height={1}
-                    />
-                  </span>
-                  メーカー一覧
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={'/search'}
-                  className=" font-bold flex items-center gap-1  hover-animation-border primary"
-                >
-                  <span>
-                    <MagnifyingGlassIcon className="w-6 h-6 text-gray-950 " />
-                  </span>
-                  検索
-                </Link>
-              </li>
-            </ul>
+          <nav className="ml-auto flex gap-3 items-center ">
+            <Link
+              href={'/search'}
+              className=" font-bold flex items-center gap-1"
+              aria-label="ルアー検索ページに遷移する"
+            >
+              <MagnifyingGlassIcon className="w-6 h-6 text-gray-950 transition hover:text-primary" />
+            </Link>
             <ErrorBoundary
               fallback={
                 <ExclamationCircleIcon className="h-10 w-10 text-primary" />
