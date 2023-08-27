@@ -3,35 +3,48 @@ import Container from '@/components/Base/Container'
 import { Layout } from '@/components/Base/Layout'
 import PageTop from '@/components/Base/PageTop'
 import Seo from '@/components/Base/Seo'
-import { getGenreIdBySlug } from '@/features/genres/api/getGenreIdBySlug'
+import { getGenreBySlug } from '@/features/genres/api/getGenreBySlug'
 import { getGenreSlugs } from '@/features/genres/api/getGenreSlugs'
 import { getLuresByGenreId } from '@/features/lure/api/getLuresByGenreId'
 import LureItem from '@/features/lure/components/LureItem'
-import { LureDetail } from '@/types'
+import { Genre, LureDetail } from '@/types'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
+import Link from 'next/link'
 
 type Props = {
   lures: LureDetail[]
-  slug: string
+  genre: Genre
 }
-const LuresByGenre: NextPage<Props> = ({ lures, slug }) => {
-  const genre_name = lures[0]?.genre_name
+const LuresByGenre: NextPage<Props> = ({ lures, genre }) => {
   const breadcrumbs = [
     { name: 'ホーム', item: '/' },
     { name: 'ルアー一覧', item: '/lure' },
-    { name: genre_name, item: `/genre/${slug}` },
+    { name: genre.name, item: `/genre/${genre.slug}` },
   ]
+
   return (
     <Layout>
-      <Seo pageTitle={`${genre_name}のルアー一覧`} />
-      <PageTop title={`${genre_name}のルアー一覧`} />
+      <Seo pageTitle={`${genre.name}のルアー一覧`} />
       <Breadcrumb itemList={breadcrumbs} />
       <Container>
-        <ul className="grid gap-4 grid-cols-auto-min-max-33 ">
-          {lures?.map((lure) => (
-            <LureItem key={lure.id} lure={lure} />
-          ))}
-        </ul>
+        {lures.length !== 0 ? (
+          <ul className="grid gap-4 grid-cols-auto-min-max-33 ">
+            {lures?.map((lure) => (
+              <LureItem key={lure.id} lure={lure} />
+            ))}
+          </ul>
+        ) : (
+          <div className="pt-28 pb-20 ">
+            <p className="text-center font-bold flex items-center justify-center ">
+              {genre.name}のルアーは現在登録されていません
+            </p>
+            <div className="flex justify-center mt-8 w-80 h-16 mx-auto sm:w-full">
+              <Link href={'/'} className="btn-primary">
+                TOPページへ
+              </Link>
+            </div>
+          </div>
+        )}
       </Container>
     </Layout>
   )
@@ -49,13 +62,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context.params!.slug as string
-  const genre_id = await getGenreIdBySlug(slug)
-  const lures = await getLuresByGenreId(genre_id)
+  const genre = await getGenreBySlug(slug)
+  const lures = await getLuresByGenreId(genre.id)
 
   return {
     props: {
       lures,
-      slug,
+      genre,
     },
   }
 }

@@ -40,9 +40,6 @@ export const userMutateProfile = () => {
     },
     {
       onSuccess: (res) => {
-        /* ISRでユーザープロフィールページを再生成 */
-
-        /* ヘッダーにユーザー名、アバター画像をを即時反映するためにreact-queryのキャッシュを更新※要改善 */
         let previousProfile = queryClient.getQueryData<Profile>(['profile'])
         if (res.user_id === previousProfile?.user_id) {
           queryClient.setQueryData(['profile'], {
@@ -52,7 +49,6 @@ export const userMutateProfile = () => {
             user_id: res.user_id,
           })
         }
-        alert('Profile updated')
       },
       onError: (err: any) => {
         alert(err.message)

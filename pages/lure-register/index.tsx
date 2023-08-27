@@ -4,8 +4,6 @@ import { Layout } from '@/components/Base/Layout'
 import Seo from '@/components/Base/Seo'
 import { Database } from '@/database.types'
 import { useMutateLure } from '@/features/lure/hooks/useMutateLure'
-import { useQueryBrands } from '@/features/lure/hooks/useQueryBrands'
-import { useQueryGenres } from '@/features/lure/hooks/useQueryGenres'
 import { useStore } from '@/lib/store'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { NextPage } from 'next'
@@ -136,7 +134,7 @@ const LureRegister: NextPage<Props> = ({ genres, brands }) => {
                   </span>
                   ジャンル
                 </p>
-                <div className="flex flex-wrap gap-4  sm:mt-4">
+                <div className="flex flex-wrap gap-4 w-3/4 sm:mt-4 sm:w-full">
                   {genres?.map((genre, index) => (
                     <label
                       key={index}

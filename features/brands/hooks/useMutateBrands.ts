@@ -31,5 +31,26 @@ export const useMutateBrand = () => {
       },
     }
   )
-  return { createBrandMutation }
+  const updateBrandMutation = useMutation(
+    async (brand: Omit<Brand, 'created_at'>) => {
+      const { data, error } = await supabaseClient
+        .from('brands')
+        .update({ ...brand })
+        .eq('id', brand.id)
+        .select()
+      if (error) throw new Error(error.message)
+      return data
+    },
+    {
+      onSuccess: (res) => {
+        revalidateIndex()
+        revalidateBrand(res[0].slug)
+        reset()
+      },
+      onError: (err: any) => {
+        alert(err.message)
+      },
+    }
+  )
+  return { createBrandMutation, updateBrandMutation }
 }

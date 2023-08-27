@@ -47,7 +47,7 @@ const Search: NextPage = () => {
     } else {
       search('')
     }
-  }, [router.query])
+  }, [router.query, search])
   console.log(isLoading)
 
   const breadcrumbs = [

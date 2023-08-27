@@ -10,6 +10,7 @@ import { getLuresByBrandId } from '@/features/lure/api/getLuresByBrandId'
 import LureItem from '@/features/lure/components/LureItem'
 import { Brand, LureDetail } from '@/types'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
+import Link from 'next/link'
 
 type Props = {
   lures: LureDetail[]
@@ -26,11 +27,24 @@ const LuresByBrand: NextPage<Props> = ({ lures, brand }) => {
       <Seo pageTitle={`${brand.name}のルアー一覧`} />
       <Breadcrumb itemList={breadcrumbs} />
       <Container padding="py-10">
-        <ul className="grid gap-4 grid-cols-auto-min-max-33 ">
-          {lures?.map((lure) => (
-            <LureItem key={lure.id} lure={lure} />
-          ))}
-        </ul>
+        {lures.length !== 0 ? (
+          <ul className="grid gap-4 grid-cols-auto-min-max-33 ">
+            {lures?.map((lure) => (
+              <LureItem key={lure.id} lure={lure} />
+            ))}
+          </ul>
+        ) : (
+          <div className="pt-28 pb-20 ">
+            <p className="text-center font-bold flex items-center justify-center ">
+              {brand.name}のルアーは現在登録されていません
+            </p>
+            <div className="flex justify-center mt-8 w-80 h-16 mx-auto sm:w-full">
+              <Link href={'/'} className="btn-primary">
+                TOPページへ
+              </Link>
+            </div>
+          </div>
+        )}
       </Container>
     </Layout>
   )
