@@ -49,9 +49,9 @@ const Profile: NextPage = () => {
 
   return (
     <Layout>
+      <Seo pageTitle="マイページ" noindex />
+      <Breadcrumb itemList={breadcrumbs} />
       <Container>
-        <Seo pageTitle="マイページ" noindex />
-        <Breadcrumb itemList={breadcrumbs} />
         <div className="py-16">
           <div className="w-3/4 mt-8 mx-auto bg-white rounded-2xl shadow-sm py-16 px-20">
             <form onSubmit={handleSubmit}>
