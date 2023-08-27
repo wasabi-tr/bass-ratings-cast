@@ -1,7 +1,7 @@
 import Container from '@/components/Base/Container'
 import { Layout } from '@/components/Base/Layout'
 import { GetStaticProps, NextPage } from 'next'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import { LureDetail } from '@/types'
 import Seo from '@/components/Base/Seo'
@@ -22,17 +22,20 @@ const Search: NextPage = () => {
   const { data: lures, isLoading: queryLoading } = useQueryLures()
   const [isLoading, setIsLoading] = useState(true)
 
-  const search = async (value: string) => {
-    if (value !== '') {
-      const resultLures = lures?.filter((item) =>
-        item.name.toLowerCase().includes(value.toLowerCase())
-      )
-      setResultLures(resultLures as LureDetail[])
-    } else {
-      setResultLures(lures as LureDetail[])
-    }
-    setIsLoading(false)
-  }
+  const search = useCallback(
+    async (value: string) => {
+      if (value !== '') {
+        const resultLures = lures?.filter((item) =>
+          item.name.toLowerCase().includes(value.toLowerCase())
+        )
+        setResultLures(resultLures as LureDetail[])
+      } else {
+        setResultLures(lures as LureDetail[])
+      }
+      setIsLoading(false)
+    },
+    [lures, setResultLures, setIsLoading]
+  )
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value)
