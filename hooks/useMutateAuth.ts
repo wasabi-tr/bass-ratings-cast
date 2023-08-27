@@ -13,6 +13,7 @@ export const useMutateAuth = () => {
   const updateEditedProfile = useStore((state) => state.updateEditedProfile)
   const resetEditedProfile = useStore((state) => state.resetEditedProfile)
   const router = useRouter()
+  const [registered, setRegistered] = useState(false)
 
   const reset = () => {
     setEmail('')
@@ -65,6 +66,7 @@ export const useMutateAuth = () => {
     {
       onSuccess: async (res) => {
         // router.push('/')
+        setRegistered(true)
       },
       onError: (err: any) => {
         alert(err.message)
@@ -120,5 +122,6 @@ export const useMutateAuth = () => {
     registerMutation,
     logoutMutation,
     googleSignInMutation,
+    registered,
   }
 }

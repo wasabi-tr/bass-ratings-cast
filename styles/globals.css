@@ -56,3 +56,28 @@ body {
 .hover-animation-border:hover::after {
   width: 100%;
 }
+.success-message {
+  opacity: 1;
+  transition: opacity 0.3s;
+  animation: fadeIn 2s forwards ease;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@media (max-width: 767px) {
+  .star svg {
+    width: 26px;
+  }
+}

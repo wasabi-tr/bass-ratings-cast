@@ -18,6 +18,12 @@ import Image from 'next/image'
 import getReviewByUserIdAndLureId from '@/features/review/api/getReviewByUserIdAndLureId'
 import Breadcrumb from '@/components/Base/Breadcrumb'
 import Seo from '@/components/Base/Seo'
+import {
+  CheckBadgeIcon,
+  CheckCircleIcon,
+  CheckIcon,
+  CircleStackIcon,
+} from '@heroicons/react/24/solid'
 
 type Props = {
   lure_id: string
@@ -44,7 +50,8 @@ const ReactStarsRating = dynamic(
 const Review: NextPage<Props> = ({ lure_id, lure }) => {
   const user = useUser()
   const [reviewed, setReviewed] = useState(false)
-  const { createReviewMutation, updateReviewMutation } = useMutateReview()
+  const { createReviewMutation, updateReviewMutation, success } =
+    useMutateReview()
   const editedReview = useStore((state) => state.editedReview)
   const update = useStore((state) => state.updateEditedReview)
   const reset = useStore((state) => state.resetEditedReview)
@@ -109,19 +116,29 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
     <Layout>
       <Seo pageTitle={`${name}のレビュー登録`} />
       <Breadcrumb itemList={breadcrumbs} />
+      {success && (
+        <div className="success-message fixed top-5 left-1/2 -translate-x-1/2 flex items-center justify-center gap-3 rounded-md bg-green-100 border border-green-500 h-20 px-32 z-20">
+          <CheckCircleIcon className="w-8 h-8 text-green-500" />
+          <div className="  text-green-500 font-bold ">
+            レビューを投稿しました。
+          </div>
+        </div>
+      )}
       <Container>
         <div className="py-16">
-          <div className="rounded-lg bg-white w-3/4 mx-auto py-14 px-24">
-            <form onSubmit={handleSubmit} className="flex gap-9">
+          <div className="rounded-lg bg-white w-3/4 mx-auto py-14 px-24 sm:w-full sm:py-6  sm:px-4 ">
+            <form onSubmit={handleSubmit} className="flex gap-9 sm:block">
               <div>
                 <div>
                   <span className="text-sm text-gray-400">{brand_name}</span>
-                  <h2 className="text-2xl font-bold mt-2">{name}</h2>
+                  <h2 className="text-2xl font-bold mt-2 sm:text-base">
+                    {name}
+                  </h2>
                   <p className="border border-primary rounded-md inline-block text-primary font-bold px-3 mt-3">
                     {genre_name}
                   </p>
                 </div>
-                <div className="aspect-square m-auto relative w-48 mt-5">
+                <div className="aspect-square m-auto relative w-48 mt-5 sm:w-36">
                   {image_url ? (
                     <Image
                       alt={name}
@@ -139,10 +156,10 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
                   )}
                 </div>
               </div>
-              <div className="flex-grow">
+              <div className="flex-grow sm:mt-4">
                 <div className="flex items-center gap-3 mb-4">
                   <label htmlFor="rate01" className="font-bold w-1/2">
-                    <span className="text-sm font-bold border border-primary text-primary rounded-md py-1 px-2 mr-2">
+                    <span className="text-sm font-bold border border-primary text-primary rounded-md py-1 px-2 mr-2 sm:text-xs">
                       必須
                     </span>
                     価格・コスパ
@@ -152,7 +169,7 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
                       name="rating_1"
                       value={editedReview.rating_1}
                       fillColor={'#FFB500'}
-                      className={`flex justify-between`}
+                      className={`star flex justify-between sm:text-sm`}
                       isHalf={false}
                       size={36}
                       onChange={(value: number) =>
@@ -175,7 +192,7 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
                 <div className="flex items-center gap-3 mb-4">
                   <label className="font-bold w-1/2">
                     {' '}
-                    <span className="text-sm font-bold border border-primary text-primary rounded-md py-1 px-2 mr-2">
+                    <span className="text-sm font-bold border border-primary text-primary rounded-md py-1 px-2 mr-2 sm:text-xs">
                       必須
                     </span>
                     操作性
@@ -207,7 +224,7 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
                 <div className="flex items-center gap-3 mb-4">
                   <label className="font-bold w-1/2">
                     {' '}
-                    <span className="text-sm font-bold border border-primary text-primary rounded-md py-1 px-2 mr-2">
+                    <span className="text-sm font-bold border border-primary text-primary rounded-md py-1 px-2 mr-2 sm:text-xs">
                       必須
                     </span>
                     アクション
@@ -239,7 +256,7 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
                 <div className="flex items-center gap-3 mb-4">
                   <label className="font-bold w-1/2">
                     {' '}
-                    <span className="text-sm font-bold border border-primary text-primary rounded-md py-1 px-2 mr-2">
+                    <span className="text-sm font-bold border border-primary text-primary rounded-md py-1 px-2 mr-2 sm:text-xs">
                       必須
                     </span>
                     飛距離
@@ -271,7 +288,7 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
                 <div className="flex items-center gap-3 mb-4">
                   <label className="font-bold w-1/2">
                     {' '}
-                    <span className="text-sm font-bold border border-primary text-primary rounded-md py-1 px-2 mr-2">
+                    <span className="text-sm font-bold border border-primary text-primary rounded-md py-1 px-2 mr-2 sm:text-xs">
                       必須
                     </span>
                     耐久性
@@ -302,7 +319,7 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
                 </div>
                 <div className="mb-4">
                   <label className="font-bold mb-3 block">
-                    <span className="text-sm font-bold border border-primary text-primary rounded-md py-1 px-2 mr-2">
+                    <span className="text-sm font-bold border border-primary text-primary rounded-md py-1 px-2 mr-2 sm:text-xs">
                       必須
                     </span>
                     レビューテキスト
