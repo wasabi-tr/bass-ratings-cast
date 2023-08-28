@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { FC, useEffect, useState } from 'react'
+import Container from './Container'
 
 const SideMenu: FC = () => {
   const [open, setIsOpen] = useState(false)
@@ -53,58 +54,62 @@ const SideMenu: FC = () => {
       <nav
         id="navigation"
         aria-hidden={!open}
-        className={`fixed top-0 left-0 w-full h-screen bg-navy z-40 transition duration-500 ${
-          !open ? 'translate-x-full' : 'translate-x-0'
+        className={`fixed top-0 right-0 w-full h-screen bg-navy bg-opacity-70 z-40 transition duration-300  ${
+          !open ? 'opacity-0 invisible' : 'visible opacity-100:'
         }`}
       >
-        <div className="py-14 px-6">
-          <ul className="grid grid-cols-1 mt-4">
-            <li>
-              <Link
-                href={'/'}
-                className="text-white font-bold py-3 border-b border-white block"
-              >
-                ホーム
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={'/lure'}
-                className="text-white font-bold py-3 border-b border-white block"
-              >
-                ルアー一覧
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={'/brand'}
-                className="text-white font-bold py-3 border-b border-white block"
-              >
-                メーカー一覧
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={'/genre'}
-                className="text-white font-bold py-3 border-b border-white block"
-              >
-                ジャンル一覧
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={'/search'}
-                className="text-white font-bold py-3 border-b border-white block"
-              >
-                ルアー検索
-              </Link>
-            </li>
-          </ul>
-          <div className="w-64 h-12 mt-6 mx-auto">
-            <Link href={'/auth'} className="btn-primary">
-              ログイン/新規会員登録
-            </Link>
-          </div>
+        <div className="py-14 ">
+          <Container>
+            <div className="bg-white rounded-md px-8 py-11 mt-8 sm:px-5">
+              <ul className="grid grid-cols-1 mt-4">
+                <li>
+                  <Link
+                    href={'/'}
+                    className="text-primary font-bold pb-4 border-b border-primary block"
+                  >
+                    ホーム
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href={'/lure'}
+                    className="text-primary font-bold py-4 border-b border-primary block"
+                  >
+                    ルアー一覧
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href={'/brand'}
+                    className="text-primary font-bold py-4 border-b border-primary block"
+                  >
+                    メーカー一覧
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href={'/genre'}
+                    className="text-primary font-bold py-4 border-b border-primary block"
+                  >
+                    ジャンル一覧
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href={'/search'}
+                    className="text-primary font-bold py-4 border-b border-primary block"
+                  >
+                    ルアー検索
+                  </Link>
+                </li>
+              </ul>
+              <div className="w-64 h-12 mt-6 mx-auto">
+                <Link href={'/auth'} className="btn-primary">
+                  ログイン/新規会員登録
+                </Link>
+              </div>
+            </div>
+          </Container>
         </div>
       </nav>
     </div>

@@ -117,7 +117,7 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
       <Seo pageTitle={`${name}のレビュー登録`} />
       <Breadcrumb itemList={breadcrumbs} />
       {success && (
-        <div className="success-message fixed top-5 left-1/2 -translate-x-1/2 flex items-center justify-center gap-3 rounded-md bg-green-100 border border-green-500 h-20 px-32 z-20">
+        <div className="success-message fixed top-5 left-1/2 -translate-x-1/2 flex items-center justify-center gap-3 rounded-md bg-green-100 border border-green-500 h-20 px-32 z-20 sm:px-4 w-full">
           <CheckCircleIcon className="w-8 h-8 text-green-500" />
           <div className="  text-green-500 font-bold ">
             レビューを投稿しました。
