@@ -27,7 +27,7 @@ const SideMenu: FC = () => {
         aria-label="メニューを開きます"
         className={`grid relative w-11 h-11 bg-primary z-50 cursor-pointer content-center justify-items-center gap-1 rounded-md ml-3 ${
           open && 'gap-0'
-        }`}
+        } sm:w-8 h-8 sm:ml-2 `}
         onClick={() => {
           setIsOpen((prev) => !prev)
         }}
@@ -35,19 +35,19 @@ const SideMenu: FC = () => {
         <span
           className={`bg-white block transition h-2px w-6 ${
             open && 'transform -rotate-45 '
-          }`}
+          } sm:w-5`}
           style={spanStyle}
         ></span>
         <span
           className={`bg-white block transition h-2px w-6 ${
             open && 'opacity-0'
-          }`}
+          } sm:w-5`}
           style={spanStyle}
         ></span>
         <span
           className={`bg-white block transition h-2px w-6 ${
             open && 'transform rotate-45'
-          }`}
+          } sm:w-5`}
           style={spanStyle}
         ></span>
       </button>
@@ -103,7 +103,7 @@ const SideMenu: FC = () => {
                   </Link>
                 </li>
               </ul>
-              <div className="w-64 h-12 mt-6 mx-auto">
+              <div className="w-64 h-12 mt-6 mx-auto sm:h-">
                 <Link href={'/auth'} className="btn-primary">
                   ログイン/新規会員登録
                 </Link>

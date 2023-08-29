@@ -77,7 +77,7 @@ body {
   }
 }
 @media (max-width: 767px) {
-  .star svg {
+  .review-star svg {
     width: 26px;
   }
 }

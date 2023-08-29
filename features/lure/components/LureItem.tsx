@@ -39,7 +39,7 @@ const LureItem: FC<LureItemProps> = ({ lure }) => {
         <div className="flex flex-col">
           <div className="text-xs text-gray-500">{brand_name}</div>
           <p className="font-bold">{name}</p>
-          {rating_average && <Stars rating={rating_average} />}
+          {rating_average && <Stars rating={rating_average} size={20} />}
         </div>
       </Link>
     </li>

@@ -85,7 +85,7 @@ const User: FC = () => {
         <div>
           <Link
             href={'/auth'}
-            className="font-bold text-xs px-3 border bg-primary border-primary rounded-md text-white text-center transition flex items-center justify-center hover:opacity-70 h-11"
+            className="font-bold text-xs px-3 border bg-primary border-primary rounded-md text-white text-center transition flex items-center justify-center hover:opacity-70 h-11 sm:h-8"
           >
             ログイン/新規会員登録
           </Link>

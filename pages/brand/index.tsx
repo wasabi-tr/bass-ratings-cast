@@ -23,7 +23,7 @@ const Brand: NextPage<Props> = ({ brands }) => {
         <Seo pageTitle="メーカー一覧" />
         <Breadcrumb itemList={breadcrumbs} />
         <Container padding="py-10">
-          <ul className="grid gap-4 grid-cols-auto-min-max-20 ">
+          <ul className="grid gap-4 grid-cols-auto-min-max-20 sm:grid-cols-2">
             {brands?.map((brand) => (
               <BrandItem key={brand.id} brand={brand} />
             ))}

@@ -150,6 +150,7 @@ const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   const ids = await getLureIds()
   const paths = ids.map((id) => ({ params: { id } }))
+  console.log(paths)
 
   return {
     paths,

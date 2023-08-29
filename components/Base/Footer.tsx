@@ -6,9 +6,9 @@ const Footer: FC = () => {
   return (
     <footer className="bg-navy">
       <Container>
-        <div className="flex gap-32 py-16 ">
-          <div className="text-white font-bold">LURE CASE</div>
-          <nav className="w-1/4">
+        <div className="flex gap-32 py-16 sm:block sm:py-8">
+          <div className="text-white font-bold sm:text-center">LURE CASE</div>
+          <nav className="w-1/4 sm:w-full sm:mt-6">
             <p className="text-white font-bold pb-3 border-b border-white ">
               MENU
             </p>

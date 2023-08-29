@@ -52,8 +52,8 @@ const Profile: NextPage = () => {
       <Seo pageTitle="マイページ" noindex />
       <Breadcrumb itemList={breadcrumbs} />
       <Container>
-        <div className="py-16">
-          <div className="w-3/4 mt-8 mx-auto bg-white rounded-2xl shadow-sm py-16 px-20">
+        <div className="py-16 sm:py-8">
+          <div className="w-3/4 mx-auto bg-white rounded-2xl shadow-sm py-16 px-20 sm:w-full sm:py-8 sm:px-5 ">
             <form onSubmit={handleSubmit}>
               <label htmlFor="avatarImg">
                 {isLoading ? (

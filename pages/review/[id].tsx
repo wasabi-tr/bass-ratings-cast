@@ -169,7 +169,7 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
                       name="rating_1"
                       value={editedReview.rating_1}
                       fillColor={'#FFB500'}
-                      className={`star flex justify-between sm:text-sm`}
+                      className={`review-star flex justify-between sm:text-sm`}
                       isHalf={false}
                       size={36}
                       onChange={(value: number) =>
@@ -202,7 +202,7 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
                       name="rating_2"
                       value={editedReview.rating_2}
                       fillColor={'#FFB500'}
-                      className={`flex justify-between`}
+                      className={`review-star flex justify-between`}
                       isHalf={false}
                       size={36}
                       onChange={(value: number) =>
@@ -234,7 +234,7 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
                       name="rating_3"
                       value={editedReview.rating_3}
                       fillColor={'#FFB500'}
-                      className={`flex justify-between`}
+                      className={`review-star flex justify-between`}
                       isHalf={false}
                       size={36}
                       onChange={(value: number) =>
@@ -266,7 +266,7 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
                       name="rating_4"
                       value={editedReview.rating_4}
                       fillColor={'#FFB500'}
-                      className={`flex justify-between`}
+                      className={`review-star flex justify-between`}
                       isHalf={false}
                       size={36}
                       onChange={(value: number) =>
@@ -298,7 +298,7 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
                       name="rating_5"
                       value={editedReview.rating_5}
                       fillColor={'#FFB500'}
-                      className={`flex justify-between`}
+                      className={` review-star flex justify-between`}
                       isHalf={false}
                       size={36}
                       onChange={(value: number) =>
