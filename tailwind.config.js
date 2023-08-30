@@ -45,6 +45,7 @@ module.exports = {
         'max-width': '1200px',
         500: '500px',
         700: '700px',
+        750: '750px',
       },
       boxShadow: {
         primary:

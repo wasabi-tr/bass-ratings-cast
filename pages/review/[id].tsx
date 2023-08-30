@@ -126,7 +126,7 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
       )}
       <Container>
         <div className="py-16">
-          <div className="rounded-lg bg-white w-700 max-w-full mx-auto py-14 px-5 sm:w-full sm:py-6  sm:px-4 ">
+          <div className="rounded-lg bg-white w-750 max-w-full mx-auto py-14 px-5 sm:w-full sm:py-6  sm:px-4 ">
             <form
               onSubmit={handleSubmit}
               className="flex gap-9 justify-center sm:block"
