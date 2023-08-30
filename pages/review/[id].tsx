@@ -126,8 +126,11 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
       )}
       <Container>
         <div className="py-16">
-          <div className="rounded-lg bg-white w-3/4 mx-auto py-14 px-24 sm:w-full sm:py-6  sm:px-4 ">
-            <form onSubmit={handleSubmit} className="flex gap-9 sm:block">
+          <div className="rounded-lg bg-white w-700 max-w-full mx-auto py-14 px-5 sm:w-full sm:py-6  sm:px-4 ">
+            <form
+              onSubmit={handleSubmit}
+              className="flex gap-9 justify-center sm:block"
+            >
               <div>
                 <div>
                   <span className="text-sm text-gray-400">{brand_name}</span>
@@ -156,7 +159,7 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
                   )}
                 </div>
               </div>
-              <div className="flex-grow sm:mt-4">
+              <div className="sm:mt-4">
                 <div className="flex items-center gap-3 mb-4">
                   <label htmlFor="rate01" className="font-bold w-1/2">
                     <span className="text-sm font-bold border border-primary text-primary rounded-md py-1 px-2 mr-2 sm:text-xs">
@@ -191,7 +194,6 @@ const Review: NextPage<Props> = ({ lure_id, lure }) => {
                 </div>
                 <div className="flex items-center gap-3 mb-4">
                   <label className="font-bold w-1/2">
-                    {' '}
                     <span className="text-sm font-bold border border-primary text-primary rounded-md py-1 px-2 mr-2 sm:text-xs">
                       必須
                     </span>

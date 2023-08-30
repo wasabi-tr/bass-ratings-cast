@@ -135,7 +135,15 @@ const LureDetail: NextPage<Props> = ({ lure, reviews, averageRatings }) => {
                 <section>
                   <div className="py-10">
                     <Heading heading="レビュー" />
-                    <ReviewList reviews={reviews} />
+                    {reviews.length ? (
+                      <ReviewList reviews={reviews} />
+                    ) : (
+                      <div className="mb-4 p-3 bg-white rounded-md shadow-sm">
+                        <p className="text-center text-sm">
+                          レビューはまだ投稿されていません。
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </section>
               </div>

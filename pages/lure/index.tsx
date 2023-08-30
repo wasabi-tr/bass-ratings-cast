@@ -23,7 +23,7 @@ const LureArchive: NextPage<Props> = ({ lures, totalCount }) => {
       <Layout>
         <Seo pageTitle="ルアー一覧" />
         <Breadcrumb itemList={breadcrumbs} />
-        <Container padding="py-10">
+        <Container padding="pt-10">
           <ul className="grid gap-4 grid-cols-2 sm:grid-cols-1  ">
             {lures?.map((lure) => (
               <LureItem key={lure.id} lure={lure} />

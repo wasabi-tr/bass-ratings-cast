@@ -27,27 +27,27 @@ type Props = {
 const Chart: FC<Props> = ({ lureData }) => {
   const data = [
     {
-      subject: '評価１',
+      subject: 'アクション',
       A: lureData?.rating_1,
       fullMark: 5,
     },
     {
-      subject: '評価２',
+      subject: '飛距離',
       A: lureData?.rating_2,
       fullMark: 5,
     },
     {
-      subject: '評価３',
+      subject: '価格・コスパ',
       A: lureData?.rating_3,
       fullMark: 5,
     },
     {
-      subject: '評価４',
+      subject: '操作性',
       A: lureData?.rating_4,
       fullMark: 5,
     },
     {
-      subject: '評価５',
+      subject: '汎用性',
       A: lureData?.rating_5,
       fullMark: 5,
     },

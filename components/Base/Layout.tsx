@@ -18,7 +18,9 @@ export const Layout: FC<Props> = ({ children }) => {
   return (
     <div className="text-gray-800">
       {!isHederHide && <Header />}
-      <main className={`${!isHederHide && 'py-16'}`}>{children}</main>
+      <main className={`${!isHederHide && 'py-16 sm:pt-16 sm:pb-8'}`}>
+        {children}
+      </main>
       {!isHederHide && <Footer />}
     </div>
   )

@@ -27,7 +27,7 @@ const SideMenu: FC = () => {
         aria-label="メニューを開きます"
         className={`grid relative w-11 h-11 bg-primary z-50 cursor-pointer content-center justify-items-center gap-1 rounded-md ml-3 ${
           open && 'gap-0'
-        } sm:w-8 h-8 sm:ml-2 `}
+        } sm:w-8 sm:h-8 sm:ml-2 `}
         onClick={() => {
           setIsOpen((prev) => !prev)
         }}
