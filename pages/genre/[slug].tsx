@@ -26,7 +26,7 @@ const LuresByGenre: NextPage<Props> = ({ lures, genre }) => {
     <Layout>
       <Seo pageTitle={`${genre.name}のルアー一覧`} />
       <Breadcrumb itemList={breadcrumbs} />
-      <Container>
+      <Container padding="pt-10">
         {lures.length !== 0 ? (
           <ul className="grid gap-4 grid-cols-auto-min-max-33 ">
             {lures?.map((lure) => (
