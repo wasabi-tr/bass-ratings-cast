@@ -54,9 +54,6 @@ pw: testuser
 
 <img width="892" alt="スクリーンショット 2023-09-01 7 20 44" src="https://github.com/takaryu39/bass-ratings-cast/assets/81959203/34465f7d-39cd-4829-8b5e-2e172fd3c424">
 
-- ルアーの更新、レビュー更新には On-demand ISR を、ユーザー情報に関わるページは SSR または CSR で実装しています。
-- レスポンシブデザインに対応しています。
-
 ## 使用技術
 
 ## インフラ
