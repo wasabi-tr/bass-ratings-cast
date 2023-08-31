@@ -53,7 +53,7 @@ const Chart: FC<Props> = ({ lureData }) => {
     },
   ]
   return (
-    <div className="w-96 h-96 mx-auto sm:w-full sm:h-64">
+    <div className="w-500 h-96 mx-auto sm:w-full sm:h-64">
       <ResponsiveContainer>
         <RadarChart
           // outerRadius={140}

@@ -51,7 +51,6 @@ const Search: NextPage = () => {
       search('')
     }
   }, [router.query, search])
-  console.log(isLoading)
 
   const breadcrumbs = [
     { name: 'ホーム', item: '/' },
