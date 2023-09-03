@@ -54,11 +54,11 @@ const SideMenu: FC = () => {
       <nav
         id="navigation"
         aria-hidden={!open}
-        className={`fixed top-0 right-0 w-full h-screen bg-navy bg-opacity-70 z-40 transition duration-300  ${
+        className={`fixed top-0 right-0 w-full h-screen bg-navy bg-opacity-70 z-40 transition duration-300 flex justify-center items-center  ${
           !open ? 'opacity-0 invisible' : 'visible opacity-100:'
         }`}
       >
-        <div className="py-14 ">
+        <div className=" ">
           <Container>
             <div className="bg-white rounded-md px-8 py-11 mt-8 sm:px-5">
               <ul className="grid grid-cols-1 mt-4">
