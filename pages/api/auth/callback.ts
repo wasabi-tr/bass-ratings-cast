@@ -10,6 +10,7 @@ const handler: NextApiHandler = async (req, res) => {
     const {
       data: { session },
     } = await supabase.auth.getSession()
+    console.log(`session${session}`)
 
     const { data, error } = await supabase.from('profiles').insert({
       user_id: session?.user.id,
@@ -17,6 +18,7 @@ const handler: NextApiHandler = async (req, res) => {
       text: '',
       avatar_url: '',
     })
+    console.log(`data${data}`)
   }
 
   res.redirect('/')
