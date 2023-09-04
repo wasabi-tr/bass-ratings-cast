@@ -1,7 +1,6 @@
 import Breadcrumb from '@/components/Base/Breadcrumb'
 import Container from '@/components/Base/Container'
 import { Layout } from '@/components/Base/Layout'
-import PageTop from '@/components/Base/PageTop'
 import Seo from '@/components/Base/Seo'
 import { getGenreBySlug } from '@/features/genres/api/getGenreBySlug'
 import { getGenreSlugs } from '@/features/genres/api/getGenreSlugs'

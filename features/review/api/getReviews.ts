@@ -1,5 +1,4 @@
 import { supabase } from '@/lib/supabaseClient'
-import { Review } from '@/types'
 
 const getReviews = async (id: string) => {
   const { data: reviewData, error: reviewError } = await supabase

@@ -18,12 +18,7 @@ import Image from 'next/image'
 import getReviewByUserIdAndLureId from '@/features/review/api/getReviewByUserIdAndLureId'
 import Breadcrumb from '@/components/Base/Breadcrumb'
 import Seo from '@/components/Base/Seo'
-import {
-  CheckBadgeIcon,
-  CheckCircleIcon,
-  CheckIcon,
-  CircleStackIcon,
-} from '@heroicons/react/24/solid'
+import { CheckCircleIcon } from '@heroicons/react/24/solid'
 
 type Props = {
   lure_id: string
