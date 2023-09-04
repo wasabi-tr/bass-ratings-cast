@@ -7,17 +7,16 @@ const handler: NextApiHandler = async (req, res) => {
   if (code) {
     const supabase = createPagesServerClient({ req, res })
     const result = await supabase.auth.exchangeCodeForSession(String(code))
-    //プロフィール登録の処理
-    // const {
-    //   data: { session },
-    // } = await supabase.auth.getSession()
+    const {
+      data: { session },
+    } = await supabase.auth.getSession()
 
-    // const { data, error } = await supabase.from('profiles').insert({
-    //   user_id: session?.user.id,
-    //   username: session?.user.email,
-    //   text: '',
-    //   avatar_url: '',
-    // })
+    const { data, error } = await supabase.from('profiles').insert({
+      user_id: session?.user.id,
+      username: session?.user.email,
+      text: '',
+      avatar_url: '',
+    })
   }
 
   res.redirect('/')
