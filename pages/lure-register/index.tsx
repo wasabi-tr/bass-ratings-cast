@@ -90,6 +90,7 @@ const LureRegister: NextPage<Props> = ({ genres, brands }) => {
                     value={editedLure.name}
                     onChange={handleChange}
                     className="w-full p-2 border border-gray-300 rounded"
+                    required
                   />
                 </div>
               </div>
@@ -98,7 +99,6 @@ const LureRegister: NextPage<Props> = ({ genres, brands }) => {
                   id="group-maker"
                   className="font-bold block w-1/4 text-sm sm:w-full "
                 >
-                  {' '}
                   <span className="text-sm font-bold border border-primary text-primary rounded-md py-1 px-2 mr-2 inline-block">
                     必須
                   </span>
@@ -117,6 +117,7 @@ const LureRegister: NextPage<Props> = ({ genres, brands }) => {
                         checked={editedLure.brand_id === brand.id}
                         onChange={handleChange}
                         className="mr-1 "
+                        required
                       />
                       {brand.name}
                     </label>
@@ -128,7 +129,6 @@ const LureRegister: NextPage<Props> = ({ genres, brands }) => {
                   id="group-maker"
                   className="font-bold block w-1/4 text-sm sm:w-full"
                 >
-                  {' '}
                   <span className="text-sm font-bold border border-primary text-primary rounded-md py-1 px-2 mr-2 inline-block ">
                     必須
                   </span>
@@ -147,6 +147,7 @@ const LureRegister: NextPage<Props> = ({ genres, brands }) => {
                         checked={editedLure.genre_id === genre.id}
                         onChange={handleChange}
                         className="mr-1 "
+                        required
                       />
                       {genre.name}
                     </label>

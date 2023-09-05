@@ -42,10 +42,14 @@ pw: testuser
 
 ### 商品情報登録機能
 
+https://bass-ratings-cast.vercel.app/lure-register
+
 - ルアーの商品情報を新規追加・更新することができます。
 - 商品画像をアップロードできます。
 
 ### メーカー情報登録機能
+
+https://bass-ratings-cast.vercel.app/bland-register
 
 - メーカーの商品情報を新規追加・更新することができます。
 - メーカーの画像をアップロードできます。
@@ -71,7 +75,7 @@ pw: testuser
 - recharts
 - react-awesome-stars-rating
 - react-error-boundary
-- tailwindcss
+- Tailwindcss
 
 ## バックエンド
 
