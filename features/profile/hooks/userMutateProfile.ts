@@ -1,11 +1,13 @@
 import { Profile } from '@/types'
 import { revalidateLure, revalidateProfile } from '@/utils/revalidate'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 
 export const userMutateProfile = () => {
   const queryClient = useQueryClient()
   const supabaseClient = useSupabaseClient()
+  const [success, setSuccess] = useState(false)
 
   const createProfileMutation = useMutation(
     async (profile: Omit<Profile, 'id' | 'created_at'>) => {
@@ -18,10 +20,7 @@ export const userMutateProfile = () => {
       return data
     },
     {
-      onSuccess: (res) => {
-        /* ISRでユーザープロフィールページを生成 */
-        // revalidateProfile(res[0].user_id)
-      },
+      onSuccess: (res) => {},
       onError: (err: any) => {
         alert(err.message)
       },
@@ -48,6 +47,10 @@ export const userMutateProfile = () => {
             avatar_url: res.avatar_url,
             user_id: res.user_id,
           })
+          setSuccess(true)
+          setTimeout(() => {
+            setSuccess(false)
+          }, 2000)
         }
       },
       onError: (err: any) => {
@@ -55,5 +58,5 @@ export const userMutateProfile = () => {
       },
     }
   )
-  return { createProfileMutation, updateProfileMutation }
+  return { createProfileMutation, updateProfileMutation, success }
 }

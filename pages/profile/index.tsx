@@ -1,7 +1,11 @@
 import { NextPage } from 'next'
 import Image from 'next/image'
 import { ChangeEvent, FormEvent } from 'react'
-import { PencilIcon, UserCircleIcon } from '@heroicons/react/24/solid'
+import {
+  CheckCircleIcon,
+  PencilIcon,
+  UserCircleIcon,
+} from '@heroicons/react/24/solid'
 import { useUploadAvatarImg } from '@/features/profile/hooks/useUploadAvatarImg'
 import { useDownloadUrl } from '@/hooks/useDownloadUrl'
 
@@ -21,7 +25,7 @@ const Profile: NextPage = () => {
     editedProfile.avatar_url,
     'avatars'
   )
-  const { updateProfileMutation } = userMutateProfile()
+  const { updateProfileMutation, success } = userMutateProfile()
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
@@ -51,6 +55,14 @@ const Profile: NextPage = () => {
     <Layout>
       <Seo pageTitle="マイページ" noindex />
       <Breadcrumb itemList={breadcrumbs} />
+      {success && (
+        <div className="success-message fixed top-5 left-1/2 -translate-x-1/2 flex items-center justify-center gap-3 rounded-md bg-green-100 border border-green-500 h-20 px-32 z-20 sm:px-4 w-full">
+          <CheckCircleIcon className="w-8 h-8 text-green-500" />
+          <div className="  text-green-500 font-bold ">
+            プロフィールを更新しました。
+          </div>
+        </div>
+      )}
       <Container>
         <div className="py-16 sm:py-8">
           <div className="w-3/4 mx-auto bg-white rounded-2xl shadow-sm py-16 px-20 sm:w-full sm:py-8 sm:px-5 ">
