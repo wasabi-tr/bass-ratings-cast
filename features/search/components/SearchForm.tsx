@@ -14,7 +14,7 @@ const SearchForm: FC = () => {
             type="text"
             name="q"
             value={keyword}
-            className="w-full border-primary border  h-12 py-3 pl-6 pr-14 rounded-md  focus-visible:outline-none transition focus-visible:shadow-primary"
+            className="w-full border-primary border  h-12 py-3 pl-6 pr-14 rounded-md  focus-visible:outline-none transition focus-visible:shadow-primary sm:pl-3"
             placeholder="ルアー名を入力..."
             onChange={(e) => handleChange(e)}
           />

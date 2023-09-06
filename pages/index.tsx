@@ -40,18 +40,15 @@ const Home: NextPage<Props> = ({ lures, brands, genres }) => {
                     LURE CASE
                   </h1>
                   <p className="mt-4 text-center  text-white sm:">
-                    - 釣り人が投稿するブラックバスルアー専門のレビューサイト -
+                    釣り人が投稿するブラックバスルアー専門の
+                    <br className="hidden sm:block" />
+                    レビューサイト
                   </p>
-                  {/* <div className="flex justify-center mt-8 w-80 h-16 mx-auto sm:w-full">
-                    <Link href={'/auth'} className="btn-primary">
-                      会員登録してレビューを投稿する
-                    </Link>
-                  </div> */}
+
                   <div className="mt-8">
                     <SearchForm />
                   </div>
                 </div>
-                {/* <div className="bg-gray30 aspect-video w-1/2"></div> */}
               </div>
             </div>
           </Container>
