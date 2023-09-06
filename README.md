@@ -60,11 +60,11 @@ https://bass-ratings-cast.vercel.app/bland-register
 
 ## 使用技術
 
-## インフラ
+### インフラ
 
 - Vercel
 
-## フロントエンド
+### フロントエンド
 
 - node:16.14.2
 - react:18.2.0
@@ -77,6 +77,6 @@ https://bass-ratings-cast.vercel.app/bland-register
 - react-error-boundary
 - Tailwindcss
 
-## バックエンド
+### バックエンド
 
 - Supabase:2.0.18
