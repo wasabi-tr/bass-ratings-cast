@@ -56,7 +56,7 @@ https://bass-ratings-cast.vercel.app/bland-register
 
 ## ER 図
 
-<img width="892" alt="スクリーンショット 2023-09-01 7 20 44" src="https://github.com/takaryu39/bass-ratings-cast/assets/81959203/34465f7d-39cd-4829-8b5e-2e172fd3c424">
+<img width="661" alt="er" src="https://github.com/takaryu39/bass-ratings-cast/assets/81959203/65233317-4a16-46be-8447-267e686db69f">
 
 ## 使用技術
 
