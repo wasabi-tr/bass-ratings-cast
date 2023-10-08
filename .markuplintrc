@@ -1,4 +1,7 @@
 {
+  "rules": {
+    "no-hard-code-id": false
+  },
   "extends": [
     "markuplint:recommended-react"
   ],
